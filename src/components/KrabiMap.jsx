@@ -242,6 +242,33 @@ function ClusteredPlaces({ filteredPlaces, activePlace, setActivePlace }) {
           typeCount[type] = (typeCount[type] || 0) + 1;
         });
 
+        const markerTypes = Object.keys(typeCount);
+        const hasMultipleTypes = markerTypes.length > 1;
+        const isAllSelected =
+          typeof selectedCategory !== 'undefined' ? selectedCategory === 'all' : hasMultipleTypes;
+
+        if (isAllSelected && hasMultipleTypes) {
+          return L.divIcon({
+            html: `
+             <div class="cluster-bubble" style="
+               background: linear-gradient(45deg, #e17055, #00b894, #0984e3, #ffb347);
+               border:3px solid white;
+               color:white;
+               width:40px;height:40px;
+               border-radius:50%;
+               display:flex;
+               justify-content:center;
+               align-items:center;
+               font-weight:700;
+             ">
+               ${cluster.getChildCount()}
+             </div>
+           `,
+            className: '',
+            iconSize: [40, 40],
+          });
+        }
+
         const mainType = Object.entries(typeCount)
           .sort((a, b) => b[1] - a[1])[0][0];
 
