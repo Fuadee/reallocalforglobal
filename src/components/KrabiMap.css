@@ -36,7 +36,8 @@
   flex-wrap: wrap;
   margin-top: 12px;
   position: relative;
-  z-index: 20 !important;
+  z-index: 2000 !important;
+  pointer-events: auto !important;
 }
 
 .krabi-filter-button {
@@ -147,6 +148,14 @@
   display: block;
   margin-bottom: 4px;
   color: #0b69c4;
+}
+
+.leaflet-pane.leaflet-marker-pane {
+  z-index: 100 !important;
+}
+
+.leaflet-pane.leaflet-popup-pane {
+  z-index: 110 !important;
 }
 
 @media (max-width: 768px) {
