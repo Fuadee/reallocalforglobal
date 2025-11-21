@@ -75,7 +75,7 @@
   flex-direction: column;
   gap: 6px;
   color: #ffffff;
-  z-index: 30 !important;
+  z-index: 1000 !important;
   box-shadow: 0 12px 32px rgba(5, 20, 45, 0.32);
 }
 
