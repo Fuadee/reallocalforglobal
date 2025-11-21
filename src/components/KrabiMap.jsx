@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import L from 'leaflet';
+import MarkerClusterGroup from 'react-leaflet-markercluster';
 import 'leaflet/dist/leaflet.css';
 import './KrabiMap.css';
 
@@ -163,48 +164,11 @@ const fitWithCardPadding = (map, bounds) => {
   });
 };
 
-// Detect if two markers are too close to each other
-function isTooClose(a, b, threshold = 0.003) {
-  const latDiff = Math.abs(a[0] - b[0]);
-  const lngDiff = Math.abs(a[1] - b[1]);
-  return latDiff < threshold && lngDiff < threshold;
-}
-
-// Generate a small offset based on index
-function applyOffset(coords, index) {
-  const offsetScale = 0.002;
-  return [
-    coords[0] + (Math.sin(index) * offsetScale),
-    coords[1] + (Math.cos(index) * offsetScale),
-  ];
-}
-
-// Adjust markers so that close ones are slightly separated
-function offsetMarkersIfNeeded(places) {
-  const adjusted = [];
-
-  places.forEach((place, i) => {
-    let newCoords = [...place.coords];
-
-    adjusted.forEach((other, j) => {
-      if (isTooClose(newCoords, other.coords)) {
-        newCoords = applyOffset(newCoords, i + j);
-      }
-    });
-
-    adjusted.push({
-      ...place,
-      coords: newCoords,
-    });
-  });
-
-  return adjusted;
-}
-
 function KrabiMap() {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const markersRef = useRef([]);
+  const clusterGroupRef = useRef(null);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [activePlace, setActivePlace] = useState(PLACES[0]);
 
@@ -292,30 +256,47 @@ function KrabiMap() {
     markersRef.current.forEach((marker) => marker.remove());
     markersRef.current = [];
 
-    const placesAdjusted = offsetMarkersIfNeeded(filteredPlaces);
-    placesAdjusted.forEach((place) => {
+    if (clusterGroupRef.current) {
+      clusterGroupRef.current.remove();
+      clusterGroupRef.current = null;
+    }
+
+    const clusterGroup = new MarkerClusterGroup({ chunkedLoading: true, maxClusterRadius: 60 });
+    clusterGroup.addTo(map);
+
+    filteredPlaces.forEach((place) => {
       const marker = L.marker(place.coords, {
         icon: createMarkerIcon(place.type, activePlace?.id === place.id),
         riseOnHover: true,
-      })
-        .addTo(map)
-        .on('click', () => {
-          setActivePlace(place);
-          const targetZoom = Math.max(map.getZoom(), 11);
-          map.flyTo(place.coords, targetZoom, { duration: 0.6 });
-        });
+      });
+
+      const handleClick = () => {
+        setActivePlace(place);
+        const targetZoom = Math.max(map.getZoom(), 11);
+        map.flyTo(place.coords, targetZoom, { duration: 0.6 });
+      };
+
+      marker.__clickHandler = handleClick;
+      marker.on('click', handleClick);
 
       marker.bindPopup(
         `<div class="krabi-popup"><strong>${place.name}</strong><p>${place.shortDescription}</p></div>`,
         { closeButton: false },
       );
 
+      clusterGroup.addLayer(marker);
       markersRef.current.push(marker);
     });
+
+    clusterGroupRef.current = clusterGroup;
 
     return () => {
       markersRef.current.forEach((marker) => marker.remove());
       markersRef.current = [];
+      if (clusterGroupRef.current) {
+        clusterGroupRef.current.remove();
+        clusterGroupRef.current = null;
+      }
     };
   }, [filteredPlaces, activePlace]);
 
