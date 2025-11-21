@@ -1,15 +1,12 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import LanguageSwitcher from './LanguageSwitcher.jsx';
 
 function Navbar() {
-  const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: '#boats', label: t('nav.links.boats') },
-    { href: '#experiences', label: t('nav.links.experiences') },
-    { href: '#cta', label: t('nav.links.cta') }
+    { href: '#boats', label: 'Boats' },
+    { href: '#experiences', label: 'Experiences' },
+    { href: '#cta', label: 'Start booking' }
   ];
 
   const whatsappHref = 'https://wa.me/XXXXXXXXXX';
@@ -20,12 +17,15 @@ function Navbar() {
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
       <div className="section-shell flex h-16 items-center gap-2 sm:gap-3">
         <div className="flex min-w-0 flex-1 items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#1877F2] text-lg font-black text-white shadow-md" aria-label={t('brand.initials')}>
-            {t('brand.initials')}
+          <div
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#1877F2] text-lg font-black text-white shadow-md"
+            aria-label="JoinJoy"
+          >
+            JJ
           </div>
           <div className="leading-tight">
-            <p className="text-xs font-semibold uppercase tracking-wide text-[#1877F2]">{t('brand.name')}</p>
-            <p className="truncate text-lg font-semibold text-slate-900">{t('brand.destination')}</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-[#1877F2]">JoinJoy</p>
+            <p className="truncate text-lg font-semibold text-slate-900">Krabi Journeys</p>
           </div>
         </div>
 
@@ -38,36 +38,30 @@ function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <div className="hidden md:block">
-            <LanguageSwitcher />
-          </div>
-          <div className="md:hidden">
-            <LanguageSwitcher size="sm" />
-          </div>
           <a
             className="inline-flex items-center rounded-xl bg-[#25D366] px-3 py-2 text-xs font-semibold text-white shadow-md shadow-[#25D366]/30 transition hover:scale-[1.01] hover:bg-[#22c05d] sm:px-4 sm:text-sm"
             href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
           >
-            {t('nav.whatsapp')}
+            WhatsApp
           </a>
           <div className="hidden items-center gap-2 md:flex lg:gap-3">
             <button className="rounded-xl px-4 py-2 text-sm font-semibold text-[#1877F2] ring-1 ring-[#1877F2]/30 transition hover:bg-[#1877F2]/5">
-              {t('nav.login')}
+              Log in
             </button>
             <button className="inline-flex rounded-xl bg-[#1877F2] px-4 py-2 text-sm font-semibold text-white shadow-md shadow-[#1877F2]/30 transition hover:scale-[1.01]">
-              {t('nav.book')}
+              Book with us
             </button>
           </div>
           <button
             type="button"
             className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-[#1877F2]/40 hover:text-[#1877F2] md:hidden"
             aria-expanded={isMenuOpen}
-            aria-label={isMenuOpen ? t('nav.menuClose') : t('nav.menuOpen')}
+            aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
             onClick={() => setIsMenuOpen((prev) => !prev)}
           >
-            <span className="sr-only">{isMenuOpen ? t('nav.menuClose') : t('nav.menuOpen')}</span>
+            <span className="sr-only">{isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -106,10 +100,10 @@ function Navbar() {
           </div>
           <div className="flex flex-col gap-2 border-t border-slate-100 p-4">
             <button className="inline-flex w-full justify-center rounded-xl px-4 py-2 text-sm font-semibold text-[#1877F2] ring-1 ring-[#1877F2]/25 transition hover:bg-[#1877F2]/5">
-              {t('nav.login')}
+              Log in
             </button>
             <button className="inline-flex w-full justify-center rounded-xl bg-[#1877F2] px-4 py-2 text-sm font-semibold text-white shadow-md shadow-[#1877F2]/30 transition hover:scale-[1.01]">
-              {t('nav.book')}
+              Book with us
             </button>
           </div>
         </div>

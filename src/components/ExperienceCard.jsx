@@ -1,10 +1,6 @@
-import { useTranslation } from 'react-i18next';
-
 function ExperienceCard({ experience }) {
-  const { t } = useTranslation();
-
   return (
-    <div className="card-surface flex flex-col gap-4 p-6" aria-label={t('experiences.cardLabel', { title: experience.title })}>
+    <div className="card-surface flex flex-col gap-4 p-6" aria-label={`Experience card: ${experience.title}`}>
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#e8f2ff] text-lg text-[#1877F2] ring-1 ring-[#1877F2]/20">
           {experience.icon}

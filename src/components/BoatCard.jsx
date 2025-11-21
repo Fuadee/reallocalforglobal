@@ -1,7 +1,4 @@
-import { useTranslation } from 'react-i18next';
-
 function BoatCard({ boat }) {
-  const { t } = useTranslation();
 
   const renderStars = () => {
     const stars = [];
@@ -52,16 +49,16 @@ function BoatCard({ boat }) {
             <h3 className="text-lg font-bold text-slate-900">{boat.name}</h3>
             <div
               className="flex items-center gap-2 text-sm text-slate-700"
-              aria-label={t('boatCard.ratingLabel', { rating: boat.rating.toFixed(1) })}
+              aria-label={`Rated ${boat.rating.toFixed(1)} out of 5`}
             >
               <div className="flex items-center gap-1">{renderStars()}</div>
               <span className="font-semibold text-slate-900">{boat.rating.toFixed(1)}</span>
             </div>
-            <p className="text-sm text-slate-600">{t('boatCard.capacity', { count: boat.capacity })}</p>
+            <p className="text-sm text-slate-600">Fits {boat.capacity} guests</p>
           </div>
           <div className="text-right">
-            <p className="text-xs text-slate-500">{t('boatCard.starting')}</p>
-            <p className="text-xl font-semibold text-[#1877F2]">{t('boatCard.price', { price: boat.price })}</p>
+            <p className="text-xs text-slate-500">Starting from</p>
+            <p className="text-xl font-semibold text-[#1877F2]">฿{boat.price}</p>
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -72,7 +69,7 @@ function BoatCard({ boat }) {
           ))}
         </div>
         <button className="w-full rounded-xl bg-[#1877F2] px-4 py-2 text-sm font-semibold text-white shadow-md shadow-[#1877F2]/30 transition hover:scale-[1.01]">
-          {t('boatCard.view')}
+          View boat details
         </button>
       </div>
     </article>
