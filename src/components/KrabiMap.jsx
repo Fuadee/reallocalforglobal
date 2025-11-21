@@ -3,6 +3,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './KrabiMap.css';
 
+
 const CATEGORY_COLORS = {
   beach: '#ffb347',
   island: '#00b894',
@@ -52,13 +53,78 @@ const PLACES = [
     shortDescription: 'Famous sandbar that appears at low tide.',
   },
   {
-    id: 'klong-muang-sunset',
-    name: 'Klong Muang Sunset Point',
-    type: 'sunset',
-    coords: [8.0896, 98.9584],
-    highlightTag: 'Sunset Cruise',
-    shortDescription: 'Golden-hour viewpoint perfect for ending island days.',
-  },
+  id: 'ao-nang-sunset',
+  name: 'Ao Nang Beach Sunset',
+  type: 'sunset',
+  coords: [8.031669881889947, 98.8216320402158],
+  highlightTag: 'Sunset Point',
+  shortDescription: 'Iconic Ao Nang sunset with fire shows and a lively beachfront.',
+},
+{
+  id: 'nopparat-sunset',
+  name: 'Nopparat Thara Beach Sunset',
+  type: 'sunset',
+  coords: [8.042996646771988, 98.80915062374889],
+  highlightTag: 'Sunset Point',
+  shortDescription: 'Quiet sunset spot near the Landmark night market with fewer crowds.',
+},
+{
+  id: 'railay-west-sunset',
+  name: 'Railay West Sunset',
+  type: 'sunset',
+  coords: [8.011867631403003, 98.83779902910392],
+  highlightTag: 'Sunset Point',
+  shortDescription: 'Magical sunsets surrounded by dramatic limestone cliffs.',
+},
+{
+  id: 'din-daeng-doi',
+  name: 'Din Daeng Doi Viewpoint',
+  type: 'sunset',
+  coords: [8.110198323318548, 98.78414908067876],
+  highlightTag: 'Viewpoint',
+  shortDescription: 'Hilltop viewpoint offering sunrise, sunset, and sea-fog scenes.',
+},
+{
+  id: 'klong-muang-beach',
+  name: 'Klong Muang Beach Sunset',
+  type: 'sunset',
+  coords: [8.055302121766385, 98.75930705734284],
+  highlightTag: 'Sunset Point',
+  shortDescription: 'Peaceful beach with calm waves and a relaxed sunset atmosphere.',
+},
+{
+  id: 'tub-kaek-sunset',
+  name: 'Tub Kaek Beach Sunset',
+  type: 'sunset',
+  coords: [8.091723042677, 98.74713314218624],
+  highlightTag: 'Sunset Point',
+  shortDescription: 'Stunning sunset view facing the Hong Islands in a serene setting.',
+},
+{
+  id: 'khao-thong-hill',
+  name: 'Khao Thong Hill Sunset',
+  type: 'sunset',
+  coords: [8.172984889255703, 98.75259315296445],
+  highlightTag: 'Viewpoint Café',
+  shortDescription: 'Panoramic sunset viewpoint overlooking Hong Islands with café.',
+},
+{
+  id: 'buffalo-nose-cape',
+  name: 'Buffalo Nose Cape',
+  type: 'sunset',
+  coords: [8.136152250559762, 98.7355327106346],
+  highlightTag: 'Adventure Spot',
+  shortDescription: 'Dramatic natural stone arches with a remote, scenic sunset view.',
+},
+{
+  id: 'klong-khong-lanta',
+  name: 'Klong Khong Beach, Koh Lanta',
+  type: 'sunset',
+  coords: [7.641664479012308, 99.02819773848144],
+  highlightTag: 'Sunset Point',
+  shortDescription: 'One of Koh Lanta’s best sunset beaches along a long peaceful shore.',
+}
+
 ];
 
 const krabiBounds = [
