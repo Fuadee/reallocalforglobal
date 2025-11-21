@@ -56,6 +56,11 @@
   overflow: hidden;
 }
 
+.leaflet-container {
+  z-index: 1 !important;
+  pointer-events: auto;
+}
+
 .krabi-info-card {
   position: absolute;
   bottom: 16px;
