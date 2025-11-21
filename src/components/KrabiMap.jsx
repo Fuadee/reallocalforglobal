@@ -89,6 +89,14 @@ const createMarkerIcon = (type, isActive = false) => {
   });
 };
 
+const fitWithCardPadding = (map, bounds) => {
+  map.fitBounds(bounds, {
+    paddingTopLeft: [50, 50],
+    paddingBottomRight: [50, 220], // เผื่อพื้นที่ card ด้านล่าง
+    maxZoom: 12,
+  });
+};
+
 function KrabiMap() {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
@@ -214,16 +222,16 @@ function KrabiMap() {
     const filteredBounds = L.latLngBounds(filteredPlaces.map((place) => place.coords));
 
     if (selectedCategory === 'all') {
-      map.fitBounds(allBounds, { padding: [40, 40], maxZoom: 11 });
+      fitWithCardPadding(map, allBounds);
       return;
     }
 
     if (filteredPlaces.length > 1) {
-      map.fitBounds(filteredBounds, { padding: [40, 40], maxZoom: 12 });
+      fitWithCardPadding(map, filteredBounds);
     } else if (filteredPlaces.length === 1) {
       const [point] = filteredPlaces;
       map.flyTo(point.coords, 14, { duration: 1 });
-      map.fitBounds(allBounds, { padding: [40, 40], maxZoom: 11 });
+      fitWithCardPadding(map, allBounds);
     }
   }, [selectedCategory, filteredPlaces]);
 
