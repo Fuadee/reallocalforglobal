@@ -74,9 +74,6 @@ const boats = [
   }
 ];
 
-const perks = ['Route-savvy captains', 'Bespoke menus', 'On-board events'];
-const tripStyles = ['Sunset cruise', 'Snorkel island hop', 'Party or celebration', 'Corporate/workshop'];
-
 function Hero() {
   return (
     <section className="relative overflow-hidden bg-white py-20 lg:py-28">
@@ -164,90 +161,12 @@ function FleetSection() {
   );
 }
 
-function CTASection() {
-  return (
-    <section id="cta" className="py-16 sm:py-20">
-      <div className="section-shell">
-        <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-10 shadow-xl shadow-slate-200/80 sm:p-12">
-          <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[#1877F2]/10 blur-3xl" />
-          <div className="relative grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-center">
-            <div className="space-y-4">
-              <span className="inline-flex items-center rounded-full bg-[#e8f2ff] px-4 py-2 text-sm font-semibold text-[#1877F2] ring-1 ring-[#1877F2]/20">
-                Concierge included
-              </span>
-              <h3 className="text-3xl font-black text-slate-900 sm:text-4xl">Share your dream plan—we handle dock to deck</h3>
-              <p className="text-lg text-slate-700 sm:max-w-2xl">
-                From catering and transfers to on-board activities, the JoinJoy team designs the right vibe: romantic, adventurous, or super chill.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                {perks.map((perk) => (
-                  <span key={perk} className="inline-flex items-center gap-2 rounded-full bg-[#f0f6ff] px-4 py-2 text-sm font-semibold text-[#1877F2] ring-1 ring-[#1877F2]/20">
-                    {perk}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div className="relative">
-              <div className="absolute inset-0 rounded-3xl bg-[#1877F2]/10 blur-2xl" />
-              <div className="relative space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-lg shadow-slate-200/70">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="text-sm text-slate-500">Concierge hotline</div>
-                    <div className="text-xl font-semibold text-slate-900">+66 92 777 4400</div>
-                  </div>
-                  <span className="rounded-full bg-[#42B72A]/10 px-3 py-1 text-xs font-semibold text-[#1f7a12] ring-1 ring-[#42B72A]/30">
-                    Standing by
-                  </span>
-                </div>
-                <div className="grid gap-3 sm:grid-cols-2">
-                  <label className="block text-sm text-slate-700">
-                    Preferred date
-                    <input
-                      className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:border-[#1877F2] focus:outline-none"
-                      type="date"
-                    />
-                  </label>
-                  <label className="block text-sm text-slate-700">
-                    Guest count
-                    <input
-                      className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:border-[#1877F2] focus:outline-none"
-                      type="number"
-                      min="2"
-                      max="20"
-                      placeholder="8"
-                    />
-                  </label>
-                </div>
-                <label className="block text-sm text-slate-700">
-                  Trip style
-                  <select className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus:border-[#1877F2] focus:outline-none">
-                    {tripStyles.map((style) => (
-                      <option key={style} className="bg-white">
-                        {style}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <button className="w-full rounded-xl bg-[#1877F2] px-4 py-3 text-sm font-semibold text-white shadow-md shadow-[#1877F2]/30 transition hover:scale-[1.01]">
-                  Request my itinerary
-                </button>
-                <p className="text-center text-xs text-slate-500">Our concierge will confirm details within 15 minutes.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Home() {
   return (
     <main>
       <Hero />
       <ExperienceGrid />
       <FleetSection />
-      <CTASection />
       <Footer />
     </main>
   );
