@@ -1,28 +1,39 @@
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import L from 'leaflet';
+import MapContext from './MapContext';
 
-class MarkerClusterGroup {
+class SimpleClusterGroup {
   constructor(options = {}) {
     this.options = {
       chunkedLoading: false,
       maxClusterRadius: 60,
       spiderfyDistanceMultiplier: 1,
+      iconCreateFunction: null,
       ...options,
     };
 
     this._map = null;
-    this._markers = [];
+    this._markers = new Set();
     this._clusterLayer = L.layerGroup();
     this._spiderLayer = L.layerGroup();
 
     this._rebuildClusters = this._rebuildClusters.bind(this);
   }
 
-  addLayer(layer) {
-    this._markers.push(layer);
+  addMarker(marker) {
+    this._markers.add(marker);
     if (this._map) {
       this._rebuildClusters();
     }
-    return this;
+  }
+
+  removeMarker(marker) {
+    if (this._markers.has(marker)) {
+      this._markers.delete(marker);
+    }
+    if (this._map) {
+      this._rebuildClusters();
+    }
   }
 
   clearLayers() {
@@ -87,16 +98,23 @@ class MarkerClusterGroup {
         return;
       }
 
+      const clusterApi = {
+        getAllChildMarkers: () => cluster.markers,
+        getChildCount: () => cluster.markers.length,
+      };
+
       const centerLatLng = this._map.layerPointToLatLng(cluster.point);
-      const icon = L.divIcon({
-        className: 'krabi-cluster-icon',
-        html:
-          '<div style="background:#2d3436;color:#fff;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-weight:700;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.25);">' +
-          cluster.markers.length +
-          '</div>',
-        iconSize: [40, 40],
-        iconAnchor: [20, 20],
-      });
+      const icon = this.options.iconCreateFunction
+        ? this.options.iconCreateFunction(clusterApi)
+        : L.divIcon({
+            className: 'krabi-cluster-icon',
+            html:
+              '<div style="background:#2d3436;color:#fff;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-weight:700;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.25);">' +
+              cluster.markers.length +
+              '</div>',
+            iconSize: [40, 40],
+            iconAnchor: [20, 20],
+          });
 
       const clusterMarker = L.marker(centerLatLng, { icon, interactive: true });
       clusterMarker.on('click', () => this._handleClusterClick(cluster, centerLatLng));
@@ -147,10 +165,51 @@ class MarkerClusterGroup {
         spiderMarker.on('click', marker.__clickHandler);
       }
 
+      const popup = marker.getPopup ? marker.getPopup() : null;
+      if (popup) {
+        spiderMarker.bindPopup(popup.getContent(), popup.options);
+      }
+
       this._spiderLayer.addLayer(line);
       this._spiderLayer.addLayer(spiderMarker);
     });
   }
+}
+
+function MarkerClusterGroup({ children, chunkedLoading = true, maxClusterRadius = 60, iconCreateFunction }) {
+  const map = useContext(MapContext);
+  const managerRef = useRef(null);
+  const [managerState, setManagerState] = useState(null);
+
+  useEffect(() => {
+    if (!map) return undefined;
+
+    const manager = new SimpleClusterGroup({
+      chunkedLoading,
+      maxClusterRadius,
+      iconCreateFunction,
+    });
+
+    manager.addTo(map);
+    managerRef.current = manager;
+    setManagerState(manager);
+
+    return () => {
+      manager.remove();
+      managerRef.current = null;
+      setManagerState(null);
+    };
+  }, [map, chunkedLoading, maxClusterRadius, iconCreateFunction]);
+
+  const wrappedChildren = useMemo(() => {
+    if (!children) return null;
+
+    return React.Children.map(children, (child) =>
+      child ? React.cloneElement(child, { clusterManager: managerState }) : child,
+    );
+  }, [children, managerState]);
+
+  return <>{wrappedChildren}</>;
 }
 
 export default MarkerClusterGroup;

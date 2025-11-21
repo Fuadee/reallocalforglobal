@@ -1,8 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import ReactDOMServer from 'react-dom/server';
 import L from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import 'leaflet/dist/leaflet.css';
 import './KrabiMap.css';
+import MapContext from '../utils/MapContext';
 
 
 const CATEGORY_COLORS = {
@@ -164,11 +166,139 @@ const fitWithCardPadding = (map, bounds) => {
   });
 };
 
+const Popup = ({ children }) => children;
+
+function Marker({ position, icon, riseOnHover = false, placeType, clusterManager, eventHandlers = {}, children }) {
+  const map = useContext(MapContext);
+
+  const popupContent = useMemo(() => {
+    let content = null;
+
+    React.Children.forEach(children, (child) => {
+      if (child && child.type === Popup) {
+        content = ReactDOMServer.renderToStaticMarkup(child.props.children);
+      }
+    });
+
+    return content;
+  }, [children]);
+
+  useEffect(() => {
+    if (!map) return undefined;
+
+    const marker = L.marker(position, {
+      icon,
+      riseOnHover,
+      placeType,
+    });
+
+    if (eventHandlers && typeof eventHandlers === 'object') {
+      Object.entries(eventHandlers).forEach(([event, handler]) => {
+        if (typeof handler === 'function') {
+          if (event === 'click') {
+            marker.__clickHandler = handler;
+          }
+          marker.on(event, handler);
+        }
+      });
+    }
+
+    if (popupContent) {
+      marker.bindPopup(popupContent, { closeButton: false });
+    }
+
+    if (clusterManager) {
+      clusterManager.addMarker(marker);
+    } else {
+      marker.addTo(map);
+    }
+
+    return () => {
+      if (clusterManager) {
+        clusterManager.removeMarker(marker);
+      }
+      marker.remove();
+    };
+  }, [map, position, icon, riseOnHover, placeType, clusterManager, popupContent, eventHandlers]);
+
+  return null;
+}
+
+function ClusteredPlaces({ filteredPlaces, activePlace, setActivePlace }) {
+  const map = useContext(MapContext);
+
+  if (!map) return null;
+
+  return (
+    <MarkerClusterGroup
+      chunkedLoading
+      maxClusterRadius={60}
+      iconCreateFunction={(cluster) => {
+        const markers = cluster.getAllChildMarkers();
+
+        const typeCount = {};
+        markers.forEach((marker) => {
+          const type = marker.options.placeType;
+          typeCount[type] = (typeCount[type] || 0) + 1;
+        });
+
+        const mainType = Object.entries(typeCount)
+          .sort((a, b) => b[1] - a[1])[0][0];
+
+        const color = CATEGORY_COLORS[mainType] || '#444';
+
+        return L.divIcon({
+          html: `
+           <div class="cluster-bubble" style="
+             background:${color};
+             border:3px solid white;
+             color:white;
+             width:40px;height:40px;
+             border-radius:50%;
+             display:flex;
+             justify-content:center;
+             align-items:center;
+             font-weight:700;
+           ">
+             ${cluster.getChildCount()}
+           </div>
+         `,
+          className: '',
+          iconSize: [40, 40],
+        });
+      }}
+    >
+      {filteredPlaces.map((place) => (
+        <Marker
+          key={place.id}
+          position={place.coords}
+          icon={createMarkerIcon(place.type, activePlace?.id === place.id)}
+          riseOnHover
+          placeType={place.type}
+          eventHandlers={{
+            click: () => {
+              setActivePlace(place);
+              const targetZoom = Math.max(map.getZoom(), 11);
+              map.flyTo(place.coords, targetZoom, { duration: 0.6 });
+            },
+          }}
+        >
+          <Popup>
+            <div className="krabi-popup">
+              <strong>{place.name}</strong>
+              <p>{place.shortDescription}</p>
+            </div>
+          </Popup>
+        </Marker>
+      ))}
+    </MarkerClusterGroup>
+  );
+}
+
 function KrabiMap() {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
-  const markersRef = useRef([]);
-  const clusterGroupRef = useRef(null);
+  const [mapInstance, setMapInstance] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [activePlace, setActivePlace] = useState(PLACES[0]);
 
@@ -203,6 +333,7 @@ function KrabiMap() {
     });
 
     mapInstanceRef.current = map;
+    setMapInstance(map);
 
     setTimeout(() => {
       map.invalidateSize(true);
@@ -246,108 +377,12 @@ function KrabiMap() {
     return () => {
       map.remove();
       mapInstanceRef.current = null;
+      setMapInstance(null);
     };
   }, []);
 
   useEffect(() => {
-    const map = mapInstanceRef.current;
-    if (!map) return undefined;
-
-    markersRef.current.forEach((marker) => marker.remove());
-    markersRef.current = [];
-
-    if (clusterGroupRef.current) {
-      clusterGroupRef.current.remove();
-      clusterGroupRef.current = null;
-    }
-
-    const clusterGroup = L.markerClusterGroup({
-      chunkedLoading: true,
-      maxClusterRadius: 60,
-
-      iconCreateFunction: (cluster) => {
-        const markers = cluster.getAllChildMarkers();
-
-        // Count marker types
-        const typeCount = {};
-        markers.forEach((marker) => {
-          const markerType = marker.options.placeType;
-          typeCount[markerType] = (typeCount[markerType] || 0) + 1;
-        });
-
-        // Find dominant type
-        const mainType = Object.entries(typeCount)
-          .sort((a, b) => b[1] - a[1])[0][0];
-
-        // Fallback color if needed
-        const color = CATEGORY_COLORS[mainType] || '#444';
-
-        // Custom cluster icon
-        return L.divIcon({
-          html: `
-        <div class="cluster-bubble" style="
-          background:${color};
-          border:3px solid white;
-          color:white;
-          width:40px;
-          height:40px;
-          border-radius:50%;
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          font-size:14px;
-          font-weight:700;
-          box-shadow:0 4px 12px rgba(0,0,0,0.25);
-        ">
-          ${cluster.getChildCount()}
-        </div>
-      `,
-          className: '',
-          iconSize: [40, 40],
-        });
-      },
-    });
-    clusterGroup.addTo(map);
-
-    filteredPlaces.forEach((place) => {
-      const marker = L.marker(place.coords, {
-        icon: createMarkerIcon(place.type, activePlace?.id === place.id),
-        placeType: place.type,
-        riseOnHover: true,
-      });
-
-      const handleClick = () => {
-        setActivePlace(place);
-        const targetZoom = Math.max(map.getZoom(), 11);
-        map.flyTo(place.coords, targetZoom, { duration: 0.6 });
-      };
-
-      marker.__clickHandler = handleClick;
-      marker.on('click', handleClick);
-
-      marker.bindPopup(
-        `<div class="krabi-popup"><strong>${place.name}</strong><p>${place.shortDescription}</p></div>`,
-        { closeButton: false },
-      );
-
-      clusterGroup.addLayer(marker);
-      markersRef.current.push(marker);
-    });
-
-    clusterGroupRef.current = clusterGroup;
-
-    return () => {
-      markersRef.current.forEach((marker) => marker.remove());
-      markersRef.current = [];
-      if (clusterGroupRef.current) {
-        clusterGroupRef.current.remove();
-        clusterGroupRef.current = null;
-      }
-    };
-  }, [filteredPlaces, activePlace]);
-
-  useEffect(() => {
-    const map = mapInstanceRef.current;
+    const map = mapInstance;
     if (!map) return;
 
     const allBounds = L.latLngBounds(PLACES.map((place) => place.coords));
@@ -365,44 +400,54 @@ function KrabiMap() {
       map.flyTo(point.coords, 14, { duration: 1 });
       fitWithCardPadding(map, allBounds);
     }
-  }, [selectedCategory, filteredPlaces]);
+  }, [selectedCategory, filteredPlaces, mapInstance]);
 
   return (
-    <div className="krabi-map-section">
-      <div className="krabi-map-topbar">
-        <span className="krabi-map-badge">JOINJOY PREMIUM ROUTES</span>
-        <h3 className="krabi-map-title">Krabi Highlights</h3>
-        <div className="krabi-map-filters pointer-events-auto">
-          {CATEGORIES.map((category) => (
-            <button
-              key={category.key}
-              type="button"
-              className={`krabi-filter-button ${selectedCategory === category.key ? 'krabi-filter-button--active' : ''}`}
-              onClick={() => setSelectedCategory(category.key)}
-            >
-              {category.label}
-            </button>
-          ))}
+    <MapContext.Provider value={mapInstance}>
+      <div className="krabi-map-section">
+        <div className="krabi-map-topbar">
+          <span className="krabi-map-badge">JOINJOY PREMIUM ROUTES</span>
+          <h3 className="krabi-map-title">Krabi Highlights</h3>
+          <div className="krabi-map-filters pointer-events-auto">
+            {CATEGORIES.map((category) => (
+              <button
+                key={category.key}
+                type="button"
+                className={`krabi-filter-button ${selectedCategory === category.key ? 'krabi-filter-button--active' : ''}`}
+                onClick={() => setSelectedCategory(category.key)}
+              >
+                {category.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="krabi-map-wrapper">
+          <div
+            id="krabiMap"
+            ref={mapRef}
+            className="krabi-map-container"
+            aria-label="JoinJoy Krabi interactive map"
+          />
+
+          {mapInstance && (
+            <ClusteredPlaces
+              filteredPlaces={filteredPlaces}
+              activePlace={activePlace}
+              setActivePlace={setActivePlace}
+            />
+          )}
+
+          {activePlace && (
+            <div className="krabi-info-card">
+              <span className="krabi-info-tag">{activePlace.highlightTag}</span>
+              <div className="krabi-info-title">{activePlace.name}</div>
+              <div className="krabi-info-subtitle">{activePlace.shortDescription}</div>
+            </div>
+          )}
         </div>
       </div>
-
-      <div className="krabi-map-wrapper">
-        <div
-          id="krabiMap"
-          ref={mapRef}
-          className="krabi-map-container"
-          aria-label="JoinJoy Krabi interactive map"
-        />
-
-        {activePlace && (
-          <div className="krabi-info-card">
-            <span className="krabi-info-tag">{activePlace.highlightTag}</span>
-            <div className="krabi-info-title">{activePlace.name}</div>
-            <div className="krabi-info-subtitle">{activePlace.shortDescription}</div>
-          </div>
-        )}
-      </div>
-    </div>
+    </MapContext.Provider>
   );
 }
 

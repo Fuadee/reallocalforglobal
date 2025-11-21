@@ -11,7 +11,7 @@ export default defineConfig({
   base: "/reallocalforglobal/",
   resolve: {
     alias: {
-      "react-leaflet-markercluster": path.resolve(__dirname, "src/utils/MarkerClusterGroup.js"),
+      "react-leaflet-markercluster": path.resolve(__dirname, "src/utils/MarkerClusterGroup.jsx"),
     },
   },
   build: {
