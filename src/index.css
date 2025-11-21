@@ -4,11 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  background: #f6fbf8;
-}
-
 body {
   font-family: 'Noto Sans Thai', 'Prompt', 'Kanit', 'Sarabun', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: #050505;

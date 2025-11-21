@@ -3,7 +3,7 @@ import Home from './pages/Home.jsx';
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#f6fbf8] text-slate-900">
+    <div className="min-h-screen text-slate-900">
       <Navbar />
       <Home />
     </div>
