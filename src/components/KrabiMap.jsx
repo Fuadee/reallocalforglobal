@@ -254,7 +254,7 @@ function KrabiMap() {
         </div>
       </div>
 
-      <div className="krabi-map-wrapper relative z-[1]">
+      <div className="krabi-map-wrapper">
         <div
           id="krabiMap"
           ref={mapRef}

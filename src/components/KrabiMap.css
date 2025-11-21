@@ -4,8 +4,6 @@
   flex-direction: column;
   gap: 16px;
   margin-top: 40px;
-  position: relative;
-  z-index: 1;
 }
 
 .krabi-map-topbar {
@@ -14,8 +12,6 @@
   padding: 20px 24px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   width: 100%;
-  position: relative;
-  z-index: 1;
 }
 
 .krabi-map-badge {
@@ -25,12 +21,11 @@
   font-size: 12px;
   border-radius: 999px;
   display: inline-block;
-  margin-bottom: 6px;   /* <<< เพิ่มเพื่อให้บาลานซ์ */
+  margin-bottom: 8px;
 }
 
 .krabi-map-title {
-  margin-top: 6px;
-  margin-bottom: 12px; /* ให้บาลานซ์กับระยะของปุ่มด้านล่าง */
+  margin: 8px 0 16px;
   font-size: 20px;
   font-weight: 600;
 }
@@ -39,9 +34,8 @@
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin-top: 14px;
-  position: relative;
-  z-index: 1;
+  margin-top: 16px;
+  z-index: 5;
 }
 
 .krabi-filter-button {
@@ -64,11 +58,7 @@
   width: 100%;
   border-radius: 24px;
   overflow: hidden;
-}
-
-.leaflet-container {
-  z-index: 1 !important;
-  pointer-events: auto;
+  z-index: 1;
 }
 
 .krabi-info-card {
@@ -84,7 +74,7 @@
   flex-direction: column;
   gap: 6px;
   color: #ffffff;
-  z-index: 500;
+  z-index: 10;
   box-shadow: 0 12px 32px rgba(5, 20, 45, 0.32);
 }
 
