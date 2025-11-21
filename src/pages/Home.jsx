@@ -1,39 +1,108 @@
-import { useTranslation } from 'react-i18next';
 import BoatCard from '../components/BoatCard.jsx';
 import ExperienceCard from '../components/ExperienceCard.jsx';
 import Footer from '../components/Footer.jsx';
 import KrabiMap from '../components/KrabiMap.jsx';
 import '../components/KrabiMap.css';
 
-function Hero() {
-  const { t } = useTranslation();
-  const highlights = t('hero.highlights', { returnObjects: true });
+const heroHighlights = [
+  { title: '98% five-star reviews', subtitle: 'Trusted service' },
+  { title: 'Replies within 15 minutes', subtitle: 'Concierge ready' },
+  { title: 'Scenic Krabi routes', subtitle: 'Choose your pier' },
+  { title: 'Premium fleet', subtitle: 'Inspected & crewed' }
+];
 
+const experiences = [
+  {
+    title: 'Sunset champagne cruise',
+    category: 'Evening',
+    icon: '🌅',
+    description: 'Set sail for golden hour with feel-good playlists, chilled champagne, and crew timing the perfect sunset spot.',
+    highlights: ['2.5 hours', 'Curated champagne', "Chef-made canapés"]
+  },
+  {
+    title: 'One-day Krabi island hop',
+    category: 'Adventure',
+    icon: '🏝️',
+    description: 'Catch the breeze on hidden sandbars and snorkel coral with local guides who know the calm, quiet bays.',
+    highlights: ['6 hours', 'Snorkel gear included', 'Drone photography']
+  },
+  {
+    title: 'Work onboard, executive style',
+    category: 'Corporate',
+    icon: '💼',
+    description: 'Welcome clients or teams with full concierge service, on-board Wi‑Fi, and chef canapés for smooth, premium meetings.',
+    highlights: ['Private steward', 'Ready-to-use sound', 'Scenic sea routes']
+  }
+];
+
+const boats = [
+  {
+    name: 'Azure Dawn 42',
+    type: 'Luxury catamaran',
+    capacity: 12,
+    price: 820,
+    rating: 4.9,
+    image: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80',
+    tags: ['Sunset cruise', 'Premium bar', 'Crewed service']
+  },
+  {
+    name: 'Silver Tide 36',
+    type: 'Sport cruiser',
+    capacity: 8,
+    price: 560,
+    rating: 4.7,
+    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+    tags: ['Day trip', 'Snorkel gear', 'Bluetooth music']
+  },
+  {
+    name: 'Mariner 50',
+    type: 'Skydeck yacht',
+    capacity: 16,
+    price: 1040,
+    rating: 4.8,
+    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+    tags: ['Overnight option', 'Private chef', 'Cabin suites']
+  },
+  {
+    name: 'Coral Whisper 32',
+    type: 'Eco cruiser',
+    capacity: 6,
+    price: 420,
+    rating: 4.6,
+    image: 'https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1200&q=80',
+    tags: ['Hybrid-electric', 'Shallow beach stops', 'Local guide']
+  }
+];
+
+const perks = ['Route-savvy captains', 'Bespoke menus', 'On-board events'];
+const tripStyles = ['Sunset cruise', 'Snorkel island hop', 'Party or celebration', 'Corporate/workshop'];
+
+function Hero() {
   return (
     <section className="relative overflow-hidden bg-white py-20 lg:py-28">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(24,119,242,0.1),transparent_32%),radial-gradient(circle_at_80%_0%,rgba(66,183,42,0.12),transparent_36%)]" />
       <div className="section-shell relative grid gap-12 lg:grid-cols-2 lg:items-center">
         <div className="space-y-8">
           <span className="inline-flex items-center rounded-full bg-[#e8f2ff] px-4 py-2 text-sm font-semibold text-[#1877F2] ring-1 ring-[#1877F2]/20">
-            {t('hero.badge')}
+            Luxury cruises • Krabi with JoinJoy
           </span>
           <h1 className="text-4xl font-black leading-tight text-slate-900 sm:text-5xl lg:text-6xl">
-            {t('hero.title')}
+            Sail in style and find your happiest moments in Krabi
           </h1>
-          <p className="text-lg text-slate-700 sm:max-w-xl">{t('hero.description')}</p>
+          <p className="text-lg text-slate-700 sm:max-w-xl">
+            Pick the yacht that fits your vibe. Our concierge team handles every detail, from sunset cruises to private parties.
+          </p>
           <div className="flex flex-wrap gap-4">
             <button className="inline-flex items-center gap-2 rounded-xl bg-[#1877F2] px-5 py-3 text-base font-semibold text-white shadow-md shadow-[#1877F2]/30 transition hover:scale-[1.01]">
-              {t('hero.primaryCta')}
-              <span aria-hidden className="text-xl">
-                →
-              </span>
+              Plan my trip
+              <span aria-hidden className="text-xl">→</span>
             </button>
             <button className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-base font-semibold text-[#1877F2] ring-1 ring-[#1877F2]/30 transition hover:bg-[#f0f6ff]">
-              {t('hero.secondaryCta')}
+              See all boats
             </button>
           </div>
           <div className="grid max-w-lg grid-cols-2 gap-4 sm:gap-6">
-            {highlights.map((item) => (
+            {heroHighlights.map((item) => (
               <div key={item.title} className="card-surface space-y-1 p-4">
                 <p className="text-xs font-semibold uppercase tracking-wide text-[#1877F2]">{item.subtitle}</p>
                 <p className="text-lg font-semibold text-slate-900">{item.title}</p>
@@ -50,18 +119,17 @@ function Hero() {
 }
 
 function ExperienceGrid() {
-  const { t } = useTranslation();
-  const experiences = t('experiences.cards', { returnObjects: true });
-
   return (
     <section id="experiences" className="bg-[#f7f9fb] py-16 sm:py-20">
       <div className="section-shell space-y-10">
         <div className="space-y-3 text-center">
           <span className="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#1877F2] ring-1 ring-[#1877F2]/20 shadow-sm">
-            {t('experiences.badge')}
+            Handpicked experiences
           </span>
-          <h2 className="text-3xl font-extrabold text-slate-900 sm:text-4xl">{t('experiences.title')}</h2>
-          <p className="text-lg text-slate-700 sm:mx-auto sm:max-w-2xl">{t('experiences.description')}</p>
+          <h2 className="text-3xl font-extrabold text-slate-900 sm:text-4xl">Pick your style and enjoy Krabi with JoinJoy</h2>
+          <p className="text-lg text-slate-700 sm:mx-auto sm:max-w-2xl">
+            From romantic hangs to team workshops by the sea, our concierge designs the right trip so you only focus on joy.
+          </p>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {experiences.map((experience) => (
@@ -74,18 +142,17 @@ function ExperienceGrid() {
 }
 
 function FleetSection() {
-  const { t } = useTranslation();
-  const boats = t('fleet.boats', { returnObjects: true });
-
   return (
     <section id="boats" className="py-16 sm:py-20">
       <div className="section-shell space-y-12">
         <div className="space-y-3 text-center">
           <span className="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#1877F2] ring-1 ring-[#1877F2]/20 shadow-sm">
-            {t('fleet.badge')}
+            Signature fleet
           </span>
-          <h2 className="text-3xl font-extrabold text-slate-900 sm:text-4xl">{t('fleet.title')}</h2>
-          <p className="text-lg text-slate-700 sm:mx-auto sm:max-w-2xl">{t('fleet.description')}</p>
+          <h2 className="text-3xl font-extrabold text-slate-900 sm:text-4xl">Choose the boat you love and head out to sea</h2>
+          <p className="text-lg text-slate-700 sm:mx-auto sm:max-w-2xl">
+            Each boat is inspected, professionally crewed, transparently priced, and can flex to your trip style.
+          </p>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {boats.map((boat) => (
@@ -98,10 +165,6 @@ function FleetSection() {
 }
 
 function CTASection() {
-  const { t } = useTranslation();
-  const perks = t('cta.perks', { returnObjects: true });
-  const tripStyles = t('cta.tripStyles', { returnObjects: true });
-
   return (
     <section id="cta" className="py-16 sm:py-20">
       <div className="section-shell">
@@ -110,10 +173,12 @@ function CTASection() {
           <div className="relative grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-center">
             <div className="space-y-4">
               <span className="inline-flex items-center rounded-full bg-[#e8f2ff] px-4 py-2 text-sm font-semibold text-[#1877F2] ring-1 ring-[#1877F2]/20">
-                {t('cta.badge')}
+                Concierge included
               </span>
-              <h3 className="text-3xl font-black text-slate-900 sm:text-4xl">{t('cta.title')}</h3>
-              <p className="text-lg text-slate-700 sm:max-w-2xl">{t('cta.description')}</p>
+              <h3 className="text-3xl font-black text-slate-900 sm:text-4xl">Share your dream plan—we handle dock to deck</h3>
+              <p className="text-lg text-slate-700 sm:max-w-2xl">
+                From catering and transfers to on-board activities, the JoinJoy team designs the right vibe: romantic, adventurous, or super chill.
+              </p>
               <div className="flex flex-wrap gap-3">
                 {perks.map((perk) => (
                   <span key={perk} className="inline-flex items-center gap-2 rounded-full bg-[#f0f6ff] px-4 py-2 text-sm font-semibold text-[#1877F2] ring-1 ring-[#1877F2]/20">
@@ -127,34 +192,34 @@ function CTASection() {
               <div className="relative space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-lg shadow-slate-200/70">
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="text-sm text-slate-500">{t('cta.hotlineLabel')}</div>
-                    <div className="text-xl font-semibold text-slate-900">{t('cta.hotlineNumber')}</div>
+                    <div className="text-sm text-slate-500">Concierge hotline</div>
+                    <div className="text-xl font-semibold text-slate-900">+66 92 777 4400</div>
                   </div>
                   <span className="rounded-full bg-[#42B72A]/10 px-3 py-1 text-xs font-semibold text-[#1f7a12] ring-1 ring-[#42B72A]/30">
-                    {t('cta.availability')}
+                    Standing by
                   </span>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2">
                   <label className="block text-sm text-slate-700">
-                    {t('cta.tripDate')}
+                    Preferred date
                     <input
                       className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:border-[#1877F2] focus:outline-none"
                       type="date"
                     />
                   </label>
                   <label className="block text-sm text-slate-700">
-                    {t('cta.guestCount')}
+                    Guest count
                     <input
                       className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:border-[#1877F2] focus:outline-none"
                       type="number"
                       min="2"
                       max="20"
-                      placeholder={t('cta.guestsPlaceholder')}
+                      placeholder="8"
                     />
                   </label>
                 </div>
                 <label className="block text-sm text-slate-700">
-                  {t('cta.tripStyle')}
+                  Trip style
                   <select className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus:border-[#1877F2] focus:outline-none">
                     {tripStyles.map((style) => (
                       <option key={style} className="bg-white">
@@ -164,9 +229,9 @@ function CTASection() {
                   </select>
                 </label>
                 <button className="w-full rounded-xl bg-[#1877F2] px-4 py-3 text-sm font-semibold text-white shadow-md shadow-[#1877F2]/30 transition hover:scale-[1.01]">
-                  {t('cta.submit')}
+                  Request my itinerary
                 </button>
-                <p className="text-center text-xs text-slate-500">{t('cta.responseTime')}</p>
+                <p className="text-center text-xs text-slate-500">Our concierge will confirm details within 15 minutes.</p>
               </div>
             </div>
           </div>
