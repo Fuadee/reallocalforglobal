@@ -188,6 +188,8 @@ function KrabiMap() {
         .addTo(map)
         .on('click', () => {
           setActivePlace(place);
+          const targetZoom = Math.max(map.getZoom(), 11);
+          map.flyTo(place.coords, targetZoom, { duration: 0.6 });
         });
 
       marker.bindPopup(
@@ -206,12 +208,24 @@ function KrabiMap() {
 
   useEffect(() => {
     const map = mapInstanceRef.current;
-    if (!map || !activePlace) return;
+    if (!map) return;
 
-    const currentZoom = map.getZoom();
-    const targetZoom = currentZoom < 11 ? 11 : currentZoom;
-    map.flyTo(activePlace.coords, targetZoom, { duration: 0.6 });
-  }, [activePlace]);
+    const allBounds = L.latLngBounds(PLACES.map((place) => place.coords));
+    const filteredBounds = L.latLngBounds(filteredPlaces.map((place) => place.coords));
+
+    if (selectedCategory === 'all') {
+      map.fitBounds(allBounds, { padding: [40, 40], maxZoom: 11 });
+      return;
+    }
+
+    if (filteredPlaces.length > 1) {
+      map.fitBounds(filteredBounds, { padding: [40, 40], maxZoom: 12 });
+    } else if (filteredPlaces.length === 1) {
+      const [point] = filteredPlaces;
+      map.flyTo(point.coords, 14, { duration: 1 });
+      map.fitBounds(allBounds, { padding: [40, 40], maxZoom: 11 });
+    }
+  }, [selectedCategory, filteredPlaces]);
 
   return (
     <div className="krabi-map-section">
