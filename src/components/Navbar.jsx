@@ -14,8 +14,8 @@ function Navbar() {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
-      <div className="section-shell flex h-16 items-center gap-2 sm:gap-3">
+    <header className="fixed inset-x-0 top-0 z-[9999] border-b border-[#eee] bg-white">
+      <div className="section-shell flex h-[70px] items-center gap-2 sm:gap-3">
         <div className="flex min-w-0 flex-1 items-center gap-3">
           <div
             className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#1877F2] text-lg font-black text-white shadow-md"
