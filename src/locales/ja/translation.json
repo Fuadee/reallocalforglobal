@@ -1,0 +1,140 @@
+{
+  "brand": {
+    "initials": "JJ",
+    "name": "JoinJoy",
+    "destination": "クラビーの旅"
+  },
+  "nav": {
+    "links": {
+      "boats": "ボート",
+      "experiences": "体験",
+      "cta": "予約を始める"
+    },
+    "menuOpen": "ナビゲーションメニューを開く",
+    "menuClose": "ナビゲーションメニューを閉じる",
+    "login": "ログイン",
+    "book": "私たちと予約",
+    "whatsapp": "WhatsApp",
+    "language": "言語"
+  },
+  "hero": {
+    "badge": "ラグジュアリークルーズ • JoinJoyで行くクラビー",
+    "title": "スタイル良く航海して、クラビーで最高の瞬間を",
+    "description": "自分の雰囲気に合うヨットを選ぼう。サンセットクルーズからプライベートパーティーまで、コンシェルジュチームがすべて手配します。",
+    "primaryCta": "旅の計画を立てる",
+    "secondaryCta": "すべてのボートを見る",
+    "highlights": [
+      { "title": "98%が星5評価", "subtitle": "信頼のサービス" },
+      { "title": "15分以内に返信", "subtitle": "コンシェルジュ待機" },
+      { "title": "クラビーの絶景ルート", "subtitle": "好きな桟橋を選択" },
+      { "title": "プレミアム艦隊", "subtitle": "検査済み・クルー付き" }
+    ],
+    "featuredTrip": {
+      "badge": "おすすめプラン",
+      "title": "サンセットセイル • アオナン",
+      "description": "シェフのカナッペ • 生サックス演奏 • ドローン撮影"
+    },
+    "imageAlt": "クラビーを航行するラグジュアリーヨット"
+  },
+  "experiences": {
+    "badge": "厳選された体験",
+    "title": "好みのスタイルでJoinJoyとクラビーを楽しもう",
+    "description": "ロマンチックな時間から海辺のチームワークショップまで、あなたが楽しみに集中できるようコンシェルジュが最適な旅をデザインします。",
+    "cards": [
+      {
+        "title": "夕暮れシャンパンクルーズ",
+        "category": "夜",
+        "icon": "🌅",
+        "description": "ゴールデンアワーに出航し、心地よいプレイリストと冷えたシャンパン、完璧な夕日を計るクルーとともに楽しみます。",
+        "highlights": ["2.5時間", "厳選シャンパン", "シェフのカナッペ"]
+      },
+      {
+        "title": "1日で巡るクラビー諸島",
+        "category": "アドベンチャー",
+        "icon": "🏝️",
+        "description": "隠れたサンドバーで風を感じ、地元ガイドと穏やかな入り江でシュノーケリング。",
+        "highlights": ["6時間", "シュノーケルセット付き", "ドローン撮影"]
+      },
+      {
+        "title": "エグゼクティブな船上ワーク",
+        "category": "法人",
+        "icon": "💼",
+        "description": "フルコンシェルジュサービス、船上Wi‑Fi、シェフのカナッペでクライアントやチームをおもてなし。スムーズで上質なミーティングを。",
+        "highlights": ["専属スチュワード", "音響完備", "海の絶景ルート"]
+      }
+    ],
+    "cardLabel": "体験カード: {{title}}"
+  },
+  "fleet": {
+    "badge": "シグネチャー艦隊",
+    "title": "好きなボートを選んで海へ出よう",
+    "description": "すべてのボートは検査済みでプロのクルー付き。価格は透明で、旅のスタイルにも柔軟に対応します。",
+    "boats": [
+      {
+        "name": "Azure Dawn 42",
+        "type": "ラグジュアリーカタマラン",
+        "capacity": 12,
+        "price": 820,
+        "rating": 4.9,
+        "image": "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80",
+        "tags": ["サンセットクルーズ", "プレミアムバー", "クルー付き"]
+      },
+      {
+        "name": "Silver Tide 36",
+        "type": "スポーツクルーザー",
+        "capacity": 8,
+        "price": 560,
+        "rating": 4.7,
+        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+        "tags": ["日帰りトリップ", "シュノーケル用具", "Bluetooth音楽"]
+      },
+      {
+        "name": "Mariner 50",
+        "type": "スカイデッキヨット",
+        "capacity": 16,
+        "price": 1040,
+        "rating": 4.8,
+        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+        "tags": ["宿泊オプション", "専属シェフ", "キャビンスイート"]
+      },
+      {
+        "name": "Coral Whisper 32",
+        "type": "エコクルーザー",
+        "capacity": 6,
+        "price": 420,
+        "rating": 4.6,
+        "image": "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1200&q=80",
+        "tags": ["ハイブリッド電動", "浅瀬のビーチに停泊", "ローカルガイド"]
+      }
+    ]
+  },
+  "boatCard": {
+    "capacity": "{{count}}名まで",
+    "starting": "開始料金",
+    "price": "฿{{price}}",
+    "view": "ボート詳細を見る",
+    "ratingLabel": "評価 {{rating}} / 5"
+  },
+  "cta": {
+    "badge": "コンシェルジュ付き",
+    "title": "理想のプランを教えてください—港から船上までお任せ",
+    "description": "ケータリングや送迎、船上アクティビティまで、JoinJoyチームがぴったりの雰囲気を作ります。ロマンチックも冒険もリラックスも。",
+    "perks": ["航路に詳しい船長", "オーダーメイドのメニュー", "船上イベント"],
+    "hotlineLabel": "コンシェルジュ直通",
+    "hotlineNumber": "+66 92 777 4400",
+    "availability": "待機中",
+    "tripDate": "希望日",
+    "guestCount": "ゲスト人数",
+    "guestsPlaceholder": "8",
+    "tripStyle": "旅のスタイル",
+    "tripStyles": ["サンセットクルーズ", "シュノーケル島巡り", "パーティー・お祝い", "法人/ワークショップ"],
+    "submit": "旅程を依頼する",
+    "responseTime": "15分以内に詳細を確認してご連絡します。"
+  },
+  "footer": {
+    "brand": "JoinJoy Krabi",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "terms": "利用規約"
+  }
+}

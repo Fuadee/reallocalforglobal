@@ -1,0 +1,140 @@
+{
+  "brand": {
+    "initials": "JJ",
+    "name": "JoinJoy",
+    "destination": "Reisen in Krabi"
+  },
+  "nav": {
+    "links": {
+      "boats": "Boote",
+      "experiences": "Erlebnisse",
+      "cta": "Jetzt buchen"
+    },
+    "menuOpen": "Navigationsmenü öffnen",
+    "menuClose": "Navigationsmenü schließen",
+    "login": "Anmelden",
+    "book": "Mit uns buchen",
+    "whatsapp": "WhatsApp",
+    "language": "Sprache"
+  },
+  "hero": {
+    "badge": "Luxusfahrten • Krabi mit JoinJoy",
+    "title": "Segle mit Stil und finde deine glücklichsten Momente in Krabi",
+    "description": "Wähle die Yacht, die zu deinem Vibe passt. Unser Concierge-Team kümmert sich um alles – von Sunset-Cruises bis hin zu privaten Partys.",
+    "primaryCta": "Meine Reise planen",
+    "secondaryCta": "Alle Boote ansehen",
+    "highlights": [
+      { "title": "98% Fünf-Sterne-Bewertungen", "subtitle": "Vertrauenswürdiger Service" },
+      { "title": "Antwort in 15 Minuten", "subtitle": "Concierge bereit" },
+      { "title": "Szenische Routen in Krabi", "subtitle": "Wähle deinen Pier" },
+      { "title": "Premium-Flotte", "subtitle": "Geprüft & mit Crew" }
+    ],
+    "featuredTrip": {
+      "badge": "Empfohlene Tour",
+      "title": "Sunset-Segel • Ao Nang",
+      "description": "Chef-Canapés • Live-Saxophon • Drohnenaufnahmen"
+    },
+    "imageAlt": "Luxusyacht segelt in Krabi"
+  },
+  "experiences": {
+    "badge": "Handverlesene Erlebnisse",
+    "title": "Wähle deinen Stil und genieße Krabi mit JoinJoy",
+    "description": "Von romantischen Ausflügen bis zu Team-Workshops am Meer – unsere Concierge plant den passenden Trip, damit du dich nur auf Freude konzentrierst.",
+    "cards": [
+      {
+        "title": "Champagner-Cruise zum Sonnenuntergang",
+        "category": "Abend",
+        "icon": "🌅",
+        "description": "Steche zur Goldenen Stunde in See mit Feel-Good-Playlists, gekühltem Champagner und einer Crew, die den perfekten Sonnenuntergang timt.",
+        "highlights": ["2,5 Stunden", "Ausgewählter Champagner", "Canapés vom Chef"]
+      },
+      {
+        "title": "Krabi-Inselhüpfen an einem Tag",
+        "category": "Abenteuer",
+        "icon": "🏝️",
+        "description": "Spüre die Brise auf versteckten Sandbänken und schnorchle an Riffen mit lokalen Guides, die die ruhigen Buchten kennen.",
+        "highlights": ["6 Stunden", "Schnorchelausrüstung inklusive", "Drohnenfotografie"]
+      },
+      {
+        "title": "Arbeiten an Bord im Executive-Stil",
+        "category": "Business",
+        "icon": "💼",
+        "description": "Empfange Kunden oder Teams mit vollständigem Concierge-Service, WLAN an Bord und Chef-Canapés für reibungslose Premium-Meetings.",
+        "highlights": ["Privater Steward", "Einsatzbereite Soundanlage", "Panorama-Seerouten"]
+      }
+    ],
+    "cardLabel": "Erlebniskarte: {{title}}"
+  },
+  "fleet": {
+    "badge": "Signature-Flotte",
+    "title": "Wähle dein Lieblingsboot und fahre hinaus",
+    "description": "Jedes Boot ist geprüft, professionell bemannt, transparent bepreist und passt sich deinem Reisestil an.",
+    "boats": [
+      {
+        "name": "Azure Dawn 42",
+        "type": "Luxus-Katamaran",
+        "capacity": 12,
+        "price": 820,
+        "rating": 4.9,
+        "image": "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80",
+        "tags": ["Sunset-Cruise", "Premium-Bar", "Mit Crew"]
+      },
+      {
+        "name": "Silver Tide 36",
+        "type": "Sport-Cruiser",
+        "capacity": 8,
+        "price": 560,
+        "rating": 4.7,
+        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+        "tags": ["Tagestour", "Schnorchel-Set", "Bluetooth-Musik"]
+      },
+      {
+        "name": "Mariner 50",
+        "type": "Skydeck-Yacht",
+        "capacity": 16,
+        "price": 1040,
+        "rating": 4.8,
+        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+        "tags": ["Übernachtung möglich", "Privater Chef", "Kabinen-Suiten"]
+      },
+      {
+        "name": "Coral Whisper 32",
+        "type": "Eco-Cruiser",
+        "capacity": 6,
+        "price": 420,
+        "rating": 4.6,
+        "image": "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1200&q=80",
+        "tags": ["Hybrid-Elektro", "Flache Strandstopps", "Lokaler Guide"]
+      }
+    ]
+  },
+  "boatCard": {
+    "capacity": "Für {{count}} Gäste",
+    "starting": "Ab",
+    "price": "฿{{price}}",
+    "view": "Bootsdetails ansehen",
+    "ratingLabel": "Bewertung {{rating}} von 5"
+  },
+  "cta": {
+    "badge": "Concierge inklusive",
+    "title": "Teile deinen Traumplan – wir kümmern uns um alles",
+    "description": "Von Catering und Transfers bis zu Aktivitäten an Bord gestaltet das JoinJoy-Team die passende Stimmung: romantisch, abenteuerlich oder super entspannt.",
+    "perks": ["Routenkundige Kapitäne", "Individuelle Menüs", "Events an Bord"],
+    "hotlineLabel": "Concierge-Hotline",
+    "hotlineNumber": "+66 92 777 4400",
+    "availability": "Bereit", 
+    "tripDate": "Gewünschtes Datum",
+    "guestCount": "Anzahl Gäste",
+    "guestsPlaceholder": "8",
+    "tripStyle": "Reisestil",
+    "tripStyles": ["Sunset-Cruise", "Schnorchel-Inselhüpfen", "Party oder Feier", "Business/Workshop"],
+    "submit": "Meine Reiseroute anfragen",
+    "responseTime": "Unsere Concierge bestätigt die Details innerhalb von 15 Minuten."
+  },
+  "footer": {
+    "brand": "JoinJoy Krabi",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "terms": "Nutzungsbedingungen"
+  }
+}

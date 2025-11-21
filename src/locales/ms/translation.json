@@ -1,0 +1,140 @@
+{
+  "brand": {
+    "initials": "JJ",
+    "name": "JoinJoy",
+    "destination": "Percutian Krabi"
+  },
+  "nav": {
+    "links": {
+      "boats": "Bot",
+      "experiences": "Pengalaman",
+      "cta": "Mula tempah"
+    },
+    "menuOpen": "Buka menu navigasi",
+    "menuClose": "Tutup menu navigasi",
+    "login": "Log masuk",
+    "book": "Tempah dengan kami",
+    "whatsapp": "WhatsApp",
+    "language": "Bahasa"
+  },
+  "hero": {
+    "badge": "Pelayaran mewah • Krabi bersama JoinJoy",
+    "title": "Berlayar dengan gaya dan cipta momen paling gembira di Krabi",
+    "description": "Pilih yacht yang sesuai dengan vibe anda. Pasukan concierge kami urus semua, daripada pelayaran matahari terbenam hingga parti peribadi.",
+    "primaryCta": "Rancang perjalanan saya",
+    "secondaryCta": "Lihat semua bot",
+    "highlights": [
+      { "title": "98% ulasan lima bintang", "subtitle": "Perkhidmatan dipercayai" },
+      { "title": "Balas dalam 15 minit", "subtitle": "Concierge sedia" },
+      { "title": "Laluan indah Krabi", "subtitle": "Pilih jeti anda" },
+      { "title": "Armada premium", "subtitle": "Diperiksa & berlegar" }
+    ],
+    "featuredTrip": {
+      "badge": "Trip pilihan",
+      "title": "Pelayaran senja • Ao Nang",
+      "description": "Kanape chef • Saksafon langsung • Kenangan dron"
+    },
+    "imageAlt": "Yacht mewah belayar di Krabi"
+  },
+  "experiences": {
+    "badge": "Pengalaman terpilih",
+    "title": "Pilih gaya anda dan nikmati Krabi bersama JoinJoy",
+    "description": "Daripada detik romantik hingga bengkel pasukan tepi laut, concierge kami mereka perjalanan yang tepat supaya anda fokus pada kegembiraan.",
+    "cards": [
+      {
+        "title": "Pelayaran champagne waktu senja",
+        "category": "Petang",
+        "icon": "🌅",
+        "description": "Berlayar ketika golden hour dengan senarai lagu ceria, champagne sejuk, dan kru yang menentukan saat matahari terbenam terbaik.",
+        "highlights": ["2.5 jam", "Champagne terpilih", "Kanape oleh chef"]
+      },
+      {
+        "title": "Teroka pulau Krabi sehari",
+        "category": "Pengembaraan",
+        "icon": "🏝️",
+        "description": "Rasa angin di beting pasir tersembunyi dan snorkel terumbu bersama pemandu tempatan yang tahu teluk yang tenang.",
+        "highlights": ["6 jam", "Set snorkel disediakan", "Fotografi dron"]
+      },
+      {
+        "title": "Bekerja di atas bot gaya eksekutif",
+        "category": "Korporat",
+        "icon": "💼",
+        "description": "Sambut klien atau pasukan dengan servis concierge penuh, Wi‑Fi atas bot, dan kanape chef untuk mesyuarat premium yang lancar.",
+        "highlights": ["Pramugara peribadi", "Sistem bunyi sedia", "Laluan laut panorama"]
+      }
+    ],
+    "cardLabel": "Kad pengalaman: {{title}}"
+  },
+  "fleet": {
+    "badge": "Armada signature",
+    "title": "Pilih bot kegemaran dan terus ke laut",
+    "description": "Setiap bot diperiksa, ada kru profesional, harga telus, dan fleksibel dengan gaya perjalanan anda.",
+    "boats": [
+      {
+        "name": "Azure Dawn 42",
+        "type": "Katamaran mewah",
+        "capacity": 12,
+        "price": 820,
+        "rating": 4.9,
+        "image": "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80",
+        "tags": ["Pelayaran matahari terbenam", "Bar premium", "Termasuk kru"]
+      },
+      {
+        "name": "Silver Tide 36",
+        "type": "Kruiser sukan",
+        "capacity": 8,
+        "price": 560,
+        "rating": 4.7,
+        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+        "tags": ["Trip sehari", "Peralatan snorkel", "Muzik Bluetooth"]
+      },
+      {
+        "name": "Mariner 50",
+        "type": "Yacht dek langit",
+        "capacity": 16,
+        "price": 1040,
+        "rating": 4.8,
+        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+        "tags": ["Pilihan bermalam", "Chef peribadi", "Suita kabin"]
+      },
+      {
+        "name": "Coral Whisper 32",
+        "type": "Kruiser eko",
+        "capacity": 6,
+        "price": 420,
+        "rating": 4.6,
+        "image": "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1200&q=80",
+        "tags": ["Hibrid-elektrik", "Henti pantai cetek", "Pemandu tempatan"]
+      }
+    ]
+  },
+  "boatCard": {
+    "capacity": "Muat {{count}} tetamu",
+    "starting": "Bermula dari",
+    "price": "฿{{price}}",
+    "view": "Lihat butiran bot",
+    "ratingLabel": "Dinilai {{rating}} daripada 5"
+  },
+  "cta": {
+    "badge": "Concierge disertakan",
+    "title": "Kongsi rancangan impian—kami urus dari dermaga ke dek",
+    "description": "Daripada katering dan pengangkutan ke aktiviti di atas bot, pasukan JoinJoy bina suasana yang tepat: romantik, lasak atau santai sepenuhnya.",
+    "perks": ["Kapten mahir laluan", "Menu tersuai", "Acara di atas bot"],
+    "hotlineLabel": "Talian concierge",
+    "hotlineNumber": "+66 92 777 4400",
+    "availability": "Sedia membantu",
+    "tripDate": "Tarikh pilihan",
+    "guestCount": "Bilangan tetamu",
+    "guestsPlaceholder": "8",
+    "tripStyle": "Gaya perjalanan",
+    "tripStyles": ["Pelayaran matahari terbenam", "Snorkel & lompat pulau", "Parti atau sambutan", "Korporat/bengkel"],
+    "submit": "Mohon itinerari saya",
+    "responseTime": "Concierge kami sahkan butiran dalam 15 minit."
+  },
+  "footer": {
+    "brand": "JoinJoy Krabi",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "terms": "Terma perkhidmatan"
+  }
+}
