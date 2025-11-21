@@ -35,8 +35,8 @@
   gap: 8px;
   flex-wrap: wrap;
   margin-top: 12px;
-  position: relative;
-  z-index: 2000 !important;
+  position: relative !important;
+  z-index: 9999 !important;
   pointer-events: auto !important;
 }
 
@@ -150,12 +150,8 @@
   color: #0b69c4;
 }
 
-.leaflet-pane.leaflet-marker-pane {
-  z-index: 100 !important;
-}
-
-.leaflet-pane.leaflet-popup-pane {
-  z-index: 110 !important;
+.leaflet-pane.leaflet-tile-pane {
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {
