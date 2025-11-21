@@ -16,14 +16,16 @@
 .krabi-map-badge {
   background: #16a34a;
   color: white;
-  padding: 4px 12px;
+  padding: 6px 14px;
   font-size: 12px;
   border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 6px;   /* <<< เพิ่มเพื่อให้บาลานซ์ */
 }
 
 .krabi-map-title {
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 6px;
+  margin-bottom: 12px; /* ให้บาลานซ์กับระยะของปุ่มด้านล่าง */
   font-size: 20px;
   font-weight: 600;
 }
@@ -32,7 +34,7 @@
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin-top: 80px;
+  margin-top: 14px;
 }
 
 .krabi-filter-button {
