@@ -240,7 +240,7 @@ function KrabiMap() {
       <div className="krabi-map-topbar">
         <span className="krabi-map-badge">JOINJOY PREMIUM ROUTES</span>
         <h3 className="krabi-map-title">Krabi Highlights</h3>
-        <div className="krabi-map-filters relative z-[9999] pointer-events-auto">
+        <div className="krabi-map-filters pointer-events-auto">
           {CATEGORIES.map((category) => (
             <button
               key={category.key}
