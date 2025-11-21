@@ -163,6 +163,44 @@ const fitWithCardPadding = (map, bounds) => {
   });
 };
 
+// Detect if two markers are too close to each other
+function isTooClose(a, b, threshold = 0.003) {
+  const latDiff = Math.abs(a[0] - b[0]);
+  const lngDiff = Math.abs(a[1] - b[1]);
+  return latDiff < threshold && lngDiff < threshold;
+}
+
+// Generate a small offset based on index
+function applyOffset(coords, index) {
+  const offsetScale = 0.002;
+  return [
+    coords[0] + (Math.sin(index) * offsetScale),
+    coords[1] + (Math.cos(index) * offsetScale),
+  ];
+}
+
+// Adjust markers so that close ones are slightly separated
+function offsetMarkersIfNeeded(places) {
+  const adjusted = [];
+
+  places.forEach((place, i) => {
+    let newCoords = [...place.coords];
+
+    adjusted.forEach((other, j) => {
+      if (isTooClose(newCoords, other.coords)) {
+        newCoords = applyOffset(newCoords, i + j);
+      }
+    });
+
+    adjusted.push({
+      ...place,
+      coords: newCoords,
+    });
+  });
+
+  return adjusted;
+}
+
 function KrabiMap() {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
@@ -254,7 +292,8 @@ function KrabiMap() {
     markersRef.current.forEach((marker) => marker.remove());
     markersRef.current = [];
 
-    filteredPlaces.forEach((place) => {
+    const placesAdjusted = offsetMarkersIfNeeded(filteredPlaces);
+    placesAdjusted.forEach((place) => {
       const marker = L.marker(place.coords, {
         icon: createMarkerIcon(place.type, activePlace?.id === place.id),
         riseOnHover: true,
