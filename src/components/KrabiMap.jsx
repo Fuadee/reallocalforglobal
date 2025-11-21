@@ -261,12 +261,58 @@ function KrabiMap() {
       clusterGroupRef.current = null;
     }
 
-    const clusterGroup = new MarkerClusterGroup({ chunkedLoading: true, maxClusterRadius: 60 });
+    const clusterGroup = L.markerClusterGroup({
+      chunkedLoading: true,
+      maxClusterRadius: 60,
+
+      iconCreateFunction: (cluster) => {
+        const markers = cluster.getAllChildMarkers();
+
+        // Count marker types
+        const typeCount = {};
+        markers.forEach((marker) => {
+          const markerType = marker.options.placeType;
+          typeCount[markerType] = (typeCount[markerType] || 0) + 1;
+        });
+
+        // Find dominant type
+        const mainType = Object.entries(typeCount)
+          .sort((a, b) => b[1] - a[1])[0][0];
+
+        // Fallback color if needed
+        const color = CATEGORY_COLORS[mainType] || '#444';
+
+        // Custom cluster icon
+        return L.divIcon({
+          html: `
+        <div class="cluster-bubble" style="
+          background:${color};
+          border:3px solid white;
+          color:white;
+          width:40px;
+          height:40px;
+          border-radius:50%;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          font-size:14px;
+          font-weight:700;
+          box-shadow:0 4px 12px rgba(0,0,0,0.25);
+        ">
+          ${cluster.getChildCount()}
+        </div>
+      `,
+          className: '',
+          iconSize: [40, 40],
+        });
+      },
+    });
     clusterGroup.addTo(map);
 
     filteredPlaces.forEach((place) => {
       const marker = L.marker(place.coords, {
         icon: createMarkerIcon(place.type, activePlace?.id === place.id),
+        placeType: place.type,
         riseOnHover: true,
       });
 

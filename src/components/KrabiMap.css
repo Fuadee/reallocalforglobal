@@ -139,6 +139,10 @@
   line-height: 1.4;
 }
 
+.cluster-bubble {
+  font-size: 14px;
+}
+
 .krabi-popup strong {
   display: block;
   margin-bottom: 4px;
