@@ -449,7 +449,7 @@ function KrabiMap() {
           </div>
         </div>
 
-        <div className="krabi-map-wrapper">
+        <div className="krabi-map-container">
           <div
             id="krabiMap"
             ref={mapRef}
