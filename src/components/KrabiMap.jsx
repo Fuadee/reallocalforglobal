@@ -435,10 +435,7 @@ function KrabiMap() {
         <div className="krabi-map-topbar">
           <span className="krabi-map-badge">JOINJOY PREMIUM ROUTES</span>
           <h3 className="krabi-map-title">Krabi Highlights</h3>
-        </div>
-
-        <div className="krabi-map-container">
-          <div className="krabi-map-filters">
+          <div className="krabi-map-filters pointer-events-auto">
             {CATEGORIES.map((category) => (
               <button
                 key={category.key}
@@ -450,31 +447,31 @@ function KrabiMap() {
               </button>
             ))}
           </div>
+        </div>
 
-          <div className="krabi-map-wrapper">
-            <div
-              id="krabiMap"
-              ref={mapRef}
-              className="krabi-map-canvas"
-              aria-label="JoinJoy Krabi interactive map"
+        <div className="krabi-map-wrapper">
+          <div
+            id="krabiMap"
+            ref={mapRef}
+            className="krabi-map-container"
+            aria-label="JoinJoy Krabi interactive map"
+          />
+
+          {mapInstance && (
+            <ClusteredPlaces
+              filteredPlaces={filteredPlaces}
+              activePlace={activePlace}
+              setActivePlace={setActivePlace}
             />
+          )}
 
-            {mapInstance && (
-              <ClusteredPlaces
-                filteredPlaces={filteredPlaces}
-                activePlace={activePlace}
-                setActivePlace={setActivePlace}
-              />
-            )}
-
-            {activePlace && (
-              <div className="krabi-info-card">
-                <span className="krabi-info-tag">{activePlace.highlightTag}</span>
-                <div className="krabi-info-title">{activePlace.name}</div>
-                <div className="krabi-info-subtitle">{activePlace.shortDescription}</div>
-              </div>
-            )}
-          </div>
+          {activePlace && (
+            <div className="krabi-info-card">
+              <span className="krabi-info-tag">{activePlace.highlightTag}</span>
+              <div className="krabi-info-title">{activePlace.name}</div>
+              <div className="krabi-info-subtitle">{activePlace.shortDescription}</div>
+            </div>
+          )}
         </div>
       </div>
     </MapContext.Provider>
