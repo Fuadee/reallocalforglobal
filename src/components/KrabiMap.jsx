@@ -341,7 +341,7 @@ function KrabiMap() {
   }, [filteredPlaces, activePlace]);
 
   useEffect(() => {
-    const container = mapRef.current || document.getElementById('krabi-map');
+    const container = mapRef.current || document.getElementById('krabiMap');
     if (!container || mapInstanceRef.current) {
       return undefined;
     }
@@ -435,38 +435,35 @@ function KrabiMap() {
         <div className="krabi-map-topbar">
           <span className="krabi-map-badge">JOINJOY PREMIUM ROUTES</span>
           <h3 className="krabi-map-title">Krabi Highlights</h3>
+          <div className="krabi-map-filters pointer-events-auto">
+            {CATEGORIES.map((category) => (
+              <button
+                key={category.key}
+                type="button"
+                className={`krabi-filter-button ${selectedCategory === category.key ? 'krabi-filter-button--active' : ''}`}
+                onClick={() => setSelectedCategory(category.key)}
+              >
+                {category.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="krabi-map-wrapper">
-          <div className="krabi-map-container">
-            <div className="krabi-map-filters">
-              {CATEGORIES.map((category) => (
-                <button
-                  key={category.key}
-                  type="button"
-                  className={`krabi-filter-button ${selectedCategory === category.key ? 'krabi-filter-button--active' : ''}`}
-                  onClick={() => setSelectedCategory(category.key)}
-                >
-                  {category.label}
-                </button>
-              ))}
-            </div>
+          <div
+            id="krabiMap"
+            ref={mapRef}
+            className="krabi-map-container"
+            aria-label="JoinJoy Krabi interactive map"
+          />
 
-            <div
-              id="krabi-map"
-              ref={mapRef}
-              className="krabi-map"
-              aria-label="JoinJoy Krabi interactive map"
+          {mapInstance && (
+            <ClusteredPlaces
+              filteredPlaces={filteredPlaces}
+              activePlace={activePlace}
+              setActivePlace={setActivePlace}
             />
-
-            {mapInstance && (
-              <ClusteredPlaces
-                filteredPlaces={filteredPlaces}
-                activePlace={activePlace}
-                setActivePlace={setActivePlace}
-              />
-            )}
-          </div>
+          )}
 
           {activePlace && (
             <div className="krabi-info-card">
