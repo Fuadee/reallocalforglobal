@@ -34,9 +34,11 @@
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin-top: 12px;
-  position: relative !important;
-  z-index: 9999 !important;
+  margin-top: 0;
+  position: absolute !important;
+  top: 20px;
+  left: 20px;
+  z-index: 500 !important;
   pointer-events: auto !important;
 }
 
@@ -102,6 +104,11 @@
 }
 
 .krabi-map-container {
+  position: relative !important;
+  width: 100%;
+}
+
+.krabi-map {
   width: 100%;
   height: 460px;
 }
@@ -151,11 +158,11 @@
 }
 
 .leaflet-pane.leaflet-tile-pane {
-  pointer-events: none;
+  pointer-events: none !important;
 }
 
 @media (max-width: 768px) {
-  .krabi-map-container {
+  .krabi-map {
     height: 360px;
   }
 
