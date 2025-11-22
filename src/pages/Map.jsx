@@ -1,19 +1,46 @@
 import React from 'react';
+import MapView, { Marker } from 'react-native-maps';
 import {
-  ImageBackground,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 
+const categories = ['All', 'Beach', 'Island', 'Snorkel', 'Sunset'];
+
 const markerData = [
-  { label: 'Ao Nang Pier', x: '18%', y: '26%', time: '20 min' },
-  { label: 'Railay Bay', x: '34%', y: '38%', time: '35 min' },
-  { label: 'Hong Islands', x: '70%', y: '34%', time: '50 min' },
-  { label: 'Chicken Island', x: '56%', y: '56%', time: '42 min' },
-  { label: 'Poda Island', x: '46%', y: '72%', time: '38 min' },
+  {
+    label: 'Ao Nang Pier',
+    coordinate: { latitude: 8.0396, longitude: 98.8295 },
+    time: '20 min',
+    categories: ['All', 'Beach'],
+  },
+  {
+    label: 'Railay Bay',
+    coordinate: { latitude: 8.0125, longitude: 98.8385 },
+    time: '35 min',
+    categories: ['All', 'Sunset', 'Beach'],
+  },
+  {
+    label: 'Hong Islands',
+    coordinate: { latitude: 8.0197, longitude: 98.7062 },
+    time: '50 min',
+    categories: ['All', 'Island', 'Snorkel'],
+  },
+  {
+    label: 'Chicken Island',
+    coordinate: { latitude: 7.9684, longitude: 98.8147 },
+    time: '42 min',
+    categories: ['All', 'Snorkel', 'Island'],
+  },
+  {
+    label: 'Poda Island',
+    coordinate: { latitude: 7.9944, longitude: 98.8033 },
+    time: '38 min',
+    categories: ['All', 'Sunset', 'Island'],
+  },
 ];
 
 const routeOptions = [
@@ -34,18 +61,6 @@ const routeOptions = [
   },
 ];
 
-function Marker({ label, time, x, y }) {
-  return (
-    <View style={[styles.marker, { left: x, top: y }]}> 
-      <View style={styles.markerDot} />
-      <View style={styles.markerLabel}> 
-        <Text style={styles.markerTitle}>{label}</Text>
-        <Text style={styles.markerTime}>{time} away</Text>
-      </View>
-    </View>
-  );
-}
-
 function RouteCard({ duration, notes, title }) {
   return (
     <View style={styles.routeCard}>
@@ -55,20 +70,42 @@ function RouteCard({ duration, notes, title }) {
       </View>
       <Text style={styles.routeNotes}>{notes}</Text>
       <View style={styles.routeActions}>
-        <TouchableOpacity style={[styles.actionButton, styles.primaryButton]}> 
+        <Pressable
+          style={[styles.actionButton, styles.primaryButton]}
+          hitSlop={12}
+          onPress={() => {}}
+          pointerEvents="auto"
+        >
           <Text style={[styles.actionText, styles.primaryText]}>See timings</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.actionButton, styles.secondaryButton]}> 
+        </Pressable>
+        <Pressable
+          style={[styles.actionButton, styles.secondaryButton]}
+          hitSlop={12}
+          onPress={() => {}}
+          pointerEvents="auto"
+        >
           <Text style={[styles.actionText, styles.secondaryText]}>Share with concierge</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );
 }
 
 export default function Map() {
+  const [selectedCategory, setSelectedCategory] = React.useState('All');
+
+  const filteredMarkers = React.useMemo(
+    () =>
+      selectedCategory === 'All'
+        ? markerData
+        : markerData.filter((marker) =>
+            marker.categories.includes(selectedCategory),
+          ),
+    [selectedCategory],
+  );
+
   return (
-    <ScrollView style={styles.screen} contentContainerStyle={styles.screenContent}> 
+    <ScrollView style={styles.screen} contentContainerStyle={styles.screenContent}>
       <View style={styles.heroCard}>
         <View style={styles.heroHeader}>
           <Text style={styles.heroTag}>Krabi routes</Text>
@@ -77,19 +114,49 @@ export default function Map() {
             Concierge will confirm your pickup pier, captain, and swim stops. Track timing in real time while you sail.
           </Text>
         </View>
-        <ImageBackground
-          source={{
-            uri: 'https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1400&q=80',
-          }}
-          style={styles.mapImage}
-          imageStyle={styles.mapImageRadius}
-        >
-          <View style={styles.mapOverlay}>
-            {markerData.map((marker) => (
-              <Marker key={marker.label} {...marker} />
+        <View style={styles.mapSection} pointerEvents="box-none">
+          <MapView
+            style={styles.map}
+            initialRegion={{
+              latitude: 8.0101,
+              longitude: 98.8086,
+              latitudeDelta: 0.2,
+              longitudeDelta: 0.2,
+            }}
+            showsCompass
+            showsUserLocation
+            showsMyLocationButton
+          >
+            {filteredMarkers.map((marker) => (
+              <Marker key={marker.label} coordinate={marker.coordinate} title={marker.label} description={`${marker.time} away`} />
             ))}
+          </MapView>
+
+          <View style={styles.categoryBarContainer} pointerEvents="box-none">
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.categoryBar}
+              pointerEvents="box-none"
+            >
+              {categories.map((category) => {
+                const isActive = selectedCategory === category;
+
+                return (
+                  <Pressable
+                    key={category}
+                    onPress={() => setSelectedCategory(category)}
+                    hitSlop={12}
+                    style={[styles.categoryChip, isActive && styles.categoryChipActive]}
+                    pointerEvents="auto"
+                  >
+                    <Text style={[styles.categoryText, isActive && styles.categoryTextActive]}>{category}</Text>
+                  </Pressable>
+                );
+              })}
+            </ScrollView>
           </View>
-        </ImageBackground>
+        </View>
       </View>
 
       <View style={styles.routesSection}>
@@ -154,53 +221,52 @@ const styles = StyleSheet.create({
     color: '#334155',
     lineHeight: 22,
   },
-  mapImage: {
-    height: 320,
-    width: '100%',
+  mapSection: {
+    position: 'relative',
+    height: 360,
+    borderRadius: 16,
     overflow: 'hidden',
   },
-  mapImageRadius: {
-    borderRadius: 16,
+  map: {
+    ...StyleSheet.absoluteFillObject,
   },
-  mapOverlay: {
-    flex: 1,
-    position: 'relative',
-  },
-  marker: {
+  categoryBarContainer: {
     position: 'absolute',
-    alignItems: 'center',
-    gap: 6,
-  },
-  markerDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 999,
-    backgroundColor: '#1877F2',
-    borderWidth: 2,
-    borderColor: '#ffffff',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  markerLabel: {
-    backgroundColor: 'rgba(255,255,255,0.95)',
+    top: 12,
+    left: 0,
+    right: 0,
+    zIndex: 9999,
+    elevation: 9999,
     paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderRadius: 12,
+  },
+  categoryBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingVertical: 4,
+  },
+  categoryChip: {
+    backgroundColor: 'rgba(15, 23, 42, 0.5)',
+    borderRadius: 999,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
-    gap: 2,
+    borderColor: 'rgba(255,255,255,0.6)',
+    position: 'relative',
+    zIndex: 9999,
+    elevation: 9999,
   },
-  markerTitle: {
-    fontSize: 13,
+  categoryChipActive: {
+    backgroundColor: '#ffffff',
+    borderColor: '#1877F2',
+  },
+  categoryText: {
+    color: '#ffffff',
     fontWeight: '700',
-    color: '#0f172a',
+    fontSize: 13,
   },
-  markerTime: {
-    fontSize: 12,
-    color: '#475569',
+  categoryTextActive: {
+    color: '#1877F2',
   },
   routesSection: {
     backgroundColor: '#ffffff',
