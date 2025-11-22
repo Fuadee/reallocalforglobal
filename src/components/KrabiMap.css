@@ -34,10 +34,9 @@
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  position: absolute !important;
-  top: 20px;
-  left: 20px;
-  z-index: 500 !important;
+  margin-top: 12px;
+  position: relative !important;
+  z-index: 9999 !important;
   pointer-events: auto !important;
 }
 
@@ -62,16 +61,6 @@
   border-radius: 24px;
   overflow: hidden;
   z-index: 0 !important;
-}
-
-.krabi-map-container {
-  position: relative !important;
-  width: 100%;
-}
-
-.krabi-map-canvas {
-  width: 100%;
-  height: 460px;
 }
 
 .krabi-info-card {
@@ -110,6 +99,11 @@
   font-size: 13px;
   opacity: 0.9;
   line-height: 1.5;
+}
+
+.krabi-map-container {
+  width: 100%;
+  height: 460px;
 }
 
 .krabi-marker-wrapper {
@@ -157,15 +151,11 @@
 }
 
 .leaflet-pane.leaflet-tile-pane {
-  pointer-events: none !important;
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {
   .krabi-map-container {
-    height: auto;
-  }
-
-  .krabi-map-canvas {
     height: 360px;
   }
 
