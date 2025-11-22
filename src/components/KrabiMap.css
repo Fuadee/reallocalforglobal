@@ -37,8 +37,8 @@
   gap: 8px;
   flex-wrap: wrap;
   margin-top: 12px;
-  position: relative;
-  z-index: 500;
+  position: relative !important;
+  z-index: 500 !important;
   pointer-events: auto !important;
 }
 
