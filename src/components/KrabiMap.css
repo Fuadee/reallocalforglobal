@@ -10,6 +10,17 @@
   margin-top: 40px;
 }
 
+.krabi-map-filters-bar {
+  width: 100%;
+  background: white;
+  padding: 16px 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 4000; /* Above map but below navbar */
+}
+
 /* Top bar with category buttons */
 .krabi-map-topbar {
   background: white;
@@ -42,10 +53,9 @@
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin-top: 12px;
-  position: relative !important;
   z-index: 3000 !important;
   pointer-events: auto !important;
+  position: relative;
 }
 
 .krabi-filter-button {
