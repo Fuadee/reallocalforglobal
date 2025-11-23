@@ -1,12 +1,28 @@
+.krabi-map-stage {
+  position: relative;
+  padding-top: 64px;
+}
+
+.filter-blocker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  z-index: 1500;
+  pointer-events: none;
+}
+
 .filter-bar {
   position: absolute;
   top: 16px;
   left: 0;
   right: 0;
-  z-index: 2000;
-  pointer-events: auto;
   display: flex;
   justify-content: center;
+  gap: 8px;
+  z-index: 2000;
+  pointer-events: auto;
   padding: 0 24px;
 }
 
@@ -64,6 +80,10 @@
   border-color: var(--filter-color);
   color: #ffffff;
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16);
+}
+
+.krabi-map-wrapper .leaflet-container {
+  z-index: 1 !important;
 }
 
 @media (max-width: 768px) {
