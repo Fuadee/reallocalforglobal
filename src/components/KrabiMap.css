@@ -38,8 +38,12 @@
   flex-wrap: wrap;
   margin-top: 12px;
   position: relative !important;
-  z-index: 500 !important;
+  z-index: 9999 !important;
   pointer-events: auto !important;
+}
+/* บังคับ leaflet map ด้านหลังไม่ดูด event ของปุ่ม */
+.leaflet-container {
+  touch-action: none !important;
 }
 
 .krabi-filter-button {
@@ -107,7 +111,7 @@
   width: 100%;
   height: 460px;
   position: relative !important;
-  z-index: 0 !important;
+  z-index: 1 !important;
 }
 
 .krabi-marker-wrapper {
