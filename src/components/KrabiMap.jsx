@@ -334,6 +334,8 @@ function KrabiMap() {
     [selectedCategory],
   );
 
+  const [isMapActive, setIsMapActive] = useState(false);
+
   useEffect(() => {
     if (activePlace && !filteredPlaces.find((place) => place.id === activePlace.id)) {
       setActivePlace(filteredPlaces[0] || null);
@@ -435,7 +437,7 @@ function KrabiMap() {
         <div className="krabi-map-topbar">
           <span className="krabi-map-badge">JOINJOY PREMIUM ROUTES</span>
           <h3 className="krabi-map-title">Krabi Highlights</h3>
-          <div className="krabi-map-filters pointer-events-auto">
+          <div className="krabi-map-filters filter-buttons pointer-events-auto">
             {CATEGORIES.map((category) => (
               <button
                 key={category.key}
@@ -449,7 +451,14 @@ function KrabiMap() {
           </div>
         </div>
 
-        <div className="krabi-map-wrapper">
+        <div
+          className={`krabi-map-wrapper map-wrapper ${isMapActive ? 'active' : ''}`}
+          onTouchStart={() => setIsMapActive(true)}
+          onTouchEnd={() => setIsMapActive(false)}
+          onMouseDown={() => setIsMapActive(true)}
+          onMouseUp={() => setIsMapActive(false)}
+          onMouseLeave={() => setIsMapActive(false)}
+        >
           <div
             id="krabiMap"
             ref={mapRef}
