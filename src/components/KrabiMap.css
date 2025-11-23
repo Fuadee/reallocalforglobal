@@ -4,12 +4,13 @@
   flex-direction: column;
   gap: 16px;
   margin-top: 40px;
+  position: relative;
 }
 
 .krabi-map-topbar {
   background: white;
   border-radius: 20px;
-  padding: 20px 24px;
+  padding: 20px 24px 72px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   width: 100%;
   position: relative;
@@ -42,6 +43,15 @@
   pointer-events: auto !important;
 }
 
+.filter-buttons {
+  position: absolute;
+  top: 104px;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+  pointer-events: auto;
+}
+
 .krabi-filter-button {
   border-radius: 999px;
   padding: 6px 14px;
@@ -63,6 +73,11 @@
   border-radius: 24px;
   overflow: hidden;
   z-index: 0 !important;
+}
+
+.map-wrapper .leaflet-container {
+  z-index: 1;
+  pointer-events: auto;
 }
 
 .krabi-info-card {
