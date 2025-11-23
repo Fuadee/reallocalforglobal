@@ -431,6 +431,7 @@ function KrabiMap() {
         </div>
 
         <div className="krabi-map-stage">
+          <div className="filter-blocker" />
           <FilterBar activeType={selectedCategory} onChange={setSelectedCategory} />
 
           <div className="krabi-map-wrapper">

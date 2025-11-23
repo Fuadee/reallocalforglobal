@@ -33,11 +33,6 @@
   font-weight: 600;
 }
 
-.krabi-map-stage {
-  position: relative;
-  padding-top: 64px;
-}
-
 .krabi-map-wrapper {
   position: relative !important;
   width: 100%;
@@ -47,7 +42,7 @@
 }
 
 .krabi-map-wrapper .leaflet-container {
-  z-index: 1;
+  z-index: 1 !important;
 }
 
 .krabi-info-card {
