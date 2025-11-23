@@ -5,6 +5,7 @@ import MarkerClusterGroup from 'react-leaflet-markercluster';
 import 'leaflet/dist/leaflet.css';
 import './KrabiMap.css';
 import MapContext from '../utils/MapContext';
+import FilterBar from './FilterBar';
 
 
 const CATEGORY_COLORS = {
@@ -133,14 +134,6 @@ const PLACES = [
 const krabiBounds = [
   [7.4, 98.55],
   [8.4, 99.1],
-];
-
-const CATEGORIES = [
-  { key: 'all', label: 'All' },
-  { key: 'beach', label: 'Beach' },
-  { key: 'island', label: 'Island' },
-  { key: 'snorkel', label: 'Snorkel' },
-  { key: 'sunset', label: 'Sunset' },
 ];
 
 const createMarkerIcon = (type, isActive = false) => {
@@ -435,43 +428,35 @@ function KrabiMap() {
         <div className="krabi-map-topbar">
           <span className="krabi-map-badge">JOINJOY PREMIUM ROUTES</span>
           <h3 className="krabi-map-title">Krabi Highlights</h3>
-          <div className="krabi-map-filters pointer-events-auto">
-            {CATEGORIES.map((category) => (
-              <button
-                key={category.key}
-                type="button"
-                className={`krabi-filter-button ${selectedCategory === category.key ? 'krabi-filter-button--active' : ''}`}
-                onClick={() => setSelectedCategory(category.key)}
-              >
-                {category.label}
-              </button>
-            ))}
-          </div>
         </div>
 
-        <div className="krabi-map-wrapper">
-          <div
-            id="krabiMap"
-            ref={mapRef}
-            className="krabi-map-container"
-            aria-label="JoinJoy Krabi interactive map"
-          />
+        <div className="krabi-map-stage">
+          <FilterBar activeType={selectedCategory} onChange={setSelectedCategory} />
 
-          {mapInstance && (
-            <ClusteredPlaces
-              filteredPlaces={filteredPlaces}
-              activePlace={activePlace}
-              setActivePlace={setActivePlace}
+          <div className="krabi-map-wrapper">
+            <div
+              id="krabiMap"
+              ref={mapRef}
+              className="krabi-map-container"
+              aria-label="JoinJoy Krabi interactive map"
             />
-          )}
 
-          {activePlace && (
-            <div className="krabi-info-card">
-              <span className="krabi-info-tag">{activePlace.highlightTag}</span>
-              <div className="krabi-info-title">{activePlace.name}</div>
-              <div className="krabi-info-subtitle">{activePlace.shortDescription}</div>
-            </div>
-          )}
+            {mapInstance && (
+              <ClusteredPlaces
+                filteredPlaces={filteredPlaces}
+                activePlace={activePlace}
+                setActivePlace={setActivePlace}
+              />
+            )}
+
+            {activePlace && (
+              <div className="krabi-info-card">
+                <span className="krabi-info-tag">{activePlace.highlightTag}</span>
+                <div className="krabi-info-title">{activePlace.name}</div>
+                <div className="krabi-info-subtitle">{activePlace.shortDescription}</div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </MapContext.Provider>

@@ -1,0 +1,91 @@
+.filter-bar {
+  position: absolute;
+  top: 16px;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+  pointer-events: auto;
+  display: flex;
+  justify-content: center;
+  padding: 0 24px;
+}
+
+.filter-bar-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filter-button {
+  --filter-color: #f3f4f6;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.filter-button[data-type='beach'] {
+  --filter-color: #ffb347;
+}
+
+.filter-button[data-type='island'] {
+  --filter-color: #00b894;
+}
+
+.filter-button[data-type='snorkel'] {
+  --filter-color: #0984e3;
+}
+
+.filter-button[data-type='sunset'] {
+  --filter-color: #e17055;
+}
+
+.filter-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+}
+
+.filter-button:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.filter-button.active {
+  background: var(--filter-color);
+  border-color: var(--filter-color);
+  color: #ffffff;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16);
+}
+
+@media (max-width: 768px) {
+  .filter-bar {
+    top: 12px;
+    padding: 0 16px;
+  }
+
+  .filter-button {
+    padding: 7px 14px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-bar {
+    top: 10px;
+    padding: 0 12px;
+  }
+
+  .filter-button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
