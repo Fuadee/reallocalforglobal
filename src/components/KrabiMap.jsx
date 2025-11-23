@@ -430,15 +430,19 @@ function KrabiMap() {
       <div className="krabi-map-section">
         <div className="krabi-map-topbar">
           <span className="krabi-map-badge">JOINJOY PREMIUM ROUTES</span>
-          <h3 className="krabi-map-title">Krabi Highlights</h3>
+          <div className="highlight-header">
+            <h2>Krabi Highlights</h2>
+
+            <FilterButtons onFilter={setSelectedCategory} selectedCategory={selectedCategory} />
+          </div>
         </div>
 
         <div className="krabi-map-wrapper">
-          <FilterButtons onFilter={setSelectedCategory} />
           <div
             id="krabiMap"
             ref={mapRef}
             className="krabi-map-container"
+            style={{ height: '500px', width: '100%', borderRadius: '18px' }}
             aria-label="JoinJoy Krabi interactive map"
           />
 

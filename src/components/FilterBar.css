@@ -1,0 +1,23 @@
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  padding: 12px 16px;
+  margin-bottom: -10px; /* sit above the map nicely */
+  z-index: 100;
+  background: transparent;
+}
+
+.filter-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.filter-btn.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
