@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react({ include: ["**/*.jsx", "**/*.js"] })],
   base: "/reallocalforglobal/",
   resolve: {
     alias: {

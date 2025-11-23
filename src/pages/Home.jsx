@@ -74,7 +74,7 @@ const boats = [
   }
 ];
 
-function Hero() {
+function Hero({ selectedCategory }) {
   return (
     <section className="relative overflow-hidden bg-white py-20 lg:py-28">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(24,119,242,0.1),transparent_32%),radial-gradient(circle_at_80%_0%,rgba(66,183,42,0.12),transparent_36%)]" />
@@ -108,7 +108,7 @@ function Hero() {
           </div>
         </div>
         <div className="relative" style={{ width: '100%' }}>
-          <KrabiMap />
+          <KrabiMap selectedCategory={selectedCategory} />
         </div>
       </div>
     </section>
@@ -161,10 +161,10 @@ function FleetSection() {
   );
 }
 
-function Home() {
+function Home({ selectedCategory }) {
   return (
     <main>
-      <Hero />
+      <Hero selectedCategory={selectedCategory} />
       <ExperienceGrid />
       <FleetSection />
       <Footer />
