@@ -5,6 +5,7 @@ import MarkerClusterGroup from 'react-leaflet-markercluster';
 import 'leaflet/dist/leaflet.css';
 import './KrabiMap.css';
 import MapContext from '../utils/MapContext';
+import FilterButtons from './FilterButtons';
 
 
 const CATEGORY_COLORS = {
@@ -314,7 +315,7 @@ function ClusteredPlaces({ filteredPlaces, activePlace, setActivePlace }) {
   );
 }
 
-function KrabiMap({ selectedCategory = 'all' }) {
+function KrabiMap({ selectedCategory = 'all', onSelectCategory }) {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const [mapInstance, setMapInstance] = useState(null);
@@ -429,6 +430,7 @@ function KrabiMap({ selectedCategory = 'all' }) {
         </div>
 
         <div className="krabi-map-wrapper">
+          <FilterButtons selectedCategory={selectedCategory} onSelect={onSelectCategory} />
           <div
             id="krabiMap"
             ref={mapRef}
