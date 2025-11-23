@@ -135,14 +135,6 @@ const krabiBounds = [
   [8.4, 99.1],
 ];
 
-const CATEGORIES = [
-  { key: 'all', label: 'All' },
-  { key: 'beach', label: 'Beach' },
-  { key: 'island', label: 'Island' },
-  { key: 'snorkel', label: 'Snorkel' },
-  { key: 'sunset', label: 'Sunset' },
-];
-
 const createMarkerIcon = (type, isActive = false) => {
   const color = CATEGORY_COLORS[type] || '#0b69c4';
   return L.divIcon({
@@ -322,11 +314,10 @@ function ClusteredPlaces({ filteredPlaces, activePlace, setActivePlace }) {
   );
 }
 
-function KrabiMap() {
+function KrabiMap({ selectedCategory = 'all' }) {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const [mapInstance, setMapInstance] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState('all');
   const [activePlace, setActivePlace] = useState(PLACES[0]);
 
   const filteredPlaces = useMemo(
@@ -435,18 +426,6 @@ function KrabiMap() {
         <div className="krabi-map-topbar">
           <span className="krabi-map-badge">JOINJOY PREMIUM ROUTES</span>
           <h3 className="krabi-map-title">Krabi Highlights</h3>
-          <div className="krabi-map-filters pointer-events-auto">
-            {CATEGORIES.map((category) => (
-              <button
-                key={category.key}
-                type="button"
-                className={`krabi-filter-button ${selectedCategory === category.key ? 'krabi-filter-button--active' : ''}`}
-                onClick={() => setSelectedCategory(category.key)}
-              >
-                {category.label}
-              </button>
-            ))}
-          </div>
         </div>
 
         <div className="krabi-map-wrapper">
