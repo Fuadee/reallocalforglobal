@@ -1,35 +1,27 @@
 .filter-buttons-layer {
-  position: absolute;
-  top: 12px;
-  left: 0;
-  right: 0;
   display: flex;
   justify-content: center;
-  gap: 8px;
-  padding: 0 16px;
-  z-index: 2000;
-  pointer-events: auto;
+  width: 100%;
 }
 
 .filter-buttons-shell {
   display: flex;
   gap: 8px;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
+  background: #ffffff;
   border-radius: 999px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  border: 1px solid rgba(15, 48, 87, 0.05);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(15, 48, 87, 0.06);
+  width: 100%;
+  max-width: 640px;
 }
 
 .filter-button {
   border-radius: 999px;
-  padding: 6px 12px;
+  padding: 8px 14px;
   background: white;
   border: 1px solid #e5e7eb;
   font-size: 13px;
@@ -48,11 +40,6 @@
 }
 
 @media (max-width: 640px) {
-  .filter-buttons-layer {
-    top: 12px;
-    width: calc(100% - 20px);
-  }
-
   .filter-buttons-shell {
     justify-content: flex-start;
   }

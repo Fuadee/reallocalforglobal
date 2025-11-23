@@ -423,14 +423,15 @@ function KrabiMap({ selectedCategory = 'all', onSelectCategory }) {
 
   return (
     <MapContext.Provider value={mapInstance}>
-      <div className="krabi-map-section">
+      <section className="krabi-map-section krabi-highlights-container">
         <div className="krabi-map-topbar">
           <span className="krabi-map-badge">JOINJOY PREMIUM ROUTES</span>
           <h3 className="krabi-map-title">Krabi Highlights</h3>
         </div>
 
+        <FilterButtons selectedCategory={selectedCategory} onSelect={onSelectCategory} />
+
         <div className="krabi-map-wrapper">
-          <FilterButtons selectedCategory={selectedCategory} onSelect={onSelectCategory} />
           <div
             id="krabiMap"
             ref={mapRef}
@@ -454,7 +455,7 @@ function KrabiMap({ selectedCategory = 'all', onSelectCategory }) {
             </div>
           )}
         </div>
-      </div>
+      </section>
     </MapContext.Provider>
   );
 }
