@@ -430,10 +430,11 @@ function KrabiMap() {
           <h3 className="krabi-map-title">Krabi Highlights</h3>
         </div>
 
-        <div className="krabi-map-stage">
-          <div className="filter-blocker" />
+        <div className="krabi-filter-container">
           <FilterBar activeType={selectedCategory} onChange={setSelectedCategory} />
+        </div>
 
+        <div className="krabi-map-stage">
           <div className="krabi-map-wrapper">
             <div
               id="krabiMap"

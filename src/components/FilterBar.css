@@ -1,29 +1,21 @@
 .krabi-map-stage {
   position: relative;
-  padding-top: 64px;
-}
-
-.filter-blocker {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 70px;
-  z-index: 1500;
-  pointer-events: none;
 }
 
 .filter-bar {
-  position: absolute;
-  top: 16px;
-  left: 0;
-  right: 0;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 12px 0;
+  position: static;
+  z-index: 10;
+}
+
+.krabi-filter-container {
+  width: 100%;
   display: flex;
   justify-content: center;
-  gap: 8px;
-  z-index: 2000;
-  pointer-events: auto;
-  padding: 0 24px;
+  background: transparent;
 }
 
 .filter-bar-inner {
@@ -87,11 +79,6 @@
 }
 
 @media (max-width: 768px) {
-  .filter-bar {
-    top: 12px;
-    padding: 0 16px;
-  }
-
   .filter-button {
     padding: 7px 14px;
     font-size: 13px;
@@ -99,11 +86,6 @@
 }
 
 @media (max-width: 480px) {
-  .filter-bar {
-    top: 10px;
-    padding: 0 12px;
-  }
-
   .filter-button {
     padding: 6px 12px;
     font-size: 12px;
