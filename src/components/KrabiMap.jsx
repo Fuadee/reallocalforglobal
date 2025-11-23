@@ -135,14 +135,6 @@ const krabiBounds = [
   [8.4, 99.1],
 ];
 
-const CATEGORIES = [
-  { key: 'all', label: 'All' },
-  { key: 'beach', label: 'Beach' },
-  { key: 'island', label: 'Island' },
-  { key: 'snorkel', label: 'Snorkel' },
-  { key: 'sunset', label: 'Sunset' },
-];
-
 const createMarkerIcon = (type, isActive = false) => {
   const color = CATEGORY_COLORS[type] || '#0b69c4';
   return L.divIcon({
@@ -322,16 +314,15 @@ function ClusteredPlaces({ filteredPlaces, activePlace, setActivePlace }) {
   );
 }
 
-function KrabiMap() {
+function KrabiMap({ selectedFilter = 'all' }) {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const [mapInstance, setMapInstance] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState('all');
   const [activePlace, setActivePlace] = useState(PLACES[0]);
 
   const filteredPlaces = useMemo(
-    () => (selectedCategory === 'all' ? PLACES : PLACES.filter((place) => place.type === selectedCategory)),
-    [selectedCategory],
+    () => (selectedFilter === 'all' ? PLACES : PLACES.filter((place) => place.type === selectedFilter)),
+    [selectedFilter],
   );
 
   useEffect(() => {
@@ -415,7 +406,7 @@ function KrabiMap() {
     const allBounds = L.latLngBounds(PLACES.map((place) => place.coords));
     const filteredBounds = L.latLngBounds(filteredPlaces.map((place) => place.coords));
 
-    if (selectedCategory === 'all') {
+    if (selectedFilter === 'all') {
       fitWithCardPadding(map, allBounds);
       return;
     }
@@ -427,25 +418,10 @@ function KrabiMap() {
       map.flyTo(point.coords, 14, { duration: 1 });
       fitWithCardPadding(map, allBounds);
     }
-  }, [selectedCategory, filteredPlaces, mapInstance]);
+  }, [selectedFilter, filteredPlaces, mapInstance]);
 
   return (
     <MapContext.Provider value={mapInstance}>
-      <div className="krabi-map-filters-bar">
-        <div className="krabi-map-filters">
-          {CATEGORIES.map((category) => (
-            <button
-              key={category.key}
-              type="button"
-              className={`krabi-filter-button ${selectedCategory === category.key ? 'krabi-filter-button--active' : ''}`}
-              onClick={() => setSelectedCategory(category.key)}
-            >
-              {category.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
       <div className="krabi-map-section">
         <div className="krabi-map-wrapper">
           <div

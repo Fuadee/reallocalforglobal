@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import BoatCard from '../components/BoatCard.jsx';
 import ExperienceCard from '../components/ExperienceCard.jsx';
+import FilterButtons from '../components/FilterButtons.jsx';
 import Footer from '../components/Footer.jsx';
-import KrabiMap from '../components/KrabiMap.jsx';
-import '../components/KrabiMap.css';
+import MapSection from '../components/MapSection.jsx';
+import PremiumHeader from '../components/PremiumHeader.jsx';
 
 const heroHighlights = [
   { title: '98% five-star reviews', subtitle: 'Trusted service' },
@@ -107,9 +109,54 @@ function Hero() {
             ))}
           </div>
         </div>
-        <div className="relative" style={{ width: '100%' }}>
-          <KrabiMap />
+        <div className="relative w-full">
+          <div className="overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-sky-50 via-white to-emerald-50 shadow-xl shadow-slate-200/70">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(24,119,242,0.08),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(16,185,129,0.12),transparent_30%)]" />
+            <div className="relative flex flex-col gap-6 p-8">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800 ring-1 ring-emerald-200">Premium concierge</span>
+                <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-800 ring-1 ring-blue-200">Tailored routes</span>
+              </div>
+              <h2 className="text-3xl font-black text-slate-900 sm:text-4xl">Plan your Krabi day with our team</h2>
+              <p className="max-w-xl text-base text-slate-700">
+                Tell us your vibe and we will line up the right pier, timing, and crew. From champagne sunsets to family-friendly
+                sandbars, every detail is mapped for you.
+              </p>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {[
+                  'Pier transfers and timing handled for you',
+                  'Curated playlists, gear, and on-board comforts',
+                  'Local captains who know the calm coves'
+                ].map((item) => (
+                  <div key={item} className="flex items-start gap-3 rounded-2xl bg-white/80 p-4 shadow-sm ring-1 ring-slate-100 backdrop-blur">
+                    <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white">
+                      ✓
+                    </span>
+                    <p className="text-sm font-semibold text-slate-800">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function KrabiHighlightsSection() {
+  const [selectedFilter, setSelectedFilter] = useState('all');
+
+  const handleFilter = (filter) => {
+    setSelectedFilter(filter);
+  };
+
+  return (
+    <section className="bg-[#f7f9fb] py-16 sm:py-20">
+      <div className="section-shell space-y-6">
+        <PremiumHeader />
+        <FilterButtons selectedFilter={selectedFilter} onFilterChange={handleFilter} />
+        <MapSection selectedFilter={selectedFilter} />
       </div>
     </section>
   );
@@ -165,6 +212,7 @@ function Home() {
   return (
     <main>
       <Hero />
+      <KrabiHighlightsSection />
       <ExperienceGrid />
       <FleetSection />
       <Footer />
