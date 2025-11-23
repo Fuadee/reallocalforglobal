@@ -5,6 +5,7 @@ import MarkerClusterGroup from 'react-leaflet-markercluster';
 import 'leaflet/dist/leaflet.css';
 import './KrabiMap.css';
 import MapContext from '../utils/MapContext';
+import FilterButtons from './FilterButtons.jsx';
 
 
 const CATEGORY_COLORS = {
@@ -133,14 +134,6 @@ const PLACES = [
 const krabiBounds = [
   [7.4, 98.55],
   [8.4, 99.1],
-];
-
-const CATEGORIES = [
-  { key: 'all', label: 'All' },
-  { key: 'beach', label: 'Beach' },
-  { key: 'island', label: 'Island' },
-  { key: 'snorkel', label: 'Snorkel' },
-  { key: 'sunset', label: 'Sunset' },
 ];
 
 const createMarkerIcon = (type, isActive = false) => {
@@ -350,13 +343,16 @@ function KrabiMap() {
 
     const bounds = L.latLngBounds(krabiBounds);
     const map = L.map(container, {
-      center: [8.0863, 98.9063],
+      center: [8.05, 98.91],
       zoom: 10,
       zoomControl: false,
       maxBounds: bounds.pad(0.15),
       minZoom: 8,
       maxZoom: 17,
-      scrollWheelZoom: !L.Browser.mobile,
+      scrollWheelZoom: true,
+      doubleClickZoom: false,
+      dragging: true,
+      tap: false,
     });
 
     mapInstanceRef.current = map;
@@ -435,21 +431,10 @@ function KrabiMap() {
         <div className="krabi-map-topbar">
           <span className="krabi-map-badge">JOINJOY PREMIUM ROUTES</span>
           <h3 className="krabi-map-title">Krabi Highlights</h3>
-          <div className="krabi-map-filters pointer-events-auto">
-            {CATEGORIES.map((category) => (
-              <button
-                key={category.key}
-                type="button"
-                className={`krabi-filter-button ${selectedCategory === category.key ? 'krabi-filter-button--active' : ''}`}
-                onClick={() => setSelectedCategory(category.key)}
-              >
-                {category.label}
-              </button>
-            ))}
-          </div>
         </div>
 
         <div className="krabi-map-wrapper">
+          <FilterButtons onFilter={setSelectedCategory} />
           <div
             id="krabiMap"
             ref={mapRef}

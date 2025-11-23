@@ -154,17 +154,6 @@
   color: #0b69c4;
 }
 
-.leaflet-pane.leaflet-tile-pane {
-  pointer-events: none !important;
-}
-
-.krabi-highlights-filter,
-.krabi-map-filter-bar {
-  pointer-events: auto !important;
-  z-index: 500 !important;
-  position: relative !important;
-}
-
 @media (max-width: 768px) {
   .krabi-map-container {
     height: 360px;
