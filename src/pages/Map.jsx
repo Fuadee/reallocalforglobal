@@ -1,5 +1,5 @@
 import React from 'react';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Callout, Marker } from 'react-native-maps';
 import {
   Pressable,
   ScrollView,
@@ -126,18 +126,31 @@ export default function Map() {
             showsCompass
             showsUserLocation
             showsMyLocationButton
+            pointerEvents="box-none"
           >
             {filteredMarkers.map((marker) => (
-              <Marker key={marker.label} coordinate={marker.coordinate} title={marker.label} description={`${marker.time} away`} />
+              <Marker
+                key={marker.label}
+                coordinate={marker.coordinate}
+                title={marker.label}
+                description={`${marker.time} away`}
+              >
+                <Callout tooltip pointerEvents="none">
+                  <View style={styles.calloutBubble} pointerEvents="none">
+                    <Text style={styles.calloutTitle}>{marker.label}</Text>
+                    <Text style={styles.calloutSubtitle}>{`${marker.time} away`}</Text>
+                  </View>
+                </Callout>
+              </Marker>
             ))}
           </MapView>
 
-          <View style={styles.categoryBarContainer} pointerEvents="box-none">
+          <View style={styles.categoryBarContainer} pointerEvents="auto">
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={styles.categoryBar}
-              pointerEvents="box-none"
+              pointerEvents="auto"
             >
               {categories.map((category) => {
                 const isActive = selectedCategory === category;
@@ -229,6 +242,24 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+  },
+  calloutBubble: {
+    backgroundColor: 'rgba(15, 23, 42, 0.92)',
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderRadius: 10,
+    maxWidth: 220,
+  },
+  calloutTitle: {
+    color: '#ffffff',
+    fontWeight: '800',
+    fontSize: 14,
+    marginBottom: 2,
+  },
+  calloutSubtitle: {
+    color: '#e2e8f0',
+    fontWeight: '600',
+    fontSize: 12,
   },
   categoryBarContainer: {
     position: 'absolute',
