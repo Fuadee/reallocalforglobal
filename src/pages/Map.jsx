@@ -93,6 +93,7 @@ function RouteCard({ duration, notes, title }) {
 
 export default function Map() {
   const [selectedCategory, setSelectedCategory] = React.useState('All');
+  const [mapCanReceiveTouch, setMapCanReceiveTouch] = React.useState(true);
 
   const filteredMarkers = React.useMemo(
     () =>
@@ -134,6 +135,7 @@ export default function Map() {
                 coordinate={marker.coordinate}
                 title={marker.label}
                 description={`${marker.time} away`}
+                onPress={() => setMapCanReceiveTouch(false)}
               >
                 <Callout tooltip pointerEvents="none">
                   <View style={styles.calloutBubble} pointerEvents="none">
@@ -145,7 +147,13 @@ export default function Map() {
             ))}
           </MapView>
 
-          <View style={styles.categoryBarContainer} pointerEvents="auto">
+          <View
+            style={styles.mapTouchBlocker}
+            pointerEvents={mapCanReceiveTouch ? 'none' : 'auto'}
+            onTouchStart={() => setMapCanReceiveTouch(true)}
+          />
+
+          <View style={styles.categoryBarContainer} pointerEvents="box-none">
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -261,13 +269,23 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 12,
   },
+  mapTouchBlocker: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 5000,
+    elevation: 5000,
+    backgroundColor: 'transparent',
+  },
   categoryBarContainer: {
     position: 'absolute',
     top: 12,
     left: 0,
     right: 0,
-    zIndex: 9999,
-    elevation: 9999,
+    zIndex: 9000,
+    elevation: 9000,
     paddingHorizontal: 10,
   },
   categoryBar: {
