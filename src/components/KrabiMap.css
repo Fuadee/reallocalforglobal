@@ -168,12 +168,6 @@
 .leaflet-tooltip-pane {
   pointer-events: auto !important;
 }
-
-/* Prevent map from blocking button clicks on mobile */
-.leaflet-container {
-  touch-action: none !important;
-}
-
 /* Responsive */
 @media (max-width: 768px) {
   .krabi-map-container {
@@ -192,4 +186,17 @@
     bottom: 8px;
     font-size: 12px;
   }
+}
+/* ปิดอีเวนต์ของ tile layer เท่านั้น (ตัวที่บังปุ่มจริง) */
+.leaflet-tile-pane {
+  pointer-events: none !important;
+}
+
+/* ปล่อยให้ marker / popup / filter buttons กดได้ */
+.leaflet-marker-pane,
+.leaflet-popup-pane,
+.leaflet-tooltip-pane,
+.krabi-map-filters,
+.krabi-filter-button {
+  pointer-events: auto !important;
 }
