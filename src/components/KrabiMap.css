@@ -161,13 +161,6 @@
   margin-bottom: 4px;
   color: #0b69c4;
 }
-
-/* Marker interaction (must enable click) */
-.leaflet-marker-pane,
-.leaflet-popup-pane,
-.leaflet-tooltip-pane {
-  pointer-events: auto !important;
-}
 /* Responsive */
 @media (max-width: 768px) {
   .krabi-map-container {
