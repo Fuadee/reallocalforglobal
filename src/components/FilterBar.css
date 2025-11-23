@@ -1,6 +1,5 @@
 .krabi-map-stage {
   position: relative;
-  padding-top: 64px;
 }
 
 .filter-blocker {
@@ -8,7 +7,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 70px;
+  height: 72px;
   z-index: 1500;
   pointer-events: none;
 }
@@ -83,6 +82,7 @@
 }
 
 .krabi-map-wrapper .leaflet-container {
+  position: relative;
   z-index: 1 !important;
 }
 

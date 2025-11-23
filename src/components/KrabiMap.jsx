@@ -237,8 +237,7 @@ function ClusteredPlaces({ filteredPlaces, activePlace, setActivePlace }) {
 
         const markerTypes = Object.keys(typeCount);
         const hasMultipleTypes = markerTypes.length > 1;
-        const isAllSelected =
-          typeof selectedCategory !== 'undefined' ? selectedCategory === 'all' : hasMultipleTypes;
+        const isAllSelected = hasMultipleTypes;
 
         if (isAllSelected && hasMultipleTypes) {
           return L.divIcon({
