@@ -1,3 +1,7 @@
+/* ------------------------------------------ */
+/* KRABI MAP — CLEAN & STABLE VERSION (JARVIS) */
+/* ------------------------------------------ */
+
 .krabi-map-section {
   width: 100%;
   display: flex;
@@ -6,6 +10,7 @@
   margin-top: 40px;
 }
 
+/* Top bar with category buttons */
 .krabi-map-topbar {
   background: white;
   border-radius: 20px;
@@ -13,7 +18,7 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   width: 100%;
   position: relative;
-  z-index: 2;
+  z-index: 3000 !important; /* <— อยู่เหนือ map แต่ต่ำกว่า navbar */
 }
 
 .krabi-map-badge {
@@ -32,18 +37,15 @@
   font-weight: 600;
 }
 
+/* Category filter buttons */
 .krabi-map-filters {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
   margin-top: 12px;
   position: relative !important;
-  z-index: 9999 !important;
+  z-index: 3000 !important;
   pointer-events: auto !important;
-}
-/* บังคับ leaflet map ด้านหลังไม่ดูด event ของปุ่ม */
-.leaflet-container {
-  touch-action: none !important;
 }
 
 .krabi-filter-button {
@@ -61,14 +63,21 @@
   border-color: #0070f3;
 }
 
-.krabi-map-wrapper {
+/* Map wrapper & container */
+.krabi-map-wrapper,
+.krabi-map-container {
   position: relative !important;
   width: 100%;
   border-radius: 24px;
   overflow: hidden;
-  z-index: 0 !important;
+  z-index: 1 !important; /* <– ต่ำกว่าปุ่มและ navbar */
 }
 
+.krabi-map-container {
+  height: 460px;
+}
+
+/* Info card bottom */
 .krabi-info-card {
   position: absolute;
   bottom: 16px;
@@ -82,7 +91,7 @@
   flex-direction: column;
   gap: 6px;
   color: #ffffff;
-  z-index: 1000 !important;
+  z-index: 2000 !important;
   box-shadow: 0 12px 32px rgba(5, 20, 45, 0.32);
 }
 
@@ -107,13 +116,7 @@
   line-height: 1.5;
 }
 
-.krabi-map-container {
-  width: 100%;
-  height: 460px;
-  position: relative !important;
-  z-index: 1 !important;
-}
-
+/* Markers */
 .krabi-marker-wrapper {
   filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.18));
 }
@@ -142,6 +145,7 @@
   box-shadow: 0 0 0 6px rgba(0, 112, 243, 0.12), inset 0 0 0 2px rgba(255, 255, 255, 0.9);
 }
 
+/* Popup */
 .krabi-popup {
   color: #0f3057;
   font-size: 12px;
@@ -158,17 +162,19 @@
   color: #0b69c4;
 }
 
-.leaflet-pane.leaflet-tile-pane {
-  pointer-events: none !important;
-}
-
-.krabi-highlights-filter,
-.krabi-map-filter-bar {
+/* Marker interaction (must enable click) */
+.leaflet-marker-pane,
+.leaflet-popup-pane,
+.leaflet-tooltip-pane {
   pointer-events: auto !important;
-  z-index: 500 !important;
-  position: relative !important;
 }
 
+/* Prevent map from blocking button clicks on mobile */
+.leaflet-container {
+  touch-action: none !important;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .krabi-map-container {
     height: 360px;
