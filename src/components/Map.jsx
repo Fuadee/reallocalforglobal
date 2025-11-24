@@ -5,7 +5,7 @@ import { GROUP_COLORS, GROUPS, LOCATIONS, SPECIAL_TAGS } from '../utils/location
 import './Map.css';
 
 const MAP_CENTER = [8.043, 98.915];
-const MAP_STYLE = 'https://demotiles.maplibre.org/style.json';
+const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json';
 
 const scoreToStars = (score) => {
   if (score >= 90) return 5;
@@ -115,8 +115,8 @@ function Map() {
       zoom: 10.5,
       minZoom: 7,
       maxZoom: 17,
-      cooperativeGestures: true,
-      attributionControl: true,
+      cooperativeGestures: false,
+      attributionControl: false,
     });
 
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
