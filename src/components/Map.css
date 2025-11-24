@@ -1,10 +1,6 @@
 .map-section {
   position: relative;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-top: 40px;
 }
 
 .krabi-map-topbar {
@@ -35,25 +31,22 @@
 
 .filter-container {
   position: relative;
-  z-index: 10;
-  pointer-events: auto;
+  z-index: 10 !important;
+  pointer-events: auto !important;
 }
 
 .map-wrapper {
   position: relative;
   width: 100%;
-  border-radius: 24px;
+  height: 420px;
   overflow: hidden;
-  z-index: 0;
-  background: #f8fbff;
-  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+  border-radius: 22px;
+  pointer-events: auto;
 }
 
 .map-canvas {
   width: 100%;
-  height: 460px;
-  position: relative;
-  z-index: 1;
+  height: 100%;
   pointer-events: auto;
 }
 
