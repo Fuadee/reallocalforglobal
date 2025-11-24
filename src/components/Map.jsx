@@ -272,33 +272,33 @@ function Map() {
   }, [activePlace, mapReady]);
 
   return (
-    <div className="map-wrapper">
+    <section className="map-section">
       <div className="krabi-map-topbar">
         <span className="krabi-map-badge">JOINJOY PREMIUM ROUTES</span>
         <h3 className="krabi-map-title">Krabi Highlights</h3>
       </div>
 
-      <div className="map-stage">
-        <div className="map-filters" aria-label="Krabi map filters">
-          <FiltersContainer
-            groups={GROUPS}
-            selectedGroup={selectedGroup}
-            onSelectGroup={(group) => setSelectedGroup(group)}
-            specialTags={SPECIAL_TAGS}
-            selectedTags={selectedTags}
-            onToggleTag={(tag) =>
-              setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]))
-            }
-            selectedStars={selectedStars}
-            onToggleStar={(starKey) =>
-              setSelectedStars((prev) =>
-                prev.includes(starKey) ? prev.filter((key) => key !== starKey) : [...prev, starKey],
-              )
-            }
-            containerRef={filtersRef}
-          />
-        </div>
+      <div className="filter-container" aria-label="Krabi map filters">
+        <FiltersContainer
+          groups={GROUPS}
+          selectedGroup={selectedGroup}
+          onSelectGroup={(group) => setSelectedGroup(group)}
+          specialTags={SPECIAL_TAGS}
+          selectedTags={selectedTags}
+          onToggleTag={(tag) =>
+            setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]))
+          }
+          selectedStars={selectedStars}
+          onToggleStar={(starKey) =>
+            setSelectedStars((prev) =>
+              prev.includes(starKey) ? prev.filter((key) => key !== starKey) : [...prev, starKey],
+            )
+          }
+          containerRef={filtersRef}
+        />
+      </div>
 
+      <div className="map-wrapper">
         <div className="map-canvas" ref={mapRef} aria-label="JoinJoy Krabi interactive map" />
 
         {activePlace && (
@@ -325,7 +325,7 @@ function Map() {
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 }
 
