@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import maplibregl from 'maplibre-gl';
 import FiltersContainer from './FiltersContainer';
 import { GROUP_COLORS, GROUPS, LOCATIONS, SPECIAL_TAGS } from '../utils/locations';
@@ -80,12 +81,19 @@ function Map() {
   const mapRef = useRef(null);
   const markersRef = useRef([]);
   const mapInstanceRef = useRef(null);
-  const filtersRef = useRef(null);
   const [mapReady, setMapReady] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState('All');
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedStars, setSelectedStars] = useState(['star-5']);
   const [activePlace, setActivePlace] = useState(null);
+
+  const toggleTag = (tag) => {
+    setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
+  };
+
+  const toggleStar = (starKey) => {
+    setSelectedStars((prev) => (prev.includes(starKey) ? prev.filter((key) => key !== starKey) : [...prev, starKey]));
+  };
 
   const locationData = useMemo(() => prepareLocations(LOCATIONS), []);
 
@@ -118,8 +126,8 @@ function Map() {
       cooperativeGestures: false,
       dragPan: true,
       touchZoomRotate: true,
-      scrollZoom: true,
       interactive: true,
+      scrollZoom: true,
       attributionControl: false,
     });
 
@@ -285,60 +293,58 @@ function Map() {
   }, [activePlace, mapReady]);
 
   return (
-    <section className="map-section">
-      <div className="krabi-map-topbar">
-        <span className="krabi-map-badge">JOINJOY PREMIUM ROUTES</span>
-        <h3 className="krabi-map-title">Krabi Highlights</h3>
-      </div>
+    <>
+      <section className="map-section">
+        <div className="krabi-map-topbar">
+          <span className="krabi-map-badge">JOINJOY PREMIUM ROUTES</span>
+          <h3 className="krabi-map-title">Krabi Highlights</h3>
+        </div>
 
-      <div className="filter-container" aria-label="Krabi map filters">
-        <FiltersContainer
-          groups={GROUPS}
-          selectedGroup={selectedGroup}
-          onSelectGroup={(group) => setSelectedGroup(group)}
-          specialTags={SPECIAL_TAGS}
-          selectedTags={selectedTags}
-          onToggleTag={(tag) =>
-            setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]))
-          }
-          selectedStars={selectedStars}
-          onToggleStar={(starKey) =>
-            setSelectedStars((prev) =>
-              prev.includes(starKey) ? prev.filter((key) => key !== starKey) : [...prev, starKey],
-            )
-          }
-          containerRef={filtersRef}
-        />
-      </div>
+        <div className="map-wrapper">
+          <div className="map-canvas" ref={mapRef} aria-label="JoinJoy Krabi interactive map" />
 
-      <div className="map-wrapper">
-        <div className="map-canvas" ref={mapRef} aria-label="JoinJoy Krabi interactive map" />
-
-        {activePlace && (
-          <div className="krabi-info-card">
-            <div className="krabi-info-card__header">
-              <span className="krabi-info-tag">{activePlace.highlightTag}</span>
-              {activePlace.recommended && <span className="krabi-recommend-pill">JoinJoy Recommend</span>}
-            </div>
-            <div className="krabi-info-title-row">
-              <div>
-                <div className="krabi-info-title">{activePlace.name}</div>
-                <div className="krabi-info-subtitle">{activePlace.shortDescription}</div>
+          {activePlace && (
+            <div className="krabi-info-card">
+              <div className="krabi-info-card__header">
+                <span className="krabi-info-tag">{activePlace.highlightTag}</span>
+                {activePlace.recommended && <span className="krabi-recommend-pill">JoinJoy Recommend</span>}
               </div>
-              <span className="krabi-score-badge krabi-score-badge--dark">{activePlace.score}</span>
+              <div className="krabi-info-title-row">
+                <div>
+                  <div className="krabi-info-title">{activePlace.name}</div>
+                  <div className="krabi-info-subtitle">{activePlace.shortDescription}</div>
+                </div>
+                <span className="krabi-score-badge krabi-score-badge--dark">{activePlace.score}</span>
+              </div>
+              <div className="krabi-info-tags">
+                <span className="krabi-tag-badge">{activePlace.group}</span>
+                {activePlace.tags?.map((tag) => (
+                  <span key={tag} className="krabi-tag-badge">
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
-            <div className="krabi-info-tags">
-              <span className="krabi-tag-badge">{activePlace.group}</span>
-              {activePlace.tags?.map((tag) => (
-                <span key={tag} className="krabi-tag-badge">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
+          )}
+        </div>
+      </section>
+
+      {typeof document !== 'undefined'
+        && document.getElementById('filter-root')
+        && createPortal(
+          <FiltersContainer
+            groups={GROUPS}
+            selectedGroup={selectedGroup}
+            onSelectGroup={setSelectedGroup}
+            specialTags={SPECIAL_TAGS}
+            selectedTags={selectedTags}
+            onToggleTag={toggleTag}
+            selectedStars={selectedStars}
+            onToggleStar={toggleStar}
+          />,
+          document.getElementById('filter-root'),
         )}
-      </div>
-    </section>
+    </>
   );
 }
 

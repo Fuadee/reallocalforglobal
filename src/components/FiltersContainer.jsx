@@ -13,18 +13,19 @@ function FiltersContainer({
   onToggleTag,
   selectedStars,
   onToggleStar,
-  containerRef,
 }) {
   return (
-    <div ref={containerRef} className="filters-container" aria-label="Krabi map filters">
-      <div className="filters-surface">
-        <GroupFilters groups={groups} selectedGroup={selectedGroup} onSelect={onSelectGroup} />
-        <ScoreFilter selectedStars={selectedStars} onToggleStar={onToggleStar} />
-        <SpecialFilters
-          specialTags={specialTags}
-          selectedTags={selectedTags}
-          onToggleTag={onToggleTag}
-        />
+    <div className="filter-portal-container">
+      <div className="filters-container" aria-label="Krabi map filters">
+        <div className="filters-surface">
+          <GroupFilters groups={groups} selectedGroup={selectedGroup} onSelect={onSelectGroup} />
+          <ScoreFilter selectedStars={selectedStars} onToggleStar={onToggleStar} />
+          <SpecialFilters
+            specialTags={specialTags}
+            selectedTags={selectedTags}
+            onToggleTag={onToggleTag}
+          />
+        </div>
       </div>
     </div>
   );
