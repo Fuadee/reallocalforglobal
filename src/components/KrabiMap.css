@@ -7,6 +7,12 @@
   position: relative;
 }
 
+.krabi-filter-container {
+  position: relative;
+  z-index: 20;
+  pointer-events: none;
+}
+
 .krabi-map-topbar {
   background: white;
   border-radius: 20px;
@@ -47,40 +53,60 @@
 
 .krabi-info-card {
   position: absolute;
-  bottom: 16px;
-  left: 16px;
-  right: 16px;
-  width: auto;
-  background: rgba(5, 20, 45, 0.92);
-  padding: 14px 18px;
-  border-radius: 20px;
+  bottom: 14px;
+  left: 14px;
+  right: auto;
+  width: min(320px, 26vw);
+  background: rgba(5, 20, 45, 0.9);
+  padding: 12px 14px;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   color: #ffffff;
   z-index: 1000 !important;
-  box-shadow: 0 12px 32px rgba(5, 20, 45, 0.32);
+  box-shadow: 0 10px 24px rgba(5, 20, 45, 0.24);
+}
+
+.krabi-info-card__header {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .krabi-info-tag {
   display: inline-flex;
   align-self: flex-start;
-  padding: 2px 10px;
-  font-size: 11px;
+  padding: 2px 8px;
+  font-size: 10px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.12);
-  letter-spacing: 0.3px;
+  letter-spacing: 0.2px;
 }
 
 .krabi-info-title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
 }
 
+.krabi-info-title-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+
 .krabi-info-subtitle {
-  font-size: 13px;
-  opacity: 0.9;
-  line-height: 1.5;
+  font-size: 12px;
+  opacity: 0.92;
+  line-height: 1.45;
+}
+
+.krabi-info-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .krabi-map-container {
@@ -118,10 +144,57 @@
   box-shadow: 0 0 0 6px rgba(0, 112, 243, 0.12), inset 0 0 0 2px rgba(255, 255, 255, 0.9);
 }
 
+.krabi-score-badge {
+  background: #0f4f8a;
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 4px 9px;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.krabi-score-badge--dark {
+  background: #0b2b4e;
+}
+
+.krabi-tag-badge {
+  background: rgba(255, 255, 255, 0.16);
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 10px;
+  color: #e5ecf5;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.krabi-recommend-pill {
+  background: #16a34a;
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
 .krabi-popup {
   color: #0f3057;
   font-size: 12px;
   line-height: 1.4;
+}
+
+.krabi-popup-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.krabi-popup-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
 }
 
 .cluster-bubble {
@@ -140,15 +213,18 @@
   }
 
   .krabi-info-card {
-    bottom: 12px;
-    padding: 12px 14px;
-    font-size: 13px;
+    bottom: 10px;
+    left: 10px;
+    width: 82vw;
+    padding: 11px 12px;
+    font-size: 12px;
   }
 }
 
 @media (max-width: 480px) {
   .krabi-info-card {
     bottom: 8px;
+    width: 86vw;
     font-size: 12px;
   }
 }
