@@ -285,20 +285,14 @@ function KrabiMap() {
     if (!filtersRef.current) return undefined;
 
     const node = filtersRef.current;
-    L.DomEvent.disableClickPropagation(node);
-    L.DomEvent.disableScrollPropagation(node);
+    const stopWheelPropagation = (event) => event.stopPropagation();
 
-    const stopPropagation = (event) => {
-      event.stopPropagation();
-    };
-
-    const events = ['touchstart', 'touchmove', 'touchend', 'pointerdown', 'pointerup', 'click'];
-    events.forEach((evt) => node.addEventListener(evt, stopPropagation, { capture: true }));
+    node.addEventListener('wheel', stopWheelPropagation, { passive: true });
 
     return () => {
-      events.forEach((evt) => node.removeEventListener(evt, stopPropagation, { capture: true }));
+      node.removeEventListener('wheel', stopWheelPropagation, { passive: true });
     };
-  }, [mapInstance]);
+  }, []);
 
   useEffect(() => {
     if (!mapInstance) return;
