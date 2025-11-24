@@ -1,8 +1,8 @@
 import BoatCard from '../components/BoatCard.jsx';
 import ExperienceCard from '../components/ExperienceCard.jsx';
 import Footer from '../components/Footer.jsx';
-import KrabiMap from '../components/KrabiMap.jsx';
-import '../components/KrabiMap.css';
+import Map from '../components/Map.jsx';
+import '../components/Map.css';
 
 const heroHighlights = [
   { title: '98% five-star reviews', subtitle: 'Trusted service' },
@@ -111,7 +111,7 @@ function Hero() {
           </div>
         </div>
         <div className="relative" style={{ width: '100%' }}>
-          <KrabiMap />
+          <Map />
         </div>
       </div>
     </section>
