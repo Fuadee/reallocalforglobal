@@ -1,6 +1,7 @@
 .map-section {
   position: relative;
   width: 100%;
+  z-index: 0;
 }
 
 .krabi-map-topbar {
@@ -31,7 +32,7 @@
 
 .filter-container {
   position: relative;
-  z-index: 10 !important;
+  z-index: 20 !important;
   pointer-events: auto !important;
 }
 
@@ -39,15 +40,16 @@
   position: relative;
   width: 100%;
   height: 420px;
-  overflow: hidden;
   border-radius: 22px;
+  overflow: hidden;
+  z-index: 1;
   pointer-events: auto;
 }
 
 .map-canvas {
   width: 100%;
   height: 100%;
-  pointer-events: auto;
+  pointer-events: auto !important;
 }
 
 .maplibregl-canvas {

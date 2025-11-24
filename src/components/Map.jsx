@@ -116,7 +116,20 @@ function Map() {
       minZoom: 7,
       maxZoom: 17,
       cooperativeGestures: false,
+      dragPan: true,
+      touchZoomRotate: true,
+      scrollZoom: true,
+      interactive: true,
       attributionControl: false,
+    });
+
+    mapRef.current.style.pointerEvents = "auto";
+
+    map.getCanvas().style.touchAction = "pan-x pan-y";
+    map.getCanvas().style.pointerEvents = "auto";
+
+    map.on('touchstart', (e) => {
+      e.originalEvent.stopImmediatePropagation();
     });
 
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
