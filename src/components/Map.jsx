@@ -95,20 +95,6 @@ function Map() {
   );
 
   useEffect(() => {
-    if (!filtersRef.current) return undefined;
-
-    const node = filtersRef.current;
-    const stopPropagation = (event) => event.stopPropagation();
-    const events = ['touchstart', 'touchmove', 'touchend', 'pointerdown', 'pointerup', 'click', 'wheel'];
-
-    events.forEach((eventName) => node.addEventListener(eventName, stopPropagation, { passive: true }));
-
-    return () => {
-      events.forEach((eventName) => node.removeEventListener(eventName, stopPropagation, { passive: true }));
-    };
-  }, []);
-
-  useEffect(() => {
     if (!activePlace && filteredPlaces.length) {
       setActivePlace(filteredPlaces[0]);
       return;
