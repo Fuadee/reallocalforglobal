@@ -5,139 +5,76 @@ import MarkerClusterGroup from 'react-leaflet-markercluster';
 import 'leaflet/dist/leaflet.css';
 import './KrabiMap.css';
 import MapContext from '../utils/MapContext';
-import FilterBar from './FilterBar';
-
-
-const CATEGORY_COLORS = {
-  beach: '#ffb347',
-  island: '#00b894',
-  snorkel: '#0984e3',
-  sunset: '#e17055',
-};
-
-const PLACES = [
-  {
-    id: 'ao-nang',
-    name: 'Ao Nang',
-    type: 'beach',
-    coords: [8.0404, 98.8222],
-    highlightTag: 'Starting Point',
-    shortDescription: 'Main beach and pier for most JoinJoy trips.',
-  },
-  {
-    id: 'railay',
-    name: 'Railay Beach',
-    type: 'beach',
-    coords: [8.0117, 98.8395],
-    highlightTag: 'Cliff & Sunset',
-    shortDescription: 'Famous cliffs, sunset views, and chill beach vibes.',
-  },
-  {
-    id: 'phi-phi',
-    name: 'Phi Phi Islands',
-    type: 'island',
-    coords: [7.7407, 98.7765],
-    highlightTag: 'Island Hopping',
-    shortDescription: 'Iconic islands with turquoise water and snorkeling.',
-  },
-  {
-    id: 'hong',
-    name: 'Hong Island',
-    type: 'snorkel',
-    coords: [8.1089, 98.7021],
-    highlightTag: 'Lagoon',
-    shortDescription: 'Stunning lagoon with calm water and kayaking.',
-  },
-  {
-    id: 'thale-waek',
-    name: 'Thale Waek',
-    type: 'snorkel',
-    coords: [7.99, 98.8144],
-    highlightTag: 'Sandbar',
-    shortDescription: 'Famous sandbar that appears at low tide.',
-  },
-  {
-  id: 'ao-nang-sunset',
-  name: 'Ao Nang Beach Sunset',
-  type: 'sunset',
-  coords: [8.031669881889947, 98.8216320402158],
-  highlightTag: 'Sunset Point',
-  shortDescription: 'Iconic Ao Nang sunset with fire shows and a lively beachfront.',
-},
-{
-  id: 'nopparat-sunset',
-  name: 'Nopparat Thara Beach Sunset',
-  type: 'sunset',
-  coords: [8.042996646771988, 98.80915062374889],
-  highlightTag: 'Sunset Point',
-  shortDescription: 'Quiet sunset spot near the Landmark night market with fewer crowds.',
-},
-{
-  id: 'railay-west-sunset',
-  name: 'Railay West Sunset',
-  type: 'sunset',
-  coords: [8.011867631403003, 98.83779902910392],
-  highlightTag: 'Sunset Point',
-  shortDescription: 'Magical sunsets surrounded by dramatic limestone cliffs.',
-},
-{
-  id: 'din-daeng-doi',
-  name: 'Din Daeng Doi Viewpoint',
-  type: 'sunset',
-  coords: [8.110198323318548, 98.78414908067876],
-  highlightTag: 'Viewpoint',
-  shortDescription: 'Hilltop viewpoint offering sunrise, sunset, and sea-fog scenes.',
-},
-{
-  id: 'klong-muang-beach',
-  name: 'Klong Muang Beach Sunset',
-  type: 'sunset',
-  coords: [8.055302121766385, 98.75930705734284],
-  highlightTag: 'Sunset Point',
-  shortDescription: 'Peaceful beach with calm waves and a relaxed sunset atmosphere.',
-},
-{
-  id: 'tub-kaek-sunset',
-  name: 'Tub Kaek Beach Sunset',
-  type: 'sunset',
-  coords: [8.091723042677, 98.74713314218624],
-  highlightTag: 'Sunset Point',
-  shortDescription: 'Stunning sunset view facing the Hong Islands in a serene setting.',
-},
-{
-  id: 'khao-thong-hill',
-  name: 'Khao Thong Hill Sunset',
-  type: 'sunset',
-  coords: [8.172984889255703, 98.75259315296445],
-  highlightTag: 'Viewpoint Café',
-  shortDescription: 'Panoramic sunset viewpoint overlooking Hong Islands with café.',
-},
-{
-  id: 'buffalo-nose-cape',
-  name: 'Buffalo Nose Cape',
-  type: 'sunset',
-  coords: [8.136152250559762, 98.7355327106346],
-  highlightTag: 'Adventure Spot',
-  shortDescription: 'Dramatic natural stone arches with a remote, scenic sunset view.',
-},
-{
-  id: 'klong-khong-lanta',
-  name: 'Klong Khong Beach, Koh Lanta',
-  type: 'sunset',
-  coords: [7.641664479012308, 99.02819773848144],
-  highlightTag: 'Sunset Point',
-  shortDescription: 'One of Koh Lanta’s best sunset beaches along a long peaceful shore.',
-}
-
-];
+import FiltersContainer from './FiltersContainer';
+import { GROUP_COLORS, GROUPS, LOCATIONS, SPECIAL_TAGS } from '../utils/locations';
 
 const krabiBounds = [
   [7.4, 98.55],
   [8.4, 99.1],
 ];
 
-const createMarkerIcon = (type, isActive = false) => {
-  const color = CATEGORY_COLORS[type] || '#0b69c4';
+const scoreToStars = (score) => {
+  if (score >= 90) return 5;
+  if (score >= 82) return 4;
+  if (score >= 74) return 3;
+  if (score >= 66) return 2;
+  return 1;
+};
+
+const prepareLocations = (locations) =>
+  locations.map((location) => {
+    const baseTags = Array.isArray(location.tags) ? [...location.tags] : [];
+    const tags = new Set(baseTags);
+
+    const shuffled = [...SPECIAL_TAGS].sort(() => Math.random() - 0.5);
+    const count = Math.floor(Math.random() * 2) + 1; // 1-2 special tags
+    shuffled.slice(0, count).forEach((tag) => tags.add(tag));
+
+    const score =
+      typeof location.score === 'number' && !Number.isNaN(location.score)
+        ? location.score
+        : Math.floor(Math.random() * 41) + 60;
+
+    return {
+      ...location,
+      score,
+      tags: Array.from(tags),
+    };
+  });
+
+function filterLocations(locations, selectedGroup, selectedTags, selectedStars) {
+  let result = [...locations];
+
+  if (selectedGroup && selectedGroup !== 'All') {
+    result = result.filter((location) => location.group === selectedGroup);
+  }
+
+  if (selectedTags.length) {
+    result = result.filter((location) =>
+      location.tags && location.tags.some((tag) => selectedTags.includes(tag)),
+    );
+  }
+
+  if (selectedStars.length) {
+    const targets = selectedStars.map((star) => Number(star.split('-')[1]));
+    result = result.filter((location) => targets.includes(scoreToStars(location.score)));
+  }
+
+  return result.sort((a, b) => b.score - a.score);
+}
+
+const fitWithCardPadding = (map, bounds) => {
+  map.fitBounds(bounds, {
+    paddingTopLeft: [50, 90],
+    paddingBottomRight: [50, 240],
+    maxZoom: 12,
+  });
+};
+
+const Popup = ({ children }) => children;
+
+const createMarkerIcon = (group, isActive = false) => {
+  const color = GROUP_COLORS[group] || '#0b69c4';
   return L.divIcon({
     className: 'krabi-marker-wrapper',
     html: `
@@ -150,16 +87,6 @@ const createMarkerIcon = (type, isActive = false) => {
     popupAnchor: [0, -20],
   });
 };
-
-const fitWithCardPadding = (map, bounds) => {
-  map.fitBounds(bounds, {
-    paddingTopLeft: [50, 50],
-    paddingBottomRight: [50, 220], // เผื่อพื้นที่ card ด้านล่าง
-    maxZoom: 12,
-  });
-};
-
-const Popup = ({ children }) => children;
 
 function Marker({ position, icon, riseOnHover = false, placeType, clusterManager, eventHandlers = {}, children }) {
   const map = useContext(MapContext);
@@ -217,7 +144,7 @@ function Marker({ position, icon, riseOnHover = false, placeType, clusterManager
   return null;
 }
 
-function ClusteredPlaces({ filteredPlaces, activePlace, setActivePlace }) {
+function ClusteredPlaces({ filteredPlaces, activePlace, setActivePlace, selectedGroup }) {
   const map = useContext(MapContext);
 
   if (!map) return null;
@@ -237,14 +164,13 @@ function ClusteredPlaces({ filteredPlaces, activePlace, setActivePlace }) {
 
         const markerTypes = Object.keys(typeCount);
         const hasMultipleTypes = markerTypes.length > 1;
-        const isAllSelected =
-          typeof selectedCategory !== 'undefined' ? selectedCategory === 'all' : hasMultipleTypes;
+        const isAllSelected = selectedGroup === 'All';
 
         if (isAllSelected && hasMultipleTypes) {
           return L.divIcon({
             html: `
              <div class="cluster-bubble" style="
-               background: linear-gradient(45deg, #e17055, #00b894, #0984e3, #ffb347);
+               background: linear-gradient(45deg, #f97316, #10b981, #3b82f6, #8b5cf6);
                border:3px solid white;
                color:white;
                width:40px;height:40px;
@@ -265,7 +191,7 @@ function ClusteredPlaces({ filteredPlaces, activePlace, setActivePlace }) {
         const mainType = Object.entries(typeCount)
           .sort((a, b) => b[1] - a[1])[0][0];
 
-        const color = CATEGORY_COLORS[mainType] || '#444';
+        const color = GROUP_COLORS[mainType] || '#444';
 
         return L.divIcon({
           html: `
@@ -291,22 +217,34 @@ function ClusteredPlaces({ filteredPlaces, activePlace, setActivePlace }) {
       {filteredPlaces.map((place) => (
         <Marker
           key={place.id}
-          position={place.coords}
-          icon={createMarkerIcon(place.type, activePlace?.id === place.id)}
+          position={place.coordinates}
+          icon={createMarkerIcon(place.group, activePlace?.id === place.id)}
           riseOnHover
-          placeType={place.type}
+          placeType={place.group}
           eventHandlers={{
             click: () => {
               setActivePlace(place);
               const targetZoom = Math.max(map.getZoom(), 11);
-              map.flyTo(place.coords, targetZoom, { duration: 0.6 });
+              map.flyTo(place.coordinates, targetZoom, { duration: 0.6 });
             },
           }}
         >
           <Popup>
             <div className="krabi-popup">
-              <strong>{place.name}</strong>
+              <div className="krabi-popup-heading">
+                <strong>{place.name}</strong>
+                <span className="krabi-score-badge">{place.score}</span>
+              </div>
               <p>{place.shortDescription}</p>
+              <div className="krabi-popup-tags">
+                <span className="krabi-tag-badge">{place.group}</span>
+                {place.tags?.map((tag) => (
+                  <span key={tag} className="krabi-tag-badge">
+                    {tag}
+                  </span>
+                ))}
+                {place.recommended && <span className="krabi-recommend-pill">JoinJoy Recommend</span>}
+              </div>
             </div>
           </Popup>
         </Marker>
@@ -317,21 +255,68 @@ function ClusteredPlaces({ filteredPlaces, activePlace, setActivePlace }) {
 
 function KrabiMap() {
   const mapRef = useRef(null);
+  const filtersRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const [mapInstance, setMapInstance] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [activePlace, setActivePlace] = useState(PLACES[0]);
+  const [selectedGroup, setSelectedGroup] = useState('All');
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedStars, setSelectedStars] = useState(['star-5']);
+  const [activePlace, setActivePlace] = useState(null);
+
+  const locationData = useMemo(() => prepareLocations(LOCATIONS), []);
 
   const filteredPlaces = useMemo(
-    () => (selectedCategory === 'all' ? PLACES : PLACES.filter((place) => place.type === selectedCategory)),
-    [selectedCategory],
+    () => filterLocations(locationData, selectedGroup, selectedTags, selectedStars),
+    [locationData, selectedGroup, selectedTags, selectedStars],
   );
 
   useEffect(() => {
+    if (!activePlace && filteredPlaces.length) {
+      setActivePlace(filteredPlaces[0]);
+      return;
+    }
+
     if (activePlace && !filteredPlaces.find((place) => place.id === activePlace.id)) {
       setActivePlace(filteredPlaces[0] || null);
     }
   }, [filteredPlaces, activePlace]);
+
+  useEffect(() => {
+    if (!filtersRef.current) return undefined;
+
+    const node = filtersRef.current;
+    L.DomEvent.disableClickPropagation(node);
+    L.DomEvent.disableScrollPropagation(node);
+
+    const stopPropagation = (event) => {
+      event.stopPropagation();
+    };
+
+    const events = ['touchstart', 'touchmove', 'touchend', 'pointerdown', 'pointerup', 'click'];
+    events.forEach((evt) => node.addEventListener(evt, stopPropagation, { capture: true }));
+
+    return () => {
+      events.forEach((evt) => node.removeEventListener(evt, stopPropagation, { capture: true }));
+    };
+  }, [mapInstance]);
+
+  useEffect(() => {
+    if (!mapInstance) return;
+
+    const allBounds = L.latLngBounds(locationData.map((place) => place.coordinates));
+    const filteredBounds = filteredPlaces.length
+      ? L.latLngBounds(filteredPlaces.map((place) => place.coordinates))
+      : allBounds;
+
+    if (filteredPlaces.length > 1) {
+      fitWithCardPadding(mapInstance, filteredBounds);
+    } else if (filteredPlaces.length === 1) {
+      const [point] = filteredPlaces;
+      mapInstance.flyTo(point.coordinates, 13, { duration: 0.8 });
+    } else {
+      fitWithCardPadding(mapInstance, allBounds);
+    }
+  }, [filteredPlaces, mapInstance, locationData]);
 
   useEffect(() => {
     const container = mapRef.current || document.getElementById('krabiMap');
@@ -401,27 +386,6 @@ function KrabiMap() {
     };
   }, []);
 
-  useEffect(() => {
-    const map = mapInstance;
-    if (!map) return;
-
-    const allBounds = L.latLngBounds(PLACES.map((place) => place.coords));
-    const filteredBounds = L.latLngBounds(filteredPlaces.map((place) => place.coords));
-
-    if (selectedCategory === 'all') {
-      fitWithCardPadding(map, allBounds);
-      return;
-    }
-
-    if (filteredPlaces.length > 1) {
-      fitWithCardPadding(map, filteredBounds);
-    } else if (filteredPlaces.length === 1) {
-      const [point] = filteredPlaces;
-      map.flyTo(point.coords, 14, { duration: 1 });
-      fitWithCardPadding(map, allBounds);
-    }
-  }, [selectedCategory, filteredPlaces, mapInstance]);
-
   return (
     <MapContext.Provider value={mapInstance}>
       <div className="krabi-map-section">
@@ -431,7 +395,25 @@ function KrabiMap() {
         </div>
 
         <div className="krabi-filter-container">
-          <FilterBar activeType={selectedCategory} onChange={setSelectedCategory} />
+          <FiltersContainer
+            groups={GROUPS}
+            selectedGroup={selectedGroup}
+            onSelectGroup={(group) => {
+              setSelectedGroup(group);
+            }}
+            specialTags={SPECIAL_TAGS}
+            selectedTags={selectedTags}
+            onToggleTag={(tag) => {
+              setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
+            }}
+            selectedStars={selectedStars}
+            onToggleStar={(starKey) => {
+              setSelectedStars((prev) =>
+                prev.includes(starKey) ? prev.filter((key) => key !== starKey) : [...prev, starKey],
+              );
+            }}
+            containerRef={filtersRef}
+          />
         </div>
 
         <div className="krabi-map-stage">
@@ -448,14 +430,31 @@ function KrabiMap() {
                 filteredPlaces={filteredPlaces}
                 activePlace={activePlace}
                 setActivePlace={setActivePlace}
+                selectedGroup={selectedGroup}
               />
             )}
 
             {activePlace && (
               <div className="krabi-info-card">
-                <span className="krabi-info-tag">{activePlace.highlightTag}</span>
-                <div className="krabi-info-title">{activePlace.name}</div>
-                <div className="krabi-info-subtitle">{activePlace.shortDescription}</div>
+                <div className="krabi-info-card__header">
+                  <span className="krabi-info-tag">{activePlace.highlightTag}</span>
+                  {activePlace.recommended && <span className="krabi-recommend-pill">JoinJoy Recommend</span>}
+                </div>
+                <div className="krabi-info-title-row">
+                  <div>
+                    <div className="krabi-info-title">{activePlace.name}</div>
+                    <div className="krabi-info-subtitle">{activePlace.shortDescription}</div>
+                  </div>
+                  <span className="krabi-score-badge krabi-score-badge--dark">{activePlace.score}</span>
+                </div>
+                <div className="krabi-info-tags">
+                  <span className="krabi-tag-badge">{activePlace.group}</span>
+                  {activePlace.tags?.map((tag) => (
+                    <span key={tag} className="krabi-tag-badge">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             )}
           </div>
