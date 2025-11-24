@@ -1,93 +1,146 @@
-.krabi-map-stage {
-  position: relative;
+.filters-container {
+  position: sticky;
+  top: 0;
+  z-index: 1200;
+  pointer-events: auto;
+  margin-bottom: 12px;
 }
 
-.filter-bar {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  padding: 12px 0;
-  position: static;
-  z-index: 10;
+.filters-surface {
+  background: linear-gradient(135deg, #f8fbff 0%, #ffffff 100%);
+  border-radius: 18px;
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.06);
+  padding: 12px;
+  display: grid;
+  gap: 6px;
+  pointer-events: auto;
 }
 
-.krabi-filter-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  background: transparent;
-}
-
-.filter-bar-inner {
-  display: flex;
+.filter-row {
+  display: grid;
+  grid-template-columns: 78px 1fr;
   align-items: center;
   gap: 8px;
-  flex-wrap: wrap;
-  justify-content: center;
 }
 
-.filter-button {
-  --filter-color: #f3f4f6;
+.filter-row-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #0f172a;
+  background: #e7f2ff;
+  padding: 6px 10px;
+  border-radius: 12px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 4px 8px rgba(59, 130, 246, 0.1);
+}
+
+.filter-row-scroll {
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  -webkit-overflow-scrolling: touch;
+  flex-wrap: wrap;
+  row-gap: 6px;
+}
+
+.filter-row-scroll--tight {
+  gap: 4px;
+  flex-wrap: nowrap;
+}
+
+.filter-row-scroll--stacked {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-row-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-chip {
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 999px;
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 600;
   color: #0f172a;
+  border-radius: 999px;
+  padding: 6px 11px;
+  font-weight: 600;
+  font-size: 12.5px;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.12);
   cursor: pointer;
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, border-color 0.15s ease,
-    color 0.15s ease;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  touch-action: manipulation;
+  user-select: none;
 }
 
-.filter-button[data-type='beach'] {
-  --filter-color: #ffb347;
+.filter-chip--petite {
+  padding: 4px 9px;
+  font-size: 11px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
 }
 
-.filter-button[data-type='island'] {
-  --filter-color: #00b894;
+.filter-chip--micro {
+  padding: 3px 8px;
+  font-size: 10.5px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.1);
 }
 
-.filter-button[data-type='snorkel'] {
-  --filter-color: #0984e3;
+.filter-chip--outline {
+  border: 1px solid #d5e4ff;
+  background: #f8fbff;
 }
 
-.filter-button[data-type='sunset'] {
-  --filter-color: #e17055;
-}
-
-.filter-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
-}
-
-.filter-button:active {
-  transform: translateY(0);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-}
-
-.filter-button.active {
-  background: var(--filter-color);
-  border-color: var(--filter-color);
+.filter-chip--active {
+  background: linear-gradient(135deg, #3fb9ff, #1f8eda);
+  border-color: transparent;
   color: #ffffff;
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 5px 10px rgba(31, 142, 218, 0.2);
 }
 
-.krabi-map-wrapper .leaflet-container {
-  z-index: 1 !important;
+.filter-chip--recommend {
+  background: #0ea84c;
+  border-color: #0ea84c;
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(14, 168, 76, 0.32);
 }
 
-@media (max-width: 768px) {
-  .filter-button {
-    padding: 7px 14px;
-    font-size: 13px;
+.filters-container .filter-chip--recommend:not(.filter-chip--active) {
+  background: #d1fae5;
+  color: #0f5132;
+  border-color: #34d399;
+}
+
+.filter-chip-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-chip-group__label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #475569;
+  letter-spacing: 0.2px;
+}
+
+.filter-chip-group__chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .filter-row {
+    grid-template-columns: 1fr;
   }
-}
 
-@media (max-width: 480px) {
-  .filter-button {
-    padding: 6px 12px;
-    font-size: 12px;
+  .filter-row-title {
+    font-size: 11px;
+  }
+
+  .filter-row-scroll--tight {
+    flex-wrap: wrap;
   }
 }
