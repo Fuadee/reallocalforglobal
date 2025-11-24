@@ -42,7 +42,7 @@ const prepareLocations = (locations) =>
     };
   });
 
-function filterLocations(locations, selectedGroup, selectedTags, selectedStars) {
+function filterLocations(locations, selectedGroup, selectedTags, sortOption) {
   let result = [...locations];
 
   if (selectedGroup && selectedGroup !== 'All') {
@@ -55,9 +55,9 @@ function filterLocations(locations, selectedGroup, selectedTags, selectedStars) 
     );
   }
 
-  if (selectedStars.length) {
-    const targets = selectedStars.map((star) => Number(star.split('-')[1]));
-    result = result.filter((location) => targets.includes(scoreToStars(location.score)));
+  if (sortOption.startsWith('star-')) {
+    const target = Number(sortOption.split('-')[1]);
+    result = result.filter((location) => scoreToStars(location.score) === target);
   }
 
   return result.sort((a, b) => b.score - a.score);
@@ -259,14 +259,14 @@ function KrabiMap() {
   const [mapInstance, setMapInstance] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState('All');
   const [selectedTags, setSelectedTags] = useState([]);
-  const [selectedStars, setSelectedStars] = useState(['star-5']);
+  const [sortOption, setSortOption] = useState('star-5');
   const [activePlace, setActivePlace] = useState(null);
 
   const locationData = useMemo(() => prepareLocations(LOCATIONS), []);
 
   const filteredPlaces = useMemo(
-    () => filterLocations(locationData, selectedGroup, selectedTags, selectedStars),
-    [locationData, selectedGroup, selectedTags, selectedStars],
+    () => filterLocations(locationData, selectedGroup, selectedTags, sortOption),
+    [locationData, selectedGroup, selectedTags, sortOption],
   );
 
   useEffect(() => {
@@ -386,12 +386,8 @@ function KrabiMap() {
             onToggleTag={(tag) => {
               setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
             }}
-            selectedStars={selectedStars}
-            onToggleStar={(starKey) => {
-              setSelectedStars((prev) =>
-                prev.includes(starKey) ? prev.filter((key) => key !== starKey) : [...prev, starKey],
-              );
-            }}
+            sortOption={sortOption}
+            onChangeSort={setSortOption}
           />
         </div>
 

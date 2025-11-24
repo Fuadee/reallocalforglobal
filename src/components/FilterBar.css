@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   z-index: 1200;
-  pointer-events: auto;
+  pointer-events: none;
   margin-bottom: 12px;
 }
 
@@ -71,8 +71,6 @@
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
-  touch-action: manipulation;
-  user-select: none;
 }
 
 .filter-chip--petite {
