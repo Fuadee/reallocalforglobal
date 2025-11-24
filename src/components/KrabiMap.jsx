@@ -255,6 +255,7 @@ function ClusteredPlaces({ filteredPlaces, activePlace, setActivePlace, selected
 
 function KrabiMap() {
   const mapRef = useRef(null);
+  const filtersRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const [mapInstance, setMapInstance] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState('All');
