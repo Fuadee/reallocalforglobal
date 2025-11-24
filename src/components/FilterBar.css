@@ -1,9 +1,8 @@
 .filters-container {
   position: sticky;
   top: 0;
-  z-index: 4000;
-  pointer-events: auto;
-  isolation: isolate;
+  z-index: 1200;
+  pointer-events: none;
   margin-bottom: 12px;
 }
 
@@ -15,7 +14,6 @@
   display: grid;
   gap: 6px;
   pointer-events: auto;
-  touch-action: manipulation;
 }
 
 .filter-row {
@@ -45,7 +43,6 @@
   -webkit-overflow-scrolling: touch;
   flex-wrap: wrap;
   row-gap: 6px;
-  touch-action: pan-x pinch-zoom;
 }
 
 .filter-row-scroll--tight {
@@ -74,8 +71,6 @@
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
-  touch-action: manipulation;
-  user-select: none;
 }
 
 .filter-chip--petite {

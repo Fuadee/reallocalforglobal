@@ -11,15 +11,14 @@ function FiltersContainer({
   specialTags,
   selectedTags,
   onToggleTag,
-  selectedStars,
-  onToggleStar,
-  containerRef,
+  sortOption,
+  onChangeSort,
 }) {
   return (
-    <div ref={containerRef} className="filters-container" aria-label="Krabi map filters">
+    <div className="filters-container" aria-label="Krabi map filters">
       <div className="filters-surface">
         <GroupFilters groups={groups} selectedGroup={selectedGroup} onSelect={onSelectGroup} />
-        <ScoreFilter selectedStars={selectedStars} onToggleStar={onToggleStar} />
+        <ScoreFilter sortOption={sortOption} onChangeSort={onChangeSort} />
         <SpecialFilters
           specialTags={specialTags}
           selectedTags={selectedTags}
