@@ -9,6 +9,12 @@
   width: 100%;
 }
 
+.filter-container .filters-container {
+  position: sticky;
+  top: 10px;
+  z-index: 5200;
+}
+
 .filters-surface {
   background: linear-gradient(135deg, #f8fbff 0%, #ffffff 100%);
   border-radius: 18px;

@@ -2,6 +2,7 @@
   position: relative;
   width: 100%;
   z-index: 0;
+  isolation: isolate;
 }
 
 .krabi-map-topbar {
@@ -31,8 +32,9 @@
 }
 
 .filter-container {
-  position: relative;
-  z-index: 20 !important;
+  position: sticky;
+  top: 12px;
+  z-index: 40 !important;
   pointer-events: auto !important;
 }
 
