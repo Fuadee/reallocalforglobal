@@ -10,7 +10,7 @@
 .krabi-filter-container {
   position: relative;
   z-index: 20;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .krabi-map-topbar {

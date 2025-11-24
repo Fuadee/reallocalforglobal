@@ -9,7 +9,7 @@ const OPTIONS = [
   { key: 'star-1', label: '★☆☆☆☆' },
 ];
 
-function ScoreFilter({ sortOption, onChangeSort }) {
+function ScoreFilter({ selectedStars, onToggleStar }) {
   return (
     <div className="filter-row" aria-label="Score filters">
       <div className="filter-row-title">Score</div>
@@ -19,9 +19,9 @@ function ScoreFilter({ sortOption, onChangeSort }) {
             key={option.key}
             type="button"
             className={`filter-chip filter-chip--outline filter-chip--micro ${
-              sortOption === option.key ? 'filter-chip--active' : ''
+              selectedStars.includes(option.key) ? 'filter-chip--active' : ''
             }`}
-            onClick={() => onChangeSort(option.key)}
+            onClick={() => onToggleStar(option.key)}
           >
             {option.label}
           </button>

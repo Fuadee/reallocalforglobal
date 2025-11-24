@@ -42,7 +42,7 @@ const prepareLocations = (locations) =>
     };
   });
 
-function filterLocations(locations, selectedGroup, selectedTags, sortOption) {
+function filterLocations(locations, selectedGroup, selectedTags, selectedStars) {
   let result = [...locations];
 
   if (selectedGroup && selectedGroup !== 'All') {
@@ -55,9 +55,9 @@ function filterLocations(locations, selectedGroup, selectedTags, sortOption) {
     );
   }
 
-  if (sortOption.startsWith('star-')) {
-    const target = Number(sortOption.split('-')[1]);
-    result = result.filter((location) => scoreToStars(location.score) === target);
+  if (selectedStars.length) {
+    const targets = selectedStars.map((star) => Number(star.split('-')[1]));
+    result = result.filter((location) => targets.includes(scoreToStars(location.score)));
   }
 
   return result.sort((a, b) => b.score - a.score);
@@ -260,14 +260,14 @@ function KrabiMap() {
   const [mapInstance, setMapInstance] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState('All');
   const [selectedTags, setSelectedTags] = useState([]);
-  const [sortOption, setSortOption] = useState('star-5');
+  const [selectedStars, setSelectedStars] = useState(['star-5']);
   const [activePlace, setActivePlace] = useState(null);
 
   const locationData = useMemo(() => prepareLocations(LOCATIONS), []);
 
   const filteredPlaces = useMemo(
-    () => filterLocations(locationData, selectedGroup, selectedTags, sortOption),
-    [locationData, selectedGroup, selectedTags, sortOption],
+    () => filterLocations(locationData, selectedGroup, selectedTags, selectedStars),
+    [locationData, selectedGroup, selectedTags, selectedStars],
   );
 
   useEffect(() => {
@@ -280,6 +280,25 @@ function KrabiMap() {
       setActivePlace(filteredPlaces[0] || null);
     }
   }, [filteredPlaces, activePlace]);
+
+  useEffect(() => {
+    if (!filtersRef.current) return undefined;
+
+    const node = filtersRef.current;
+    L.DomEvent.disableClickPropagation(node);
+    L.DomEvent.disableScrollPropagation(node);
+
+    const stopPropagation = (event) => {
+      event.stopPropagation();
+    };
+
+    const events = ['touchstart', 'touchmove', 'touchend', 'pointerdown', 'pointerup', 'click'];
+    events.forEach((evt) => node.addEventListener(evt, stopPropagation, { capture: true }));
+
+    return () => {
+      events.forEach((evt) => node.removeEventListener(evt, stopPropagation, { capture: true }));
+    };
+  }, [mapInstance]);
 
   useEffect(() => {
     if (!mapInstance) return;
@@ -387,8 +406,13 @@ function KrabiMap() {
             onToggleTag={(tag) => {
               setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
             }}
-            sortOption={sortOption}
-            onChangeSort={setSortOption}
+            selectedStars={selectedStars}
+            onToggleStar={(starKey) => {
+              setSelectedStars((prev) =>
+                prev.includes(starKey) ? prev.filter((key) => key !== starKey) : [...prev, starKey],
+              );
+            }}
+            containerRef={filtersRef}
           />
         </div>
 

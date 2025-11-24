@@ -1,19 +1,23 @@
 .filters-container {
   position: sticky;
-  top: 0;
-  z-index: 1200;
-  pointer-events: none;
+  top: 10px;
+  z-index: 5100;
+  pointer-events: auto;
+  isolation: isolate;
   margin-bottom: 12px;
+  width: 100%;
 }
 
 .filters-surface {
   background: linear-gradient(135deg, #f8fbff 0%, #ffffff 100%);
   border-radius: 18px;
-  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.06);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
   padding: 12px;
   display: grid;
   gap: 6px;
   pointer-events: auto;
+  touch-action: manipulation;
+  border: 1px solid rgba(79, 117, 170, 0.12);
 }
 
 .filter-row {
@@ -43,6 +47,7 @@
   -webkit-overflow-scrolling: touch;
   flex-wrap: wrap;
   row-gap: 6px;
+  touch-action: pan-x pinch-zoom;
 }
 
 .filter-row-scroll--tight {
@@ -67,10 +72,12 @@
   padding: 6px 11px;
   font-weight: 600;
   font-size: 12.5px;
-  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.12);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
+  touch-action: manipulation;
+  user-select: none;
 }
 
 .filter-chip--petite {
