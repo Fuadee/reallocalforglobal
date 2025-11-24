@@ -43,6 +43,12 @@
   pointer-events: auto !important;
 }
 
+.filter-container {
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+
 .map-wrapper {
   position: relative;
   width: 100%;

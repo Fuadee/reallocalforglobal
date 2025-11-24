@@ -81,19 +81,12 @@ function Map() {
   const mapRef = useRef(null);
   const markersRef = useRef([]);
   const mapInstanceRef = useRef(null);
+  const filtersRef = useRef(null);
   const [mapReady, setMapReady] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState('All');
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedStars, setSelectedStars] = useState(['star-5']);
   const [activePlace, setActivePlace] = useState(null);
-
-  const toggleTag = (tag) => {
-    setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
-  };
-
-  const toggleStar = (starKey) => {
-    setSelectedStars((prev) => (prev.includes(starKey) ? prev.filter((key) => key !== starKey) : [...prev, starKey]));
-  };
 
   const locationData = useMemo(() => prepareLocations(LOCATIONS), []);
 
@@ -125,9 +118,8 @@ function Map() {
       maxZoom: 17,
       cooperativeGestures: false,
       dragPan: true,
-      touchZoomRotate: true,
-      interactive: true,
       scrollZoom: true,
+      touchZoomRotate: true,
       attributionControl: false,
     });
 
@@ -292,6 +284,30 @@ function Map() {
     });
   }, [activePlace, mapReady]);
 
+  const setMapInteractionsEnabled = (enabled) => {
+    const map = mapInstanceRef.current;
+    if (!map) return;
+
+    const handlers = [
+      'dragPan',
+      'scrollZoom',
+      'touchZoomRotate',
+      'keyboard',
+      'doubleClickZoom',
+      'boxZoom',
+    ];
+
+    handlers.forEach((name) => {
+      const control = map[name];
+      if (!control || typeof control.enable !== 'function') return;
+      if (enabled) {
+        control.enable();
+      } else {
+        control.disable();
+      }
+    });
+  };
+
   return (
     <>
       <section className="map-section">
@@ -332,16 +348,37 @@ function Map() {
       {typeof document !== 'undefined'
         && document.getElementById('filter-root')
         && createPortal(
-          <FiltersContainer
-            groups={GROUPS}
-            selectedGroup={selectedGroup}
-            onSelectGroup={setSelectedGroup}
-            specialTags={SPECIAL_TAGS}
-            selectedTags={selectedTags}
-            onToggleTag={toggleTag}
-            selectedStars={selectedStars}
-            onToggleStar={toggleStar}
-          />,
+          <div
+            className="filter-container"
+            aria-label="Krabi map filters"
+            onTouchStart={() => setMapInteractionsEnabled(false)}
+            onTouchEnd={() => setMapInteractionsEnabled(true)}
+            onTouchCancel={() => setMapInteractionsEnabled(true)}
+            onMouseEnter={() => setMapInteractionsEnabled(false)}
+            onMouseLeave={() => setMapInteractionsEnabled(true)}
+          >
+            <FiltersContainer
+              groups={GROUPS}
+              selectedGroup={selectedGroup}
+              onSelectGroup={(group) => setSelectedGroup(group)}
+              specialTags={SPECIAL_TAGS}
+              selectedTags={selectedTags}
+              onToggleTag={(tag) =>
+                setSelectedTags((prev) =>
+                  prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
+                )
+              }
+              selectedStars={selectedStars}
+              onToggleStar={(starKey) =>
+                setSelectedStars((prev) =>
+                  prev.includes(starKey)
+                    ? prev.filter((key) => key !== starKey)
+                    : [...prev, starKey],
+                )
+              }
+              containerRef={filtersRef}
+            />
+          </div>,
           document.getElementById('filter-root'),
         )}
     </>
