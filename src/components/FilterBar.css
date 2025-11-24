@@ -3,6 +3,7 @@
   top: 10px;
   z-index: 5100;
   pointer-events: auto;
+  touch-action: manipulation;
   isolation: isolate;
   margin-bottom: 12px;
   width: 100%;
