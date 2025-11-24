@@ -110,9 +110,6 @@ function Hero() {
             ))}
           </div>
         </div>
-        <div className="relative" style={{ width: '100%' }}>
-          <Map />
-        </div>
       </div>
     </section>
   );
@@ -168,6 +165,13 @@ function Home() {
   return (
     <main>
       <Hero />
+      <section className="krabi-highlights">
+        <h2>Krabi Highlights</h2>
+        <div id="filter-root"></div>
+        <div id="map-area">
+          <Map />
+        </div>
+      </section>
       <ExperienceGrid />
       <FleetSection />
       <Footer />
