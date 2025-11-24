@@ -9,11 +9,6 @@ const __dirname = path.dirname(__filename);
 export default defineConfig({
   plugins: [react()],
   base: "/reallocalforglobal/",
-  resolve: {
-    alias: {
-      "react-leaflet-markercluster": path.resolve(__dirname, "src/utils/MarkerClusterGroup.jsx"),
-    },
-  },
   build: {
     outDir: "docs",
   },
