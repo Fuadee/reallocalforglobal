@@ -207,7 +207,6 @@ function Map() {
   useEffect(() => {
     const map = mapInstanceRef.current;
     if (!map || !mapReady) return;
-
     if (!filteredPlaces.length) {
       map.flyTo({ center: toLngLat(MAP_CENTER), zoom: 10.5, essential: true });
       return;
@@ -284,6 +283,33 @@ function Map() {
     });
   }, [activePlace, mapReady]);
 
+// ⭐⭐⭐⭐⭐ เพิ่มโค้ดนี้ให้เลย ตรงนี้เป๊ะ ๆ ⭐⭐⭐⭐⭐
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (!map || !filtersRef.current) return;
+
+    const mapCanvas = map.getCanvas();
+
+    const disableMap = () => {
+      mapCanvas.style.pointerEvents = "none";
+    };
+
+    const enableMap = () => {
+      mapCanvas.style.pointerEvents = "auto";
+    };
+
+    filtersRef.current.addEventListener("touchstart", disableMap);
+    filtersRef.current.addEventListener("touchend", enableMap);
+
+    return () => {
+      filtersRef.current.removeEventListener("touchstart", disableMap);
+      filtersRef.current.removeEventListener("touchend", enableMap);
+    };
+  }, [mapReady]);
+  // ⭐⭐⭐⭐⭐ END โค้ดเพิ่ม ⭐⭐⭐⭐⭐
+
+
+
   return (
     <section className="map-section">
       <div className="krabi-map-topbar">
@@ -292,7 +318,25 @@ function Map() {
       </div>
 
 
-
+      <div className="filter-container" aria-label="Krabi map filters">
+        <FiltersContainer
+          groups={GROUPS}
+          selectedGroup={selectedGroup}
+          onSelectGroup={(group) => setSelectedGroup(group)}
+          specialTags={SPECIAL_TAGS}
+          selectedTags={selectedTags}
+          onToggleTag={(tag) =>
+            setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]))
+          }
+          selectedStars={selectedStars}
+          onToggleStar={(starKey) =>
+            setSelectedStars((prev) =>
+              prev.includes(starKey) ? prev.filter((key) => key !== starKey) : [...prev, starKey],
+            )
+          }
+          containerRef={filtersRef}
+        />
+      </div>
 
 
 
@@ -330,25 +374,7 @@ function Map() {
 
 
 
-      <div className="filter-container" aria-label="Krabi map filters">
-        <FiltersContainer
-          groups={GROUPS}
-          selectedGroup={selectedGroup}
-          onSelectGroup={(group) => setSelectedGroup(group)}
-          specialTags={SPECIAL_TAGS}
-          selectedTags={selectedTags}
-          onToggleTag={(tag) =>
-            setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]))
-          }
-          selectedStars={selectedStars}
-          onToggleStar={(starKey) =>
-            setSelectedStars((prev) =>
-              prev.includes(starKey) ? prev.filter((key) => key !== starKey) : [...prev, starKey],
-            )
-          }
-          containerRef={filtersRef}
-        />
-      </div>
+     
 
 
 
