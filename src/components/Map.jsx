@@ -59,22 +59,22 @@ function filterLocations(locations, selectedGroup, selectedTags, selectedStars) 
 
 const toLngLat = ([lat, lng]) => [lng, lat];
 
-const buildPopupHtml = (place) => `
-  <div class="krabi-popup">
-    <div class="krabi-popup-heading">
-      <strong>${place.name}</strong>
-      <span class="krabi-score-badge">${place.score}</span>
-    </div>
-    <p>${place.shortDescription}</p>
-    <div class="krabi-popup-tags">
-      <span class="krabi-tag-badge">${place.group}</span>
-      ${(place.tags || [])
-        .map((tag) => `<span class="krabi-tag-badge">${tag}</span>`)
-        .join('')}
-      ${place.recommended ? '<span class="krabi-recommend-pill">JoinJoy Recommend</span>' : ''}
-    </div>
-  </div>
-`;
+// const buildPopupHtml = (place) => `
+//   <div class="krabi-popup">
+//     <div class="krabi-popup-heading">
+//       <strong>${place.name}</strong>
+//       <span class="krabi-score-badge">${place.score}</span>
+//     </div>
+//     <p>${place.shortDescription}</p>
+//     <div class="krabi-popup-tags">
+//       <span class="krabi-tag-badge">${place.group}</span>
+//       ${(place.tags || [])
+//         .map((tag) => `<span class="krabi-tag-badge">${tag}</span>`)
+//         .join('')}
+//       ${place.recommended ? '<span class="krabi-recommend-pill">JoinJoy Recommend</span>' : ''}
+//     </div>
+//   </div>
+// `;
 
 function Map() {
   const mapRef = useRef(null);
@@ -193,9 +193,9 @@ function Map() {
     mapInstanceRef.current = map;
 
     return () => {
-      markersRef.current.forEach(({ marker, popup }) => {
+      markersRef.current.forEach(({ marker}) => {
         marker.remove();
-        popup.remove();
+        //popup.remove();
       });
       markersRef.current = [];
       map.remove();
@@ -227,9 +227,9 @@ function Map() {
     const map = mapInstanceRef.current;
     if (!map || !mapReady) return;
 
-    markersRef.current.forEach(({ marker, popup }) => {
+    markersRef.current.forEach(({ marker}) => {
       marker.remove();
-      popup.remove();
+      //popup.remove();
     });
     markersRef.current = [];
 
@@ -239,19 +239,19 @@ function Map() {
       markerElement.className = 'krabi-marker';
       markerElement.style.setProperty('--marker-color', GROUP_COLORS[place.group] || '#0b69c4');
 
-      const popup = new maplibregl.Popup({ closeButton: false, offset: 16 }).setHTML(buildPopupHtml(place));
+      //const popup = new maplibregl.Popup({ closeButton: false, offset: 16 }).setHTML(buildPopupHtml(place));
 
       const marker = new maplibregl.Marker({ element: markerElement, anchor: 'bottom' })
         .setLngLat(toLngLat(place.coordinates))
-        .setPopup(popup)
+        //.setPopup(popup)
         .addTo(map);
 
       markerElement.addEventListener('click', (event) => {
         event.stopPropagation();
         setActivePlace(place);
-        if (!popup.isOpen()) {
-          popup.addTo(map);
-        }
+        //if (!popup.isOpen()) {
+        //popup.addTo(map);
+        //}
         map.flyTo({
           center: toLngLat(place.coordinates),
           zoom: Math.max(map.getZoom(), 11),
@@ -260,7 +260,7 @@ function Map() {
         });
       });
 
-      markersRef.current.push({ id: place.id, marker, popup, element: markerElement });
+      markersRef.current.push({ id: place.id, marker, element: markerElement });
     });
   }, [filteredPlaces, mapReady]);
 
@@ -268,17 +268,17 @@ function Map() {
     const map = mapInstanceRef.current;
     if (!mapReady || !activePlace || !map) return;
 
-    markersRef.current.forEach(({ id, element, popup, marker }) => {
+    markersRef.current.forEach(({ id, element, marker }) => {
       if (id === activePlace.id) {
         element.classList.add('krabi-marker--active');
-        if (!popup.isOpen()) {
-          popup.setLngLat(marker.getLngLat()).addTo(map);
-        }
+        // if (!popup.isOpen()) {
+        //   popup.setLngLat(marker.getLngLat()).addTo(map);
+        // }
       } else {
         element.classList.remove('krabi-marker--active');
-        if (popup.isOpen()) {
-          popup.remove();
-        }
+        // if (popup.isOpen()) {
+        // //  popup.remove();
+        // }
       }
     });
   }, [activePlace, mapReady]);

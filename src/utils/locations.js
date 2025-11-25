@@ -1,7 +1,7 @@
 export const GROUP_COLORS = {
   Sea: '#0ea5e9',
   Sunset: '#f97316',
-  'Fire Show': '#f43f5e',
+  FireShow : '#f43f5e',
   Adventure: '#10b981',
   Snorkel: '#3b82f6',
   Viewpoint: '#8b5cf6',
@@ -14,7 +14,7 @@ export const LOCATIONS = [
     id: 'ao-nang',
     name: 'Ao Nang Beach',
     group: 'Sea',
-    tags: ['Family', 'Pier Access', 'Easy Walk'],
+    tags: ['Family', 'Pier Access', 'Easy Walk','FireShow'],
     recommended: false,
     score: undefined,
     coordinates: [8.0404, 98.8222],
