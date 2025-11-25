@@ -210,20 +210,6 @@
   transform: translateZ(0);         /* สร้าง GPU layer ใหม่ */
   will-change: transform;           /* บอก browser ว่าจะ transform */
 }
-
-.filter-shield {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 400px; /* สูงเท่าพื้นที่ filter */
-  z-index: 5000;
-  pointer-events: auto;
-  background: rgba(255, 0, 0, 0.3)
-}
-
-
-
 @media (max-width: 768px) {
   .map-canvas {
     height: 360px;

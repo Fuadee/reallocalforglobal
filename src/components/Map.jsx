@@ -295,7 +295,7 @@ function Map() {
 
 
       <div className="filter-container" aria-label="Krabi map filters">
-        <div className="filter-shield"></div>
+      
         <FiltersContainer
           groups={GROUPS}
           selectedGroup={selectedGroup}

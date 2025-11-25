@@ -14,7 +14,7 @@ function Navbar() {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="sticky inset-x-0 top-0 z-[9999] border-b border-[#eee] bg-white">
+    <header className="sticky inset-x-0 top-0 z-[50] border-b border-[#eee] bg-white">
       <div className="section-shell flex h-[70px] items-center gap-2 sm:gap-3">
         <div className="flex min-w-0 flex-1 items-center gap-3">
           <div
@@ -82,7 +82,7 @@ function Navbar() {
 
       <div
         className={`section-shell origin-top transform-gpu transition-all duration-300 ease-in-out md:hidden ${
-          isMenuOpen ? 'max-h-[520px] scale-y-100 opacity-100' : 'max-h-0 scale-y-95 opacity-0'
+          isMenuOpen ? 'max-h-[520px] scale-y-100 opacity-100 pointer-events-auto' : 'max-h-0 scale-y-95 opacity-0 pointer-events-none'
         }`}
       >
         <div className="mt-2 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-200/70">

@@ -170,7 +170,7 @@ function Home() {
       <Hero />
       <ExperienceGrid />
       <FleetSection />
-      {/* <Footer /> */}
+      <Footer />
     </main>
   );
 }
