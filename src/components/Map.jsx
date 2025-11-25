@@ -283,30 +283,6 @@ function Map() {
     });
   }, [activePlace, mapReady]);
 
-// ⭐⭐⭐⭐⭐ เพิ่มโค้ดนี้ให้เลย ตรงนี้เป๊ะ ๆ ⭐⭐⭐⭐⭐
-  useEffect(() => {
-    const map = mapInstanceRef.current;
-    if (!map || !filtersRef.current) return;
-
-    const mapCanvas = map.getCanvas();
-
-    const disableMap = () => {
-      mapCanvas.style.pointerEvents = "none";
-    };
-
-    const enableMap = () => {
-      mapCanvas.style.pointerEvents = "auto";
-    };
-
-    filtersRef.current.addEventListener("touchstart", disableMap);
-    filtersRef.current.addEventListener("touchend", enableMap);
-
-    return () => {
-      filtersRef.current.removeEventListener("touchstart", disableMap);
-      filtersRef.current.removeEventListener("touchend", enableMap);
-    };
-  }, [mapReady]);
-  // ⭐⭐⭐⭐⭐ END โค้ดเพิ่ม ⭐⭐⭐⭐⭐
 
 
 
@@ -319,6 +295,7 @@ function Map() {
 
 
       <div className="filter-container" aria-label="Krabi map filters">
+        <div className="filter-shield"></div>
         <FiltersContainer
           groups={GROUPS}
           selectedGroup={selectedGroup}
