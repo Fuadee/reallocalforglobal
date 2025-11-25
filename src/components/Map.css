@@ -219,6 +219,7 @@
   height: 400px; /* สูงเท่าพื้นที่ filter */
   z-index: 5000;
   pointer-events: auto;
+  background: rgba(255, 0, 0, 0.3)
 }
 
 
