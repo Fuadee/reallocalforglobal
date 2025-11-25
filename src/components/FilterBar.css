@@ -1,7 +1,7 @@
 .filters-container {
   position: sticky;
   top: 10px;
-  z-index: 5100;
+  z-index: 999999;
   pointer-events: auto;
   touch-action: manipulation;
   isolation: isolate;

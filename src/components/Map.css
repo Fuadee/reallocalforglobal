@@ -206,6 +206,16 @@
   margin-bottom: 4px;
   color: #0b69c4;
 }
+/* แก้ปัญหา Filter bar ถูก MapLibre แย่งทัชบนมือถือ */
+.filter-container {
+  position: relative;               /* ยกให้ container นี้แยกตัวเองออกจาก flow เดิม */
+  z-index: 999999 !important;       /* ชนะ canvas ทุกชั้น */
+  pointer-events: auto !important;  /* บังคับให้รับ event ก่อน map */
+  touch-action: manipulation;       /* ปรับความสำคัญของทัช */
+  transform: translateZ(0);         /* สร้าง GPU layer ใหม่ */
+  will-change: transform;           /* บอก browser ว่าจะ transform */
+}
+
 
 @media (max-width: 768px) {
   .map-canvas {
