@@ -5,10 +5,10 @@ import Map from '../components/Map.jsx';
 import '../components/Map.css';
 
 const heroHighlights = [
-  { title: '98% five-star reviews', subtitle: 'Trusted service' },
-  { title: 'Replies within 15 minutes', subtitle: 'Concierge ready' },
-  { title: 'Scenic Krabi routes', subtitle: 'Choose your pier' },
-  { title: 'Premium fleet', subtitle: 'Inspected & crewed' }
+  { title: 'You pick the boat, not the counter', subtitle: 'NO MORE RANDOM BOATS' },
+  { title: 'Compare long-tail boats in one place', subtitle: 'ALL BOATS, ONE MAP' },
+  { title: 'Built for real feedback, not fake stars', subtitle: 'HONEST REVIEWS ONLY' },
+  { title: 'Same pier price or better, always', subtitle: 'LOCAL PRICE, NO MARKUP' }
 ];
 
 const experiences = [
@@ -76,7 +76,7 @@ const boats = [
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-white py-20 lg:py-28">
+    <section className="relative overflow-hidden bg-white pt-8 pb-16 lg:pt-12 lg:pb-24">
       <div
         className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_10%_20%,rgba(24,119,242,0.1),transparent_32%),radial-gradient(circle_at_80%_0%,rgba(66,183,42,0.12),transparent_36%)]"
         aria-hidden
@@ -84,21 +84,21 @@ function Hero() {
       <div className="section-shell relative grid gap-12 lg:grid-cols-2 lg:items-center">
         <div className="space-y-8">
           <span className="inline-flex items-center rounded-full bg-[#e8f2ff] px-4 py-2 text-sm font-semibold text-[#1877F2] ring-1 ring-[#1877F2]/20">
-            Luxury cruises • Krabi with JoinJoy
+            JoinJoy Travel • Krabi Local Buddy
           </span>
           <h1 className="text-4xl font-black leading-tight text-slate-900 sm:text-5xl lg:text-6xl">
-            Sail in style and find your happiest moments in Krabi
+            Where to go today told by a real local
           </h1>
           <p className="text-lg text-slate-700 sm:max-w-xl">
-            Pick the yacht that fits your vibe. Our concierge team handles every detail, from sunset cruises to private parties.
+            Get real-time tips, honest recommendations, and curated spots for the best day in Krabi.
           </p>
           <div className="flex flex-wrap gap-4">
             <button className="inline-flex items-center gap-2 rounded-xl bg-[#1877F2] px-5 py-3 text-base font-semibold text-white shadow-md shadow-[#1877F2]/30 transition hover:scale-[1.01]">
-              Plan my trip
+              See all boats
               <span aria-hidden className="text-xl">→</span>
             </button>
             <button className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-base font-semibold text-[#1877F2] ring-1 ring-[#1877F2]/30 transition hover:bg-[#f0f6ff]">
-              See all boats
+              Explore like a local
             </button>
           </div>
           <div className="grid max-w-lg grid-cols-2 gap-4 sm:gap-6">

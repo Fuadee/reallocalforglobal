@@ -16,13 +16,13 @@ function Navbar() {
   return (
     <header className="sticky inset-x-0 top-0 z-[50] border-b border-[#eee] bg-white">
       <div className="section-shell flex h-[70px] items-center gap-2 sm:gap-3">
-        <div className="flex min-w-0 flex-1 items-center gap-3">
-          <div
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#1877F2] text-lg font-black text-white shadow-md"
-            aria-label="JoinJoy"
-          >
-            JJ
-          </div>
+        <div className="flex min-w-0 flex-1 items-center gap-1">
+          <img
+            src="/reallocalforglobal/logo.png"
+            alt="JoinJoy Logo"
+            className="h-16 w-16 rounded-full object-contain"
+          />
+
           <div className="leading-tight">
             <p className="text-xs font-semibold uppercase tracking-wide text-[#1877F2]">JoinJoy</p>
             <p className="truncate text-lg font-semibold text-slate-900">Krabi Journeys</p>
