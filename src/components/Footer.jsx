@@ -1,3 +1,5 @@
+import logoUrl from '/logo.png';
+
 function Footer() {
   return (
     <footer className="bg-gradient-to-b from-[#eaf3ff] to-[#f7f9fb] py-5">
@@ -6,8 +8,8 @@ function Footer() {
         {/* Logo */}
 
         <a href="/" className="flex flex-col items-center gap-0">
-          <img 
-            src="/reallocalforglobal/logo.png"
+          <img
+            src={logoUrl}
             alt="JoinJoy Logo"
             className="h-14 w-14 mix-blend-multiply"
           />
