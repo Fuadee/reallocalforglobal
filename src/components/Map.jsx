@@ -286,6 +286,11 @@ function Map() {
 
 
 
+  const googleMapsUrl =
+    activePlace && activePlace.coordinates
+      ? `https://www.google.com/maps/search/?api=1&query=${activePlace.coordinates[0]},${activePlace.coordinates[1]}`
+      : '#';
+
   return (
     <section className="map-section">
       <div className="krabi-map-topbar">
@@ -323,6 +328,19 @@ function Map() {
 
         {activePlace && (
           <div className="krabi-info-card">
+            <a
+              href={googleMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute top-3 right-3 h-10 w-10 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center shadow-lg hover:scale-105 transition"
+              aria-label="Open location in Google Maps"
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/9/99/Google_Maps_Logo_2020.svg"
+                alt="Open in Google Maps"
+                className="h-5 w-5"
+              />
+            </a>
             <div className="krabi-info-card__header">
               <span className="krabi-info-tag">{activePlace.highlightTag}</span>
               {activePlace.recommended && <span className="krabi-recommend-pill">JoinJoy Recommend</span>}
