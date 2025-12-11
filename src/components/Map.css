@@ -79,9 +79,46 @@
 
 .krabi-info-card__header {
   display: flex;
-  gap: 8px;
+  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
+  width: 100%;
+  gap: 12px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.explore-more-text {
+  color: #ffffff;
+  opacity: 0.85;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.social-icon {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1);
+  cursor: pointer;
+  opacity: 0.9;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.social-icon:hover {
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 .krabi-info-tag {
@@ -110,6 +147,30 @@
   font-size: 12px;
   opacity: 0.92;
   line-height: 1.45;
+}
+
+.subtitle-with-icons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.subtitle-text {
+  flex: 0 1 auto;
+  margin-right: 4px;
+}
+
+.subtitle-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.subtitle-icons img {
+  width: 16px;
+  height: 16px;
+  opacity: 0.95;
 }
 
 .krabi-info-tags {
@@ -228,35 +289,3 @@
   }
 }
 
-
-/* .krabi-info-icons {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 14px;
-  z-index: 50;
-}
-
-.krabi-info-icons img {
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
-} */
-
-.krabi-info-icons {
-  position: absolute;
-  bottom: -20px;         /* ← อันนี้คือตัวทำให้ไอคอนลงต่ำกว่าการ์ด */
-  left: 70%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 18px;
-  z-index: 50;
-}
-
-.krabi-info-icons img {
-  width: 20px;
-  height: 20px;
-  
-}
