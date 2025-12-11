@@ -286,10 +286,10 @@ function Map() {
 
 
 
-  const googleMapsUrl =
-    activePlace && activePlace.coordinates
-      ? `https://www.google.com/maps/search/?api=1&query=${activePlace.coordinates[0]},${activePlace.coordinates[1]}`
-      : '#';
+  // const googleMapsUrl =
+  //   activePlace && activePlace.coordinates
+  //     ? `https://www.google.com/maps/search/?api=1&query=${activePlace.coordinates[0]},${activePlace.coordinates[1]}`
+  //     : '#';
 
   return (
     <section className="map-section">
@@ -328,7 +328,7 @@ function Map() {
 
         {activePlace && (
           <div className="krabi-info-card">
-            <a
+            {/* <a
               href={googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -340,7 +340,7 @@ function Map() {
                 alt="Open in Google Maps"
                 className="h-5 w-5"
               />
-            </a>
+            </a> */}
             <div className="krabi-info-card__header">
               <span className="krabi-info-tag">{activePlace.highlightTag}</span>
               {activePlace.recommended && <span className="krabi-recommend-pill">JoinJoy Recommend</span>}
