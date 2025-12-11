@@ -327,40 +327,83 @@ function Map() {
         <div className="map-canvas" ref={mapRef} aria-label="JoinJoy Krabi interactive map" />
 
         {activePlace && (
-          <div className="krabi-info-card">
-            {/* <a
-              href={googleMapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="absolute top-3 right-3 h-10 w-10 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center shadow-lg hover:scale-105 transition"
-              aria-label="Open location in Google Maps"
-            >
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/9/99/Google_Maps_Logo_2020.svg"
-                alt="Open in Google Maps"
-                className="h-5 w-5"
-              />
-            </a> */}
-            <div className="krabi-info-card__header">
-              <span className="krabi-info-tag">{activePlace.highlightTag}</span>
-              {activePlace.recommended && <span className="krabi-recommend-pill">JoinJoy Recommend</span>}
-            </div>
-            <div className="krabi-info-title-row">
-              <div>
-                <div className="krabi-info-title">{activePlace.name}</div>
-                <div className="krabi-info-subtitle">{activePlace.shortDescription}</div>
+          <>
+            <div className="krabi-info-card">
+              <div className="krabi-info-card__header">
+                <span className="krabi-info-tag">{activePlace.highlightTag}</span>
+                {activePlace.recommended && <span className="krabi-recommend-pill">JoinJoy Recommend</span>}
               </div>
-              <span className="krabi-score-badge krabi-score-badge--dark">{activePlace.score}</span>
+              <div className="krabi-info-title-row">
+                <div>
+                  <div className="krabi-info-title">{activePlace.name}</div>
+                  <div className="krabi-info-subtitle">{activePlace.shortDescription}</div>
+                </div>
+                <span className="krabi-score-badge krabi-score-badge--dark">{activePlace.score}</span>
+              </div>
+              <div className="krabi-info-tags">
+                <span className="krabi-tag-badge">{activePlace.group}</span>
+                {activePlace.tags?.map((tag) => (
+                  <span key={tag} className="krabi-tag-badge">
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
-            <div className="krabi-info-tags">
-              <span className="krabi-tag-badge">{activePlace.group}</span>
-              {activePlace.tags?.map((tag) => (
-                <span key={tag} className="krabi-tag-badge">
-                  {tag}
-                </span>
-              ))}
+
+            <div className="absolute left-1/2 bottom-6 -translate-x-1/2 flex flex-col items-center mt-5 gap-3 mb-20">
+              <p className="text-lg font-semibold text-slate-700">
+                Explore {activePlace.name} More
+              </p>
+
+              <div className="flex items-center gap-4">
+                {activePlace.facebook && (
+                  <a
+                    href={activePlace.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="h-11 w-11 rounded-full bg-white shadow-lg flex items-center justify-center hover:scale-105 transition"
+                  >
+                    <img
+                      src="https://cdn.simpleicons.org/facebook"
+                      className="h-6 w-6"
+                      alt="Facebook"
+                    />
+                  </a>
+                )}
+
+                {activePlace.tiktok && (
+                  <a
+                    href={activePlace.tiktok}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="h-11 w-11 rounded-full bg-white shadow-lg flex items-center justify-center hover:scale-105 transition"
+                  >
+                    <img
+                      src="https://cdn.simpleicons.org/tiktok"
+                      className="h-6 w-6"
+                      alt="TikTok"
+                    />
+                  </a>
+                )}
+
+                <a
+                  href={
+                    activePlace.googleMapUrl
+                      || `https://www.google.com/maps/search/?api=1&query=${activePlace.coordinates[0]},${activePlace.coordinates[1]}`
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="h-11 w-11 rounded-full bg-white shadow-lg flex items-center justify-center hover:scale-105 transition"
+                >
+                  <img
+                    src="https://www.svgrepo.com/download/271100/google-maps.svg"
+                    className="h-6 w-6"
+                    alt="Google Maps"
+                  />
+                </a>
+              </div>
             </div>
-          </div>
+          </>
         )}
       </div>
 

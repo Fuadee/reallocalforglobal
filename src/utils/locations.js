@@ -20,6 +20,9 @@ export const LOCATIONS = [
     coordinates: [8.0404, 98.8222],
     highlightTag: 'Starting Point',
     shortDescription: 'Main beach and pier for most JoinJoy trips.',
+    facebook: 'https://www.facebook.com/Joinjoytravel',
+    tiktok: 'https://www.tiktok.com/@joinjoytravel?lang=en',
+    googleMapUrl: 'https://www.google.com/maps/search/?api=1&query=8.0404,98.8222',
   },
   {
     id: 'railay',
@@ -31,6 +34,9 @@ export const LOCATIONS = [
     coordinates: [8.0117, 98.8395],
     highlightTag: 'Cliff & Sunset',
     shortDescription: 'Famous cliffs, sunset views, and chill beach vibes.',
+    facebook: 'https://www.facebook.com/Joinjoytravel',
+    tiktok: 'https://www.tiktok.com/@joinjoytravel?lang=en',
+    googleMapUrl: 'https://www.google.com/maps/search/?api=1&query=8.0117,98.8395',
   },
   {
     id: 'phi-phi',
@@ -42,6 +48,9 @@ export const LOCATIONS = [
     coordinates: [7.7407, 98.7765],
     highlightTag: 'Island Hopping',
     shortDescription: 'Iconic islands with turquoise water and snorkeling.',
+    facebook: 'https://www.facebook.com/Joinjoytravel',
+    tiktok: 'https://www.tiktok.com/@joinjoytravel?lang=en',
+    googleMapUrl: 'https://www.google.com/maps/search/?api=1&query=7.7407,98.7765',
   },
   {
     id: 'hong',
@@ -53,6 +62,9 @@ export const LOCATIONS = [
     coordinates: [8.1089, 98.7021],
     highlightTag: 'Lagoon',
     shortDescription: 'Stunning lagoon with calm water and kayaking.',
+    facebook: 'https://www.facebook.com/Joinjoytravel',
+    tiktok: 'https://www.tiktok.com/@joinjoytravel?lang=en',
+    googleMapUrl: 'https://www.google.com/maps/search/?api=1&query=8.1089,98.7021',
   },
   {
     id: 'thale-waek',
@@ -64,6 +76,9 @@ export const LOCATIONS = [
     coordinates: [7.99, 98.8144],
     highlightTag: 'Sandbar',
     shortDescription: 'Famous sandbar that appears at low tide.',
+    facebook: 'https://www.facebook.com/Joinjoytravel',
+    tiktok: 'https://www.tiktok.com/@joinjoytravel?lang=en',
+    googleMapUrl: 'https://www.google.com/maps/search/?api=1&query=7.99,98.8144',
   },
   {
     id: 'ao-nang-sunset',
@@ -75,6 +90,9 @@ export const LOCATIONS = [
     coordinates: [8.031669881889947, 98.8216320402158],
     highlightTag: 'Sunset Point',
     shortDescription: 'Beachfront sunset with nightly fire shows and music.',
+    facebook: 'https://www.facebook.com/Joinjoytravel',
+    tiktok: 'https://www.tiktok.com/@joinjoytravel?lang=en',
+    googleMapUrl: 'https://www.google.com/maps/search/?api=1&query=8.031669881889947,98.8216320402158',
   },
   {
     id: 'nopparat-sunset',
@@ -86,6 +104,9 @@ export const LOCATIONS = [
     coordinates: [8.042996646771988, 98.80915062374889],
     highlightTag: 'Sunset Point',
     shortDescription: 'Quiet sunset spot near the Landmark night market.',
+    facebook: 'https://www.facebook.com/Joinjoytravel',
+    tiktok: 'https://www.tiktok.com/@joinjoytravel?lang=en',
+    googleMapUrl: 'https://www.google.com/maps/search/?api=1&query=8.042996646771988,98.80915062374889',
   },
   {
     id: 'railay-west-sunset',
@@ -97,6 +118,9 @@ export const LOCATIONS = [
     coordinates: [8.011867631403003, 98.83779902910392],
     highlightTag: 'Sunset Point',
     shortDescription: 'Magical sunsets surrounded by dramatic limestone cliffs.',
+    facebook: 'https://www.facebook.com/Joinjoytravel',
+    tiktok: 'https://www.tiktok.com/@joinjoytravel?lang=en',
+    googleMapUrl: 'https://www.google.com/maps/search/?api=1&query=8.011867631403003,98.83779902910392',
   },
   {
     id: 'din-daeng-doi',
@@ -108,6 +132,9 @@ export const LOCATIONS = [
     coordinates: [8.110198323318548, 98.78414908067876],
     highlightTag: 'Viewpoint',
     shortDescription: 'Hilltop viewpoint offering sunrise, sunset, and sea-fog scenes.',
+    facebook: 'https://www.facebook.com/Joinjoytravel',
+    tiktok: 'https://www.tiktok.com/@joinjoytravel?lang=en',
+    googleMapUrl: 'https://www.google.com/maps/search/?api=1&query=8.110198323318548,98.78414908067876',
   },
   {
     id: 'klong-muang-beach',
@@ -119,6 +146,9 @@ export const LOCATIONS = [
     coordinates: [8.055302121766385, 98.75930705734284],
     highlightTag: 'Sunset Point',
     shortDescription: 'Peaceful beach with calm waves and a relaxed sunset atmosphere.',
+    facebook: 'https://www.facebook.com/Joinjoytravel',
+    tiktok: 'https://www.tiktok.com/@joinjoytravel?lang=en',
+    googleMapUrl: 'https://www.google.com/maps/search/?api=1&query=8.055302121766385,98.75930705734284',
   },
   {
     id: 'tub-kaek-sunset',
@@ -130,6 +160,9 @@ export const LOCATIONS = [
     coordinates: [8.091723042677, 98.74713314218624],
     highlightTag: 'Sunset Point',
     shortDescription: 'Sunset view facing the Hong Islands in a serene setting.',
+    facebook: 'https://www.facebook.com/Joinjoytravel',
+    tiktok: 'https://www.tiktok.com/@joinjoytravel?lang=en',
+    googleMapUrl: 'https://www.google.com/maps/search/?api=1&query=8.091723042677,98.74713314218624',
   },
   {
     id: 'khao-thong-hill',
@@ -141,6 +174,9 @@ export const LOCATIONS = [
     coordinates: [8.172984889255703, 98.75259315296445],
     highlightTag: 'Viewpoint Café',
     shortDescription: 'Panoramic sunset viewpoint overlooking Hong Islands with café.',
+    facebook: 'https://www.facebook.com/Joinjoytravel',
+    tiktok: 'https://www.tiktok.com/@joinjoytravel?lang=en',
+    googleMapUrl: 'https://www.google.com/maps/search/?api=1&query=8.172984889255703,98.75259315296445',
   },
   {
     id: 'buffalo-nose-cape',
@@ -152,6 +188,9 @@ export const LOCATIONS = [
     coordinates: [8.136152250559762, 98.7355327106346],
     highlightTag: 'Adventure Spot',
     shortDescription: 'Dramatic natural stone arches with a remote, scenic sunset view.',
+    facebook: 'https://www.facebook.com/Joinjoytravel',
+    tiktok: 'https://www.tiktok.com/@joinjoytravel?lang=en',
+    googleMapUrl: 'https://www.google.com/maps/search/?api=1&query=8.136152250559762,98.7355327106346',
   },
 ];
 
