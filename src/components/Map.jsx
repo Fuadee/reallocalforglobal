@@ -337,7 +337,31 @@ function Map() {
               <div className="krabi-info-title-row">
                 <div>
                   <div className="krabi-info-title">{activePlace.name}</div>
-                  <div className="krabi-info-subtitle">{activePlace.shortDescription}</div>
+                  <div className="krabi-info-subtitle subtitle-with-icons">
+                    <span className="subtitle-text">{activePlace.shortDescription}</span>
+
+                    <span className="subtitle-icons">
+                      {activePlace.facebook && (
+                        <a href={activePlace.facebook} target="_blank" rel="noopener noreferrer">
+                          <img src="https://cdn.simpleicons.org/facebook" alt="Facebook" />
+                        </a>
+                      )}
+
+                      {activePlace.tiktok && (
+                        <a href={activePlace.tiktok} target="_blank" rel="noopener noreferrer">
+                          <img src="https://cdn.simpleicons.org/tiktok" alt="TikTok" />
+                        </a>
+                      )}
+
+                      <a
+                        href={`https://www.google.com/maps/search/?api=1&query=${activePlace.coordinates[0]},${activePlace.coordinates[1]}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img src="https://cdn.simpleicons.org/googlemaps" alt="Google Maps" />
+                      </a>
+                    </span>
+                  </div>
                 </div>
                 <span className="krabi-score-badge krabi-score-badge--dark">{activePlace.score}</span>
               </div>
@@ -350,21 +374,6 @@ function Map() {
                 ))}
               </div>
             </div>
-            <div className="krabi-info-icons">
-                  {activePlace.facebook && (
-                  <a href={activePlace.facebook} target="_blank">
-                  <img src="https://cdn.simpleicons.org/facebook" />
-                  </a>
-                  )}
-                  {activePlace.tiktok && (
-                    <a href={activePlace.tiktok} target="_blank">
-                    <img src="https://cdn.simpleicons.org/tiktok" />
-                    </a>
-                  )}
-                <a href={`https://www.google.com/maps/search/?api=1&query=${activePlace.coordinates[0]},${activePlace.coordinates[1]}`} target="_blank">
-                <img src="https://cdn.simpleicons.org/googlemaps" />
-                </a>
-              </div>
 
             {/* <div className="absolute left-1/2 bottom-6 -translate-x-1/2 flex flex-col items-center mt-5 gap-3 mb-20">
               <p className="text-lg font-semibold text-slate-700">
