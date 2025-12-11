@@ -99,7 +99,6 @@ function Map() {
       setActivePlace(filteredPlaces[0]);
       return;
     }
-
     if (activePlace && !filteredPlaces.find((place) => place.id === activePlace.id)) {
       setActivePlace(filteredPlaces[0] || null);
     }
