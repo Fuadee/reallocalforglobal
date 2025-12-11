@@ -36,10 +36,11 @@
   width: 100%;
   height: 420px;
   border-radius: 22px;
-  overflow: hidden;
+  /* overflow: hidden; */
   z-index: 1;
   pointer-events: auto;
   padding-top: 6px;
+  overflow: visible;
 }
 
 .map-canvas {
@@ -215,20 +216,47 @@
     height: 360px;
   }
 
-  .krabi-info-card {
-    bottom: 10px;
-    left: 10px;
-    width: 82vw;
-    padding: 11px 12px;
-    font-size: 12px;
-  }
+  .krabi-info-card { bottom: 10px; left: 10px; width: 82vw; padding: 11px 12px; font-size: 12px; }
 
 }
 
 @media (max-width: 480px) {
   .krabi-info-card {
-    bottom: 8px;
+    bottom: 10px;
     width: 86vw;
     font-size: 12px;
   }
+}
+
+
+/* .krabi-info-icons {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 14px;
+  z-index: 50;
+}
+
+.krabi-info-icons img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+} */
+
+.krabi-info-icons {
+  position: absolute;
+  bottom: -20px;         /* ← อันนี้คือตัวทำให้ไอคอนลงต่ำกว่าการ์ด */
+  left: 70%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 18px;
+  z-index: 50;
+}
+
+.krabi-info-icons img {
+  width: 20px;
+  height: 20px;
+  
 }
