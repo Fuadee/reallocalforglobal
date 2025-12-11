@@ -96,10 +96,17 @@
   gap: 12px;
 }
 
+.krabi-info-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 8px;
+}
+
 .explore-more-text {
   color: #ffffff;
   opacity: 0.85;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
 }
@@ -108,8 +115,8 @@
   width: 18px;
   height: 18px;
   filter: brightness(0) invert(1);
-  cursor: pointer;
   opacity: 0.9;
+  cursor: pointer;
   transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
