@@ -79,9 +79,43 @@
 
 .krabi-info-card__header {
   display: flex;
-  gap: 8px;
+  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
+  width: 100%;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.explore-more-text {
+  color: #ffffff;
+  opacity: 0.85;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.social-icon {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1);
+  cursor: pointer;
+  opacity: 0.9;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.social-icon:hover {
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 .krabi-info-tag {
